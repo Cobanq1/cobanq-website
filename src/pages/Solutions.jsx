@@ -1,8 +1,19 @@
 import { Link } from "react-router-dom";
 import { Send, Wallet, Building2, Landmark, ArrowRight } from "lucide-react";
 import { solutions } from "../content";
+import PersonAvatar from "../components/PersonAvatar";
 
 const icons = { Send, Wallet, Building2, Landmark };
+
+// Reuses the same seeds as elsewhere on the site (Features, AudienceTabs)
+// so the same illustrated "characters" recur — feels more like real
+// people than a new random face on every card.
+const personSeeds = {
+  "Personal money transfers": "Remittance Sender",
+  "Multi-currency wallets": "Wallet Customer",
+  "Business payments": "Business Owner",
+  "Correspondent banking & fintech partnerships": "Partnerships Manager",
+};
 
 export default function Solutions() {
   return (
@@ -22,8 +33,11 @@ export default function Solutions() {
               key={item.title}
               className="group rounded-3xl border border-navy-950/10 p-8 transition hover:-translate-y-1 hover:border-brand-500/30 hover:shadow-xl hover:shadow-navy-950/5"
             >
-              <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-600 transition group-hover:from-brand-500 group-hover:to-brand-600 group-hover:text-white">
-                <Icon size={22} />
+              <div className="relative inline-flex">
+                <PersonAvatar seed={personSeeds[item.title]} size={52} />
+                <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
+                  <Icon size={12} />
+                </div>
               </div>
               <h3 className="mt-6 text-lg font-bold text-navy-950">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-navy-950/60">{item.description}</p>

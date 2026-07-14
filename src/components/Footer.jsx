@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { site, footer } from "../content";
+import SmartLink from "./SmartLink";
 
 // Simple lettered badges instead of brand logo marks — swap for real
 // icon components (e.g. from an icon library of your choice) any time.
@@ -46,9 +47,9 @@ export default function Footer() {
               <ul className="mt-4 space-y-3">
                 {col.links.map((link) => (
                   <li key={link.label}>
-                    <Link to={link.to} className="text-sm text-white/60 transition hover:text-white">
+                    <SmartLink to={link.to} className="text-sm text-white/60 transition hover:text-white">
                       {link.label}
-                    </Link>
+                    </SmartLink>
                   </li>
                 ))}
               </ul>

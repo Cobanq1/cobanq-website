@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { countryCorridors } from "../content";
+import SmartLink from "./SmartLink";
 
 export default function CountryCarousel() {
   const loop = [...countryCorridors, ...countryCorridors];
@@ -41,9 +42,9 @@ export default function CountryCarousel() {
             );
 
             return country.to ? (
-              <Link key={`${country.name}-${i}`} to={country.to}>
+              <SmartLink key={`${country.name}-${i}`} to={country.to}>
                 {card}
-              </Link>
+              </SmartLink>
             ) : (
               <div key={`${country.name}-${i}`}>{card}</div>
             );

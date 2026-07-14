@@ -1,6 +1,7 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import { ArrowRight, CreditCard, Landmark, Wallet as WalletIcon } from "lucide-react";
 import { sendMoney, countryCorridors, howItWorks } from "../content";
+import SmartLink from "../components/SmartLink";
 
 const methodIcons = { "Bank transfer": Landmark, "Debit card": CreditCard, "Credit card": CreditCard };
 
@@ -55,9 +56,9 @@ export default function SendMoney() {
                 </div>
               );
               return country.to ? (
-                <Link key={country.name} to={country.to}>
+                <SmartLink key={country.name} to={country.to}>
                   {card}
-                </Link>
+                </SmartLink>
               ) : (
                 <div key={country.name}>{card}</div>
               );

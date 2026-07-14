@@ -4,6 +4,11 @@ import { business } from "../content";
 import PersonAvatar from "../components/PersonAvatar";
 
 const icons = { TrendingUp, Landmark, Blocks };
+const personSeeds = {
+  B2B: "Business Owner",
+  "Correspondent Banking Partnerships": "Partnerships Manager",
+  "Fintech Collaborations": "Fintech Founder",
+};
 
 export default function Business() {
   const { openGetStarted } = useOutletContext();
@@ -26,8 +31,11 @@ export default function Business() {
             const Icon = icons[card.icon];
             return (
               <div key={card.title} className="rounded-3xl bg-white p-8 shadow-sm">
-                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 text-white">
-                  <Icon size={22} />
+                <div className="relative inline-flex">
+                  <PersonAvatar seed={personSeeds[card.title]} size={52} />
+                  <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
+                    <Icon size={12} />
+                  </div>
                 </div>
                 <h3 className="mt-6 text-lg font-bold text-navy-950">{card.title}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-navy-950/60">{card.description}</p>

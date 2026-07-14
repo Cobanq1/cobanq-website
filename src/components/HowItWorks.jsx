@@ -1,14 +1,18 @@
 import { howItWorks } from "../content";
+import AvatarStack from "./AvatarStack";
 
 export default function HowItWorks() {
   return (
     <section id="how-it-works" className="bg-navy-950/[0.02] py-24">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+        <div className="mx-auto flex max-w-2xl flex-col items-center text-center">
           <h2 className="text-3xl font-extrabold tracking-tight text-navy-950 sm:text-4xl">
             {howItWorks.heading}
           </h2>
           <p className="mt-4 text-lg text-navy-950/60">{howItWorks.subhead}</p>
+          <div className="mt-6">
+            <AvatarStack caption="Joined by thousands who've done this already" />
+          </div>
         </div>
 
         <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3">

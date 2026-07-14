@@ -451,10 +451,12 @@ export const audienceTabs = [
   },
 ];
 
-// Countries CoBanq sends to — a slider on Home/Send Money. Only Pakistan
-// has a dedicated landing page (`to`) so far; add more as they're built.
+// Countries CoBanq sends to — a slider on Home/Send Money. Pakistan links
+// out to the real cobanq.com/pk (external, per request) — note this means
+// it currently points at the old live site until this redesign replaces
+// it there. Add more countries as they're built.
 export const countryCorridors = [
-  { flag: "🇵🇰", name: "Pakistan", currency: "PKR", to: "/pk" },
+  { flag: "🇵🇰", name: "Pakistan", currency: "PKR", to: "https://cobanq.com/pk" },
   { flag: "🇮🇳", name: "India", currency: "INR", to: null },
   { flag: "🇳🇬", name: "Nigeria", currency: "NGN", to: null },
   { flag: "🇵🇭", name: "Philippines", currency: "PHP", to: null },
@@ -678,7 +680,10 @@ export const footer = {
     },
     {
       heading: "Countries",
-      links: [{ label: "CoBanq for Pakistan", to: "/pk" }],
+      links: [
+        { label: "CoBanq for Pakistan", to: "https://cobanq.com/pk" },
+        { label: "CoBanq for Freelancers", to: "https://cobanq.com/pk#" },
+      ],
     },
   ],
   legalLinks: ["Terms of Service", "Privacy Policy"],

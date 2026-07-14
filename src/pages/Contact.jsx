@@ -1,8 +1,14 @@
 import { useState } from "react";
 import { LifeBuoy, Building2, ShieldCheck, Mail, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
 import { contact, site } from "../content";
+import PersonAvatar from "../components/PersonAvatar";
 
 const icons = { LifeBuoy, Building2, ShieldCheck };
+const personSeeds = {
+  "Support Center": "Support Agent",
+  "Business & Partnerships": "Partnerships Manager",
+  "Regulatory & Compliance": "Compliance Officer",
+};
 
 export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
@@ -26,8 +32,11 @@ export default function Contact() {
           const Icon = icons[card.icon];
           return (
             <div key={card.title} className="rounded-2xl border border-navy-950/10 p-6">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-brand-50 text-brand-600">
-                <Icon size={18} />
+              <div className="relative inline-flex">
+                <PersonAvatar seed={personSeeds[card.title]} size={44} />
+                <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
+                  <Icon size={10} />
+                </div>
               </div>
               <h3 className="mt-4 text-sm font-bold text-navy-950">{card.title}</h3>
               <p className="mt-1.5 text-xs leading-relaxed text-navy-950/60">{card.description}</p>
