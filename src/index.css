@@ -2,6 +2,7 @@
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
 
   --color-navy-950: #050b1a;
   --color-navy-900: #0a1330;

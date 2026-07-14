@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { site, nav } from "../content";
 
@@ -8,22 +9,29 @@ export default function Navbar({ onGetStarted }) {
   return (
     <header className="sticky top-0 z-50 border-b border-navy-900/10 bg-white/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <a href="#top" className="flex items-center gap-2 text-xl font-extrabold tracking-tight text-navy-950">
-          <span className="flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-400 to-brand-600 text-white">
-            C
+        <Link to="/" className="flex items-baseline gap-2 text-navy-950">
+          <span
+            className="text-2xl font-semibold tracking-tight"
+            style={{ fontFamily: "var(--font-serif)" }}
+          >
+            {site.name}
           </span>
-          {site.name}
-        </a>
+          <span className="hidden text-xs italic text-navy-950/40 sm:inline">{site.since}</span>
+        </Link>
 
-        <nav className="hidden items-center gap-8 md:flex">
+        <nav className="hidden items-center gap-7 md:flex">
           {nav.links.map((link) => (
-            <a
+            <NavLink
               key={link.label}
-              href={link.href}
-              className="text-sm font-medium text-navy-800/80 transition hover:text-navy-950"
+              to={link.to}
+              className={({ isActive }) =>
+                `text-sm font-medium transition hover:text-navy-950 ${
+                  isActive ? "text-navy-950" : "text-navy-800/70"
+                }`
+              }
             >
               {link.label}
-            </a>
+            </NavLink>
           ))}
         </nav>
 
@@ -54,14 +62,14 @@ export default function Navbar({ onGetStarted }) {
         <div className="border-t border-navy-900/10 bg-white px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
             {nav.links.map((link) => (
-              <a
+              <NavLink
                 key={link.label}
-                href={link.href}
+                to={link.to}
                 onClick={() => setOpen(false)}
                 className="text-sm font-medium text-navy-800/80"
               >
                 {link.label}
-              </a>
+              </NavLink>
             ))}
             <hr className="border-navy-900/10" />
             <a href="#login" className="text-sm font-semibold text-navy-800/80">

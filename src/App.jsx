@@ -1,37 +1,28 @@
-import { useState } from "react";
-import Navbar from "./components/Navbar";
-import Hero from "./components/Hero";
-import TrustBar from "./components/TrustBar";
-import Stats from "./components/Stats";
-import Features from "./components/Features";
-import HowItWorks from "./components/HowItWorks";
-import Testimonials from "./components/Testimonials";
-import CTA from "./components/CTA";
-import Footer from "./components/Footer";
-import GetStartedModal from "./components/GetStartedModal";
-import DemoModal from "./components/DemoModal";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Layout from "./components/Layout";
+import Home from "./pages/Home";
+import About from "./pages/About";
+import Business from "./pages/Business";
+import Solutions from "./pages/Solutions";
+import Faq from "./pages/Faq";
+import Contact from "./pages/Contact";
+import Calculator from "./pages/Calculator";
 
 function App() {
-  const [getStartedOpen, setGetStartedOpen] = useState(false);
-  const [demoOpen, setDemoOpen] = useState(false);
-
   return (
-    <div className="min-h-screen bg-white">
-      <Navbar onGetStarted={() => setGetStartedOpen(true)} />
-      <main>
-        <Hero onWatchDemo={() => setDemoOpen(true)} />
-        <TrustBar />
-        <Stats />
-        <Features />
-        <HowItWorks />
-        <Testimonials />
-        <CTA onGetStarted={() => setGetStartedOpen(true)} />
-      </main>
-      <Footer />
-
-      <GetStartedModal open={getStartedOpen} onClose={() => setGetStartedOpen(false)} />
-      <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route element={<Layout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/business" element={<Business />} />
+          <Route path="/solutions" element={<Solutions />} />
+          <Route path="/faq" element={<Faq />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/calculator" element={<Calculator />} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 }
 
