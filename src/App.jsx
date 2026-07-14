@@ -15,6 +15,9 @@ import Press from "./pages/Press";
 import Accessibility from "./pages/Accessibility";
 import Complaints from "./pages/Complaints";
 import Legal from "./pages/Legal";
+import Freelancers from "./pages/Freelancers";
+import Payroll from "./pages/Payroll";
+import Wallets from "./pages/Wallets";
 
 function App() {
   return (
@@ -29,6 +32,9 @@ function App() {
           <Route path="/contact" element={<Contact />} />
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/send-money" element={<SendMoney />} />
+          <Route path="/freelancers" element={<Freelancers />} />
+          <Route path="/payroll" element={<Payroll />} />
+          <Route path="/wallets" element={<Wallets />} />
           <Route path="/security" element={<Security />} />
           <Route path="/careers" element={<Careers />} />
           <Route path="/press" element={<Press />} />

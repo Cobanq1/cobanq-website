@@ -37,7 +37,7 @@ export const nav = {
           icon: "Laptop",
           label: "Freelancers",
           description: "Get paid from clients and platforms worldwide",
-          to: "/send-money",
+          to: "/freelancers",
         },
         {
           icon: "Building2",
@@ -49,13 +49,13 @@ export const nav = {
           icon: "Users",
           label: "Payroll",
           description: "Pay distributed teams in their own currency",
-          to: "/business",
+          to: "/payroll",
         },
         {
           icon: "Wallet",
           label: "Multi-Currency Wallets",
           description: "Hold and manage GBP, EUR, USD, and more",
-          to: "/#features",
+          to: "/wallets",
         },
         {
           icon: "Landmark",
@@ -626,6 +626,125 @@ export const sendMoney = {
   paymentMethods: ["Bank transfer", "Debit card", "Credit card"],
 };
 
+// -------------------- Freelancers page --------------------
+
+export const freelancers = {
+  eyebrow: "For Freelancers",
+  heading: "Get paid by every client, on every platform",
+  subhead:
+    "Whether you invoice clients directly or get paid through freelance platforms, CoBanq gives you one place to receive, hold, and withdraw your earnings — in the currency your clients already pay in.",
+  features: [
+    {
+      icon: "Globe",
+      title: "Receive in multiple currencies",
+      description: "Collect USD, GBP, EUR, and more without opening a bank account in each country.",
+    },
+    {
+      icon: "Zap",
+      title: "Fast withdrawals",
+      description: "Move funds to your local bank account in as little as 24 hours.",
+    },
+    {
+      icon: "BarChart3",
+      title: "Low conversion fees",
+      description: "Keep more of what you earn with transparent, competitive exchange rates.",
+    },
+    {
+      icon: "Laptop",
+      title: "Works with how you already get paid",
+      description:
+        "Receive direct client invoices or payouts from freelance platforms like Upwork and Fiverr into the same wallet.",
+    },
+  ],
+  mockup: {
+    label: "Payment received",
+    from: "Client payment — New York",
+    amount: "+$1,240.00",
+    note: "Available to withdraw instantly",
+  },
+  cta: "Start receiving payments",
+};
+
+// -------------------- Payroll page --------------------
+
+export const payroll = {
+  eyebrow: "For Business",
+  heading: "Pay your global team, in their own currency",
+  subhead:
+    "Running payroll across borders shouldn't mean juggling multiple bank accounts and exchange rates. CoBanq lets you pay every team member in the currency they actually use.",
+  features: [
+    {
+      icon: "Users",
+      title: "Pay in local currency",
+      description: "Each team member receives payroll in their own currency, converted at the rate shown upfront.",
+    },
+    {
+      icon: "Repeat",
+      title: "Batch payouts",
+      description: "Send an entire team's payroll in one batch instead of individual transfers.",
+    },
+    {
+      icon: "BarChart3",
+      title: "Transparent fees",
+      description: "See the exact cost of every payroll run before you confirm it.",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "Compliance-ready",
+      description: "Built on FCA-regulated infrastructure, with the audit trail a growing team needs.",
+    },
+  ],
+  mockup: {
+    label: "Payroll batch",
+    rows: [
+      { name: "Priya N.", countryCode: "in", amount: "₹64,200" },
+      { name: "Carlos M.", countryCode: "ph", amount: "₱18,500" },
+      { name: "Amina Y.", countryCode: "ng", amount: "₦210,000" },
+    ],
+  },
+  cta: "Talk to our business team",
+};
+
+// -------------------- Multi-Currency Wallets page --------------------
+
+export const wallets = {
+  eyebrow: "Multi-Currency Wallets",
+  heading: "One wallet, every currency you work in",
+  subhead:
+    "Hold balances in GBP, EUR, USD, JPY, AED, PKR, and more — collect, convert, and pay out without juggling separate bank accounts for every currency.",
+  features: [
+    {
+      icon: "Wallet",
+      title: "Hold multiple balances",
+      description: "Keep funds in the currencies you actually use, instead of converting on every transaction.",
+    },
+    {
+      icon: "Repeat",
+      title: "Convert when it suits you",
+      description: "Choose when to convert between currencies, at a rate shown before you confirm.",
+    },
+    {
+      icon: "CreditCard",
+      title: "Spend or withdraw locally",
+      description: "Move funds to your local bank account, or spend directly from your wallet balance.",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "Safeguarded and regulated",
+      description: "Built on FCA-regulated infrastructure, with your funds held to regulatory safeguarding standards.",
+    },
+  ],
+  mockup: {
+    label: "Your balances",
+    balances: [
+      { code: "GBP", amount: "1,240.00" },
+      { code: "USD", amount: "850.00" },
+      { code: "EUR", amount: "300.00" },
+    ],
+  },
+  cta: "Explore multi-currency wallets",
+};
+
 // -------------------- Security page --------------------
 
 export const security = {
@@ -716,12 +835,16 @@ export const footer = {
   regulatoryNote: "CoBanq is regulated by the Financial Conduct Authority (FCA) and holds an API license. CoBanq is not a bank.",
   columns: [
     {
+      // Mirrors the navbar Solutions dropdown, plus the overview/tool pages.
       heading: "Solutions",
       links: [
         { label: "All Solutions", to: "/solutions" },
-        { label: "Send Money", to: "/send-money" },
-        { label: "Multi-Currency Wallets", to: "/#features" },
+        { label: "Personal Money Transfers", to: "/send-money" },
+        { label: "Freelancers", to: "/freelancers" },
         { label: "Business Payments", to: "/business" },
+        { label: "Payroll", to: "/payroll" },
+        { label: "Multi-Currency Wallets", to: "/wallets" },
+        { label: "Correspondent Banking & Partnerships", to: "/business" },
         { label: "Calculator", to: "/calculator" },
       ],
     },
