@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Quote, Ship, Store, Users, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { successStories } from "../content";
 import PersonAvatar from "./PersonAvatar";
@@ -6,38 +6,17 @@ import PersonAvatar from "./PersonAvatar";
 const icons = { Ship, Store, Users, Laptop };
 
 export default function CustomerStories() {
-  const trackRef = useRef(null);
   const slideRefs = useRef([]);
   const [active, setActive] = useState(0);
 
-  useEffect(() => {
-    const track = trackRef.current;
-    if (!track) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting && entry.intersectionRatio > 0.6) {
-            const idx = slideRefs.current.indexOf(entry.target);
-            if (idx !== -1) setActive(idx);
-          }
-        });
-      },
-      { root: track, threshold: [0.6] }
-    );
-
-    slideRefs.current.forEach((el) => el && observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToIndex = (i) => {
-    const el = slideRefs.current[i];
-    if (el) el.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
-  };
-
-  const go = (delta) => {
-    const next = Math.max(0, Math.min(successStories.length - 1, active + delta));
-    scrollToIndex(next);
+  const goTo = (i) => {
+    const clamped = Math.max(0, Math.min(successStories.length - 1, i));
+    setActive(clamped);
+    slideRefs.current[clamped]?.scrollIntoView({
+      behavior: "smooth",
+      inline: "center",
+      block: "nearest",
+    });
   };
 
   return (
@@ -58,18 +37,16 @@ export default function CustomerStories() {
       </div>
 
       <div className="relative mt-12">
-        <div
-          ref={trackRef}
-          className="flex snap-x snap-mandatory gap-6 overflow-x-auto px-[7vw] pb-4 [scrollbar-width:none] sm:px-[15vw] [&::-webkit-scrollbar]:hidden"
-        >
+        <div className="flex justify-center gap-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
           {successStories.map((story, i) => {
             const Icon = icons[story.icon];
             return (
               <div
                 key={story.name}
                 ref={(el) => (slideRefs.current[i] = el)}
-                className="w-[82vw] max-w-[560px] shrink-0 snap-center overflow-hidden rounded-3xl border border-navy-950/10 bg-white shadow-sm transition-opacity duration-300"
-                style={{ opacity: active === i ? 1 : 0.45 }}
+                className={`w-[85vw] max-w-[420px] shrink-0 overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-300 ${
+                  active === i ? "border-brand-500 opacity-100" : "border-navy-950/10 opacity-40"
+                }`}
               >
                 <div className="grid sm:grid-cols-2">
                   <div className="p-8">
@@ -84,7 +61,7 @@ export default function CustomerStories() {
                   </div>
                   <div className="flex items-center justify-center bg-gradient-to-br from-navy-900 to-navy-950 p-8">
                     <div className="relative">
-                      <PersonAvatar seed={story.name} size={128} className="shadow-xl" />
+                      <PersonAvatar seed={story.name} size={112} className="shadow-xl" />
                       <div className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white ring-4 ring-navy-950">
                         <Icon size={16} />
                       </div>
@@ -98,17 +75,19 @@ export default function CustomerStories() {
 
         <button
           type="button"
-          onClick={() => go(-1)}
+          onClick={() => goTo(active - 1)}
+          disabled={active === 0}
           aria-label="Previous story"
-          className="absolute left-2 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-navy-950/10 bg-white p-3 text-navy-950/60 shadow-md transition hover:text-navy-950 sm:flex"
+          className="absolute left-2 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-navy-950/10 bg-white p-3 text-navy-950/60 shadow-md transition hover:text-navy-950 disabled:opacity-30 sm:flex"
         >
           <ChevronLeft size={18} />
         </button>
         <button
           type="button"
-          onClick={() => go(1)}
+          onClick={() => goTo(active + 1)}
+          disabled={active === successStories.length - 1}
           aria-label="Next story"
-          className="absolute right-2 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-navy-950/10 bg-white p-3 text-navy-950/60 shadow-md transition hover:text-navy-950 sm:flex"
+          className="absolute right-2 top-1/2 hidden -translate-y-1/2 items-center justify-center rounded-full border border-navy-950/10 bg-white p-3 text-navy-950/60 shadow-md transition hover:text-navy-950 disabled:opacity-30 sm:flex"
         >
           <ChevronRight size={18} />
         </button>
@@ -119,7 +98,7 @@ export default function CustomerStories() {
           <button
             key={story.name}
             type="button"
-            onClick={() => scrollToIndex(i)}
+            onClick={() => goTo(i)}
             aria-label={`Show story from ${story.name}`}
             className={`h-2 rounded-full transition-all ${
               i === active ? "w-6 bg-brand-500" : "w-2 bg-navy-950/15"

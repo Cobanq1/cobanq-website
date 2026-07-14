@@ -2,8 +2,14 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Users, Building2, Landmark, ArrowRight, CheckCircle2 } from "lucide-react";
 import { audienceTabs } from "../content";
+import PersonAvatar from "./PersonAvatar";
 
 const icons = { Users, Building2, Landmark };
+const avatarSeeds = {
+  individuals: "Individual Customer",
+  business: "Business Owner",
+  partners: "Partnerships Manager",
+};
 
 export default function AudienceTabs() {
   const [activeId, setActiveId] = useState(audienceTabs[0].id);
@@ -43,15 +49,26 @@ export default function AudienceTabs() {
           className="mt-10 grid animate-[fadeIn_0.4s_ease] gap-8 rounded-3xl bg-white p-10 shadow-sm sm:grid-cols-2 sm:p-12"
         >
           <div>
-            <h3 className="text-2xl font-bold text-navy-950">{active.headline}</h3>
+            <PersonAvatar seed={avatarSeeds[active.id]} size={56} />
+            <h3 className="mt-4 text-2xl font-bold text-navy-950">{active.headline}</h3>
             <p className="mt-4 text-sm leading-relaxed text-navy-950/60">{active.description}</p>
-            <Link
-              to={active.cta.to}
-              className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
-            >
-              {active.cta.label}
-              <ArrowRight size={15} />
-            </Link>
+            {active.cta.to.startsWith("http") ? (
+              <a
+                href={active.cta.to}
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
+              >
+                {active.cta.label}
+                <ArrowRight size={15} />
+              </a>
+            ) : (
+              <Link
+                to={active.cta.to}
+                className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
+              >
+                {active.cta.label}
+                <ArrowRight size={15} />
+              </Link>
+            )}
           </div>
 
           <ul className="flex flex-col justify-center gap-4">

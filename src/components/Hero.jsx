@@ -1,5 +1,6 @@
 import { ArrowRight, PlayCircle, ArrowUpRight, Globe2 } from "lucide-react";
 import { hero, site } from "../content";
+import AvatarStack from "./AvatarStack";
 
 export default function Hero({ onWatchDemo }) {
   return (
@@ -48,6 +49,10 @@ export default function Hero({ onWatchDemo }) {
           <p className="mt-5 text-xs font-medium uppercase tracking-wide text-white/40">
             {hero.microcopy}
           </p>
+
+          <div className="mt-8">
+            <AvatarStack dark caption="Joined by thousands of individuals and businesses" />
+          </div>
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:justify-self-end">

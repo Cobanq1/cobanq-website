@@ -1,5 +1,7 @@
+import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { ctaBanner } from "../content";
+import AvatarStack from "./AvatarStack";
 
 export default function CTA({ onGetStarted }) {
   return (
@@ -17,8 +19,9 @@ export default function CTA({ onGetStarted }) {
           style={{ background: "linear-gradient(135deg, #3b6fe0, #5b8def)" }}
         />
 
-        <div className="relative">
-          <h2 className="text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
+        <div className="relative flex flex-col items-center">
+          <AvatarStack dark size={32} />
+          <h2 className="mt-6 text-3xl font-extrabold tracking-tight text-white sm:text-4xl">
             {ctaBanner.heading}
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-lg text-white/60">{ctaBanner.subhead}</p>
@@ -32,12 +35,12 @@ export default function CTA({ onGetStarted }) {
               {ctaBanner.primaryCta}
               <ArrowRight size={16} />
             </button>
-            <a
-              href="#contact"
+            <Link
+              to="/contact"
               className="inline-flex items-center gap-2 rounded-full border border-white/20 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-white/10"
             >
               {ctaBanner.secondaryCta}
-            </a>
+            </Link>
           </div>
         </div>
       </div>

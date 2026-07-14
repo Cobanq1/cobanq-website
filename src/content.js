@@ -189,9 +189,9 @@ export const trust = {
     "CoBanq is an FCA-regulated platform for international money transfers and payments. From personal remittances to business payouts, we give individuals and businesses the confidence to move money across borders.",
   stats: [
     { value: "Thousands", label: "Customers and counting" },
-    { value: "10+", label: "Currencies supported" },
+    { value: "70+", label: "Currencies supported" },
     { value: "24/7", label: "Customer support" },
-    { value: "5+", label: "Languages supported" },
+    { value: "10+", label: "Languages supported" },
   ],
 };
 
@@ -417,7 +417,9 @@ export const audienceTabs = [
       "Bank transfer, debit or credit card",
       "Real-time tracking from your dashboard",
     ],
-    cta: { label: "Send money", to: "/send-money" },
+    // External signup flow for personal transfers (separate from the main
+    // CoBanq onboarding URL used elsewhere on the site).
+    cta: { label: "Send money", to: "https://burqfx.com/signup" },
   },
   {
     id: "business",

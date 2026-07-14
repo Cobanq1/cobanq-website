@@ -36,7 +36,10 @@ export default function Navbar({ onGetStarted }) {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <a href="#login" className="text-sm font-semibold text-navy-800/80 hover:text-navy-950">
+          <a
+            href={site.onboardingUrl}
+            className="text-sm font-semibold text-navy-800/80 hover:text-navy-950"
+          >
             {nav.loginLabel}
           </a>
           <button
@@ -72,7 +75,7 @@ export default function Navbar({ onGetStarted }) {
               </NavLink>
             ))}
             <hr className="border-navy-900/10" />
-            <a href="#login" className="text-sm font-semibold text-navy-800/80">
+            <a href={site.onboardingUrl} className="text-sm font-semibold text-navy-800/80">
               {nav.loginLabel}
             </a>
             <button
