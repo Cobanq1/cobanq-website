@@ -126,40 +126,70 @@ export const howItWorks = {
   ],
 };
 
-// Placeholder testimonials — replace with real customer quotes and names
-// when available. Avatars are illustrated placeholders, not real photos.
-export const testimonials = {
-  heading: "Built for individuals and businesses alike",
-  items: [
-    {
-      quote:
-        "Sending money home used to take days and I never knew the real fee until after. With CoBanq I see the rate upfront and it lands the next day.",
-      name: "Amara Chen",
-      role: "Personal customer, Singapore",
-      initials: "AC",
-    },
-    {
-      quote:
-        "As a UK business paying overseas suppliers, switching to CoBanq's cross-border payment platform saved us real money on every settlement.",
-      name: "Daniel Osei",
-      role: "Founder, Ferro Trade Ltd",
-      initials: "DO",
-    },
-    {
-      quote:
-        "We partnered with CoBanq to expand our payout corridors. Their correspondent banking network made last-mile delivery straightforward.",
-      name: "Marisol Vega",
-      role: "Operations Lead, partner fintech",
-      initials: "MV",
-    },
-  ],
-};
-
 export const ctaBanner = {
   heading: "Ready to power the flow of your global capital?",
   subhead: "Join individuals and businesses already using CoBanq to send, collect, and pay out worldwide.",
   primaryCta: "Get started",
   secondaryCta: "Talk to our business team",
+};
+
+// Made-up customer scenarios for the homepage "success stories" carousel —
+// invented names and roles (no real company names) to illustrate the kinds
+// of people CoBanq serves. Replace with real customer stories when available.
+export const successStories = [
+  {
+    name: "Amina Yusuf",
+    role: "Import & Export Trader",
+    country: "Nigeria",
+    flag: "🇳🇬",
+    icon: "Ship",
+    quote:
+      "CoBanq lets me pay overseas suppliers and collect from buyers abroad without opening a dozen local bank accounts. One wallet, every currency I trade in.",
+  },
+  {
+    name: "Farhan Iqbal",
+    role: "Wholesale Store Owner",
+    country: "Pakistan",
+    flag: "🇵🇰",
+    icon: "Store",
+    quote:
+      "My distributors pay me in different currencies every week. CoBanq converts and settles it all without me chasing exchange rates myself.",
+  },
+  {
+    name: "Priya Nair",
+    role: "Payroll Manager",
+    country: "India",
+    flag: "🇮🇳",
+    icon: "Users",
+    quote:
+      "We run payroll for a team spread across three countries. CoBanq's multi-currency wallets mean everyone gets paid on time, in their own currency.",
+  },
+  {
+    name: "Carlos Mendes",
+    role: "Freelance Web Developer",
+    country: "Philippines",
+    flag: "🇵🇭",
+    icon: "Laptop",
+    quote:
+      "Clients in the US and Europe pay into my CoBanq wallet directly. I withdraw locally without losing a chunk of it to conversion fees.",
+  },
+];
+
+// -------------------- "Built for trust" stats (About page) --------------------
+// Placeholder figures grounded in what we know is real (currency count
+// matches the calculator list, 24/7 matches the FAQ) — replace the rest
+// with real numbers when available.
+export const trust = {
+  eyebrow: "Built for trust.",
+  heading: "Real help when you need it.",
+  subhead:
+    "CoBanq is an FCA-regulated platform for international money transfers and payments. From personal remittances to business payouts, we give individuals and businesses the confidence to move money across borders.",
+  stats: [
+    { value: "Thousands", label: "Customers and counting" },
+    { value: "10+", label: "Currencies supported" },
+    { value: "24/7", label: "Customer support" },
+    { value: "5+", label: "Languages supported" },
+  ],
 };
 
 // -------------------- Business / Partners page --------------------
@@ -323,6 +353,110 @@ export const faq = {
   ],
 };
 
+// -------------------- Home page: interactive sections --------------------
+
+// Rotating "what you can do" slider shown under the hero — Payoneer-style
+// showcase of the different things CoBanq does, one slide at a time.
+export const useCases = [
+  {
+    id: "send",
+    tag: "Personal",
+    icon: "Send",
+    title: "Send money home in minutes",
+    description: "Support for India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more.",
+    stat: { value: "24h", label: "Average transfer time" },
+    linkLabel: "Send money",
+    linkTo: "/send-money",
+  },
+  {
+    id: "wallet",
+    tag: "Wallets",
+    icon: "Wallet",
+    title: "Hold multiple currencies in one place",
+    description: "Collect and pay out in GBP, EUR, USD, JPY, AED, PKR, and more.",
+    stat: { value: "6+", label: "Currencies supported" },
+    linkLabel: "Explore wallets",
+    linkTo: "/#features",
+  },
+  {
+    id: "business",
+    tag: "Business",
+    icon: "Building2",
+    title: "Pay suppliers anywhere in the world",
+    description: "Cross-border business payments designed for scale, compliance, and speed.",
+    stat: { value: "30+", label: "Payout corridors" },
+    linkLabel: "See business solutions",
+    linkTo: "/business",
+  },
+  {
+    id: "partners",
+    tag: "Partnerships",
+    icon: "Landmark",
+    title: "Build on regulated payments infrastructure",
+    description: "Correspondent banking and embedded FX for fintechs and financial institutions.",
+    stat: { value: "FCA", label: "Regulated since 2003" },
+    linkLabel: "Partner with CoBanq",
+    linkTo: "/business",
+  },
+];
+
+// Interactive audience tabs — click to switch between who CoBanq serves.
+export const audienceTabs = [
+  {
+    id: "individuals",
+    label: "For Individuals",
+    icon: "Users",
+    headline: "Send money home, without the wait",
+    description:
+      "Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and more — with the fee and rate shown before you confirm.",
+    bullets: [
+      "Transfers processed within 24 hours",
+      "Bank transfer, debit or credit card",
+      "Real-time tracking from your dashboard",
+    ],
+    cta: { label: "Send money", to: "/send-money" },
+  },
+  {
+    id: "business",
+    label: "For Business",
+    icon: "Building2",
+    headline: "Cross-border payments built to scale",
+    description:
+      "Collect and pay out globally, settle with suppliers abroad, and manage multi-currency wallets from one regulated platform.",
+    bullets: [
+      "Multi-currency wallets in GBP, EUR, USD & more",
+      "Supplier settlements and global payouts",
+      "Transparent, competitive fees",
+    ],
+    cta: { label: "Explore business solutions", to: "/business" },
+  },
+  {
+    id: "partners",
+    label: "For Partners",
+    icon: "Landmark",
+    headline: "Expand your payout corridors with us",
+    description:
+      "Correspondent banking and fintech collaborations — embedded FX, compliance-ready processing, and white-label tools.",
+    bullets: [
+      "30+ payout corridors",
+      "Platform, white-label, or correspondent models",
+      "Dedicated partnership support",
+    ],
+    cta: { label: "Partner with CoBanq", to: "/business" },
+  },
+];
+
+// Countries CoBanq sends to — a slider on Home/Send Money. Only Pakistan
+// has a dedicated landing page (`to`) so far; add more as they're built.
+export const countryCorridors = [
+  { flag: "🇵🇰", name: "Pakistan", currency: "PKR", to: "/pk" },
+  { flag: "🇮🇳", name: "India", currency: "INR", to: null },
+  { flag: "🇳🇬", name: "Nigeria", currency: "NGN", to: null },
+  { flag: "🇵🇭", name: "Philippines", currency: "PHP", to: null },
+  { flag: "🇧🇩", name: "Bangladesh", currency: "BDT", to: null },
+  { flag: "🇦🇪", name: "UAE", currency: "AED", to: null },
+];
+
 // -------------------- Solutions (overview) page --------------------
 
 export const solutions = {
@@ -336,7 +470,7 @@ export const solutions = {
       description:
         "Send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
       linkLabel: "See how it works",
-      linkTo: "/#how-it-works",
+      linkTo: "/send-money",
     },
     {
       icon: "Wallet",
@@ -415,6 +549,100 @@ export const calculator = {
   feePercent: 0.5,
 };
 
+// -------------------- Send Money page --------------------
+
+export const sendMoney = {
+  eyebrow: "Personal money transfers",
+  heading: "Send money home, without the wait",
+  subhead:
+    "Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries — with the fee and rate shown before you confirm.",
+  paymentMethods: ["Bank transfer", "Debit card", "Credit card"],
+};
+
+// -------------------- Security page --------------------
+
+export const security = {
+  eyebrow: "Trust & security",
+  heading: "Security built into everything we do",
+  subhead:
+    "As an FCA-regulated platform, protecting your money and your data is our foundation — not an afterthought.",
+  pillars: [
+    {
+      icon: "ShieldCheck",
+      title: "FCA regulated",
+      description:
+        "CoBanq Ltd is authorized and regulated by the Financial Conduct Authority under the Payment Services Regulations 2017, registration no. 508565.",
+    },
+    {
+      icon: "Lock",
+      title: "Encryption everywhere",
+      description:
+        "Industry-standard encryption protects your data in transit and at rest, across every part of the platform.",
+    },
+    {
+      icon: "KeyRound",
+      title: "Two-factor authentication",
+      description:
+        "Add an extra layer of protection to your account with 2FA, configurable from Account Settings.",
+    },
+    {
+      icon: "Fingerprint",
+      title: "Identity verification",
+      description:
+        "Every account is verified with government-issued ID and proof of address before transfers can be made.",
+    },
+    {
+      icon: "FileCheck2",
+      title: "AML & compliance",
+      description:
+        "Robust Anti-Money Laundering policies and thorough verification checks help prevent financial crime.",
+    },
+    {
+      icon: "Eye",
+      title: "Data protection",
+      description:
+        "We follow strict data protection regulations and never share your information with unauthorized parties.",
+    },
+  ],
+};
+
+// -------------------- Country pages --------------------
+// Keyed by URL slug (e.g. countries.pk -> /pk). Add more countries here
+// using the same shape to generate new country pages later.
+
+export const countries = {
+  pk: {
+    slug: "pk",
+    flag: "🇵🇰",
+    name: "Pakistan",
+    currency: "PKR",
+    heading: "CoBanq for Pakistan",
+    subhead:
+      "Send money to Pakistan quickly and affordably, with the fee and exchange rate shown before you confirm every transfer.",
+    heroStats: [
+      { value: "24h", label: "Typical transfer time" },
+      { value: "PKR", label: "Local currency payout" },
+      { value: "0.5%", label: "Indicative fee" },
+    ],
+    payoutMethods: ["Bank deposit", "Mobile wallet", "Cash pickup"],
+    popularCities: ["Karachi", "Lahore", "Islamabad", "Faisalabad", "Rawalpindi"],
+    faqItems: [
+      {
+        q: "How long does a transfer to Pakistan take?",
+        a: "Most transfers to Pakistan are processed within 24 hours, with real-time tracking available through your account dashboard.",
+      },
+      {
+        q: "What payout methods are available in Pakistan?",
+        a: "Recipients in Pakistan can receive funds by bank deposit, mobile wallet, or cash pickup, depending on availability.",
+      },
+      {
+        q: "What's the fee for sending money to Pakistan?",
+        a: "Fees vary by amount and payout method. We always show the exact fee and exchange rate before you confirm your transfer.",
+      },
+    ],
+  },
+};
+
 export const footer = {
   description:
     "CoBanq is a modern financial platform designed to make international money transfers and payments seamless, secure, and affordable.",
@@ -424,6 +652,7 @@ export const footer = {
       heading: "Solutions",
       links: [
         { label: "All Solutions", to: "/solutions" },
+        { label: "Send Money", to: "/send-money" },
         { label: "Calculator", to: "/calculator" },
       ],
     },
@@ -431,6 +660,7 @@ export const footer = {
       heading: "Company",
       links: [
         { label: "About Us", to: "/about" },
+        { label: "Security", to: "/security" },
         { label: "Contact", to: "/contact" },
       ],
     },
@@ -440,6 +670,10 @@ export const footer = {
         { label: "FAQ", to: "/faq" },
         { label: "Support Center", to: "/contact" },
       ],
+    },
+    {
+      heading: "Countries",
+      links: [{ label: "CoBanq for Pakistan", to: "/pk" }],
     },
   ],
   legalLinks: ["Terms of Service", "Privacy Policy"],

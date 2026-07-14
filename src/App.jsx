@@ -7,6 +7,9 @@ import Solutions from "./pages/Solutions";
 import Faq from "./pages/Faq";
 import Contact from "./pages/Contact";
 import Calculator from "./pages/Calculator";
+import SendMoney from "./pages/SendMoney";
+import Security from "./pages/Security";
+import Country from "./pages/Country";
 
 function App() {
   return (
@@ -20,6 +23,10 @@ function App() {
           <Route path="/faq" element={<Faq />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/calculator" element={<Calculator />} />
+          <Route path="/send-money" element={<SendMoney />} />
+          <Route path="/security" element={<Security />} />
+          {/* Country landing pages — add more Route lines here as they're built */}
+          <Route path="/pk" element={<Country slug="pk" />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -1,5 +1,6 @@
 import { Users } from "lucide-react";
 import { about, site } from "../content";
+import TrustStats from "../components/TrustStats";
 
 export default function About() {
   return (
@@ -23,7 +24,9 @@ export default function About() {
         </div>
       </section>
 
-      <section className="bg-white py-20">
+      <TrustStats />
+
+      <section className="border-t border-navy-950/5 bg-white py-20">
         <div className="mx-auto grid max-w-5xl gap-10 px-6 lg:grid-cols-[220px_1fr] lg:px-8">
           <div className="flex h-56 items-center justify-center rounded-3xl bg-navy-950 lg:h-full">
             <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
