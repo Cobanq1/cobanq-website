@@ -1,0 +1,10 @@
+[build]
+  command = "npm run build"
+  publish = "dist"
+
+# Client-side routing (React Router) — send every path to index.html
+# so /faq, /pk, /business etc. work on direct load and on refresh.
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
