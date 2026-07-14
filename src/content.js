@@ -680,10 +680,7 @@ export const footer = {
     },
     {
       heading: "Countries",
-      links: [
-        { label: "CoBanq for Pakistan", to: "https://cobanq.com/pk" },
-        { label: "CoBanq for Freelancers", to: "https://cobanq.com/pk#" },
-      ],
+      links: [{ label: "CoBanq for Freelancers", to: "https://cobanq.com/pk#" }],
     },
   ],
   legalLinks: ["Terms of Service", "Privacy Policy"],
