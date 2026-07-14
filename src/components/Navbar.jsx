@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { Menu, X, ChevronDown, ArrowRight, Send, Laptop, Building2, Users, Wallet, Landmark } from "lucide-react";
 import { site, nav } from "../content";
@@ -6,12 +6,32 @@ import { site, nav } from "../content";
 const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark };
 
 function SolutionsDropdown({ link, open, setOpen }) {
+  const containerRef = useRef(null);
+
+  // Click-to-open/close, not hover — hover-based open/close is fragile
+  // here because the gap between the trigger and the absolutely
+  // positioned panel creates a dead zone that closes the menu before
+  // a pointer moving from the button to an item ever reaches it.
+  useEffect(() => {
+    if (!open) return;
+    const handleClickOutside = (e) => {
+      if (containerRef.current && !containerRef.current.contains(e.target)) {
+        setOpen(false);
+      }
+    };
+    const handleEscape = (e) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("keydown", handleEscape);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("keydown", handleEscape);
+    };
+  }, [open, setOpen]);
+
   return (
-    <div
-      className="relative"
-      onMouseEnter={() => setOpen(true)}
-      onMouseLeave={() => setOpen(false)}
-    >
+    <div ref={containerRef} className="relative">
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
