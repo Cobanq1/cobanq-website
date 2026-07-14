@@ -162,7 +162,7 @@ export const successStories = [
     name: "Amina Yusuf",
     role: "Import & Export Trader",
     country: "Nigeria",
-    flag: "🇳🇬",
+    countryCode: "ng",
     icon: "Ship",
     quote:
       "CoBanq lets me pay overseas suppliers and collect from buyers abroad without opening a dozen local bank accounts. One wallet, every currency I trade in.",
@@ -171,7 +171,7 @@ export const successStories = [
     name: "Farhan Iqbal",
     role: "Wholesale Store Owner",
     country: "Pakistan",
-    flag: "🇵🇰",
+    countryCode: "pk",
     icon: "Store",
     quote:
       "My distributors pay me in different currencies every week. CoBanq converts and settles it all without me chasing exchange rates myself.",
@@ -180,7 +180,7 @@ export const successStories = [
     name: "Priya Nair",
     role: "Payroll Manager",
     country: "India",
-    flag: "🇮🇳",
+    countryCode: "in",
     icon: "Users",
     quote:
       "We run payroll for a team spread across three countries. CoBanq's multi-currency wallets mean everyone gets paid on time, in their own currency.",
@@ -189,7 +189,7 @@ export const successStories = [
     name: "Carlos Mendes",
     role: "Freelance Web Developer",
     country: "Philippines",
-    flag: "🇵🇭",
+    countryCode: "ph",
     icon: "Laptop",
     quote:
       "Clients in the US and Europe pay into my CoBanq wallet directly. I withdraw locally without losing a chunk of it to conversion fees.",
@@ -474,12 +474,12 @@ export const audienceTabs = [
 // it currently points at the old live site until this redesign replaces
 // it there. Add more countries as they're built.
 export const countryCorridors = [
-  { flag: "🇵🇰", name: "Pakistan", currency: "PKR", to: "https://cobanq.com/pk" },
-  { flag: "🇮🇳", name: "India", currency: "INR", to: null },
-  { flag: "🇳🇬", name: "Nigeria", currency: "NGN", to: null },
-  { flag: "🇵🇭", name: "Philippines", currency: "PHP", to: null },
-  { flag: "🇧🇩", name: "Bangladesh", currency: "BDT", to: null },
-  { flag: "🇦🇪", name: "UAE", currency: "AED", to: null },
+  { countryCode: "pk", name: "Pakistan", currency: "PKR", to: "https://cobanq.com/pk" },
+  { countryCode: "in", name: "India", currency: "INR", to: null },
+  { countryCode: "ng", name: "Nigeria", currency: "NGN", to: null },
+  { countryCode: "ph", name: "Philippines", currency: "PHP", to: null },
+  { countryCode: "bd", name: "Bangladesh", currency: "BDT", to: null },
+  { countryCode: "ae", name: "UAE", currency: "AED", to: null },
 ];
 
 // -------------------- Solutions (overview) page --------------------
@@ -638,7 +638,7 @@ export const security = {
 export const countries = {
   pk: {
     slug: "pk",
-    flag: "🇵🇰",
+    countryCode: "pk",
     name: "Pakistan",
     currency: "PKR",
     heading: "CoBanq for Pakistan",

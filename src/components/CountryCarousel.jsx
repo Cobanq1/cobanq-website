@@ -2,6 +2,7 @@ import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { countryCorridors } from "../content";
 import SmartLink from "./SmartLink";
+import Flag from "./Flag";
 
 export default function CountryCarousel() {
   const loop = [...countryCorridors, ...countryCorridors];
@@ -33,7 +34,7 @@ export default function CountryCarousel() {
           {loop.map((country, i) => {
             const card = (
               <div className="flex w-56 shrink-0 items-center gap-4 rounded-2xl border border-navy-950/10 bg-white px-5 py-4 transition hover:border-brand-500/40 hover:shadow-md">
-                <span className="text-3xl leading-none">{country.flag}</span>
+                <Flag code={country.countryCode} className="h-8 w-11 rounded-md shadow-sm" />
                 <div>
                   <p className="text-sm font-bold text-navy-950">{country.name}</p>
                   <p className="text-xs text-navy-950/50">{country.currency}</p>

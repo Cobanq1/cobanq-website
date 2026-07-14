@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { ArrowRight, ChevronDown, MapPin, Wallet } from "lucide-react";
 import { countries } from "../content";
+import Flag from "../components/Flag";
 
 export default function Country({ slug }) {
   const { openGetStarted } = useOutletContext();
@@ -22,7 +23,7 @@ export default function Country({ slug }) {
         />
         <div className="relative mx-auto max-w-4xl px-6 lg:px-8">
           <span className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-1.5 text-xs font-semibold text-brand-400">
-            <span className="text-base leading-none">{country.flag}</span>
+            <Flag code={country.countryCode} className="h-3.5 w-5 rounded-sm" />
             Local corridor
           </span>
           <h1 className="mt-6 text-4xl font-extrabold tracking-tight text-white sm:text-5xl">

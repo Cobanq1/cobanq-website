@@ -2,6 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import { ArrowRight, CreditCard, Landmark, Wallet as WalletIcon } from "lucide-react";
 import { sendMoney, countryCorridors, howItWorks } from "../content";
 import SmartLink from "../components/SmartLink";
+import Flag from "../components/Flag";
 
 const methodIcons = { "Bank transfer": Landmark, "Debit card": CreditCard, "Credit card": CreditCard };
 
@@ -48,7 +49,7 @@ export default function SendMoney() {
             {countryCorridors.map((country) => {
               const card = (
                 <div className="flex items-center gap-3 rounded-2xl border border-navy-950/10 px-5 py-4 transition hover:border-brand-500/40 hover:shadow-md">
-                  <span className="text-2xl leading-none">{country.flag}</span>
+                  <Flag code={country.countryCode} className="h-7 w-10 rounded-md shadow-sm" />
                   <div>
                     <p className="text-sm font-bold text-navy-950">{country.name}</p>
                     <p className="text-xs text-navy-950/50">{country.currency}</p>

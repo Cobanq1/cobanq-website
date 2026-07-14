@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { Quote, Ship, Store, Users, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { successStories } from "../content";
 import PersonAvatar from "./PersonAvatar";
+import Flag from "./Flag";
 
 const icons = { Ship, Store, Users, Laptop };
 
@@ -55,7 +56,7 @@ export default function CustomerStories() {
                     <p className="mt-6 text-sm font-bold text-navy-950">{story.name}</p>
                     <p className="text-xs text-navy-950/50">{story.role}</p>
                     <p className="mt-1 flex items-center gap-1.5 text-xs font-semibold text-navy-950/60">
-                      <span>{story.flag}</span>
+                      <Flag code={story.countryCode} className="h-3.5 w-5 rounded-sm" />
                       {story.country}
                     </p>
                   </div>
