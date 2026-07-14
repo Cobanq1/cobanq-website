@@ -1,10 +1,70 @@
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Send, Laptop, Building2, Users, Wallet, Landmark } from "lucide-react";
 import { site, nav } from "../content";
+
+const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark };
+
+function SolutionsDropdown({ link, open, setOpen }) {
+  return (
+    <div
+      className="relative"
+      onMouseEnter={() => setOpen(true)}
+      onMouseLeave={() => setOpen(false)}
+    >
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className="flex items-center gap-1 text-sm font-medium text-navy-800/70 transition hover:text-navy-950"
+        aria-expanded={open}
+      >
+        {link.label}
+        <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
+      </button>
+
+      {open && (
+        <div className="absolute left-1/2 top-full z-50 mt-3 w-[560px] -translate-x-1/2 rounded-2xl border border-navy-950/10 bg-white p-3 shadow-xl">
+          <div className="grid grid-cols-2 gap-1">
+            {link.dropdown.map((item) => {
+              const Icon = dropdownIcons[item.icon];
+              return (
+                <Link
+                  key={item.label}
+                  to={item.to}
+                  onClick={() => setOpen(false)}
+                  className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-navy-950/[0.03]"
+                >
+                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                    <Icon size={16} />
+                  </span>
+                  <span>
+                    <span className="block text-sm font-semibold text-navy-950">
+                      {item.label}
+                    </span>
+                    <span className="block text-xs text-navy-950/50">{item.description}</span>
+                  </span>
+                </Link>
+              );
+            })}
+          </div>
+          <Link
+            to={link.to}
+            onClick={() => setOpen(false)}
+            className="mt-1 flex items-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-600 transition hover:bg-navy-950/[0.03]"
+          >
+            See all solutions
+            <ArrowRight size={14} />
+          </Link>
+        </div>
+      )}
+    </div>
+  );
+}
 
 export default function Navbar({ onGetStarted }) {
   const [open, setOpen] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 border-b border-navy-900/10 bg-white/90 backdrop-blur">
@@ -20,19 +80,28 @@ export default function Navbar({ onGetStarted }) {
         </Link>
 
         <nav className="hidden items-center gap-7 md:flex">
-          {nav.links.map((link) => (
-            <NavLink
-              key={link.label}
-              to={link.to}
-              className={({ isActive }) =>
-                `text-sm font-medium transition hover:text-navy-950 ${
-                  isActive ? "text-navy-950" : "text-navy-800/70"
-                }`
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+          {nav.links.map((link) =>
+            link.dropdown ? (
+              <SolutionsDropdown
+                key={link.label}
+                link={link}
+                open={dropdownOpen}
+                setOpen={setDropdownOpen}
+              />
+            ) : (
+              <NavLink
+                key={link.label}
+                to={link.to}
+                className={({ isActive }) =>
+                  `text-sm font-medium transition hover:text-navy-950 ${
+                    isActive ? "text-navy-950" : "text-navy-800/70"
+                  }`
+                }
+              >
+                {link.label}
+              </NavLink>
+            )
+          )}
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
@@ -64,16 +133,53 @@ export default function Navbar({ onGetStarted }) {
       {open && (
         <div className="border-t border-navy-900/10 bg-white px-6 py-4 md:hidden">
           <nav className="flex flex-col gap-4">
-            {nav.links.map((link) => (
-              <NavLink
-                key={link.label}
-                to={link.to}
-                onClick={() => setOpen(false)}
-                className="text-sm font-medium text-navy-800/80"
-              >
-                {link.label}
-              </NavLink>
-            ))}
+            {nav.links.map((link) =>
+              link.dropdown ? (
+                <div key={link.label}>
+                  <button
+                    type="button"
+                    onClick={() => setMobileSolutionsOpen((v) => !v)}
+                    className="flex w-full items-center justify-between text-sm font-medium text-navy-800/80"
+                  >
+                    {link.label}
+                    <ChevronDown
+                      size={16}
+                      className={`transition-transform ${mobileSolutionsOpen ? "rotate-180" : ""}`}
+                    />
+                  </button>
+                  {mobileSolutionsOpen && (
+                    <div className="mt-3 flex flex-col gap-3 border-l border-navy-900/10 pl-4">
+                      {link.dropdown.map((item) => (
+                        <Link
+                          key={item.label}
+                          to={item.to}
+                          onClick={() => setOpen(false)}
+                          className="text-sm text-navy-800/70"
+                        >
+                          {item.label}
+                        </Link>
+                      ))}
+                      <Link
+                        to={link.to}
+                        onClick={() => setOpen(false)}
+                        className="text-sm font-semibold text-brand-600"
+                      >
+                        See all solutions
+                      </Link>
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <NavLink
+                  key={link.label}
+                  to={link.to}
+                  onClick={() => setOpen(false)}
+                  className="text-sm font-medium text-navy-800/80"
+                >
+                  {link.label}
+                </NavLink>
+              )
+            )}
             <hr className="border-navy-900/10" />
             <a href={site.onboardingUrl} className="text-sm font-semibold text-navy-800/80">
               {nav.loginLabel}

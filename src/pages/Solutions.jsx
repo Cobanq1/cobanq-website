@@ -41,6 +41,18 @@ export default function Solutions() {
               </div>
               <h3 className="mt-6 text-lg font-bold text-navy-950">{item.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-navy-950/60">{item.description}</p>
+              {item.industries && (
+                <div className="mt-3 flex flex-wrap gap-1.5">
+                  {item.industries.map((industry) => (
+                    <span
+                      key={industry}
+                      className="rounded-full bg-navy-950/5 px-2.5 py-1 text-[11px] font-semibold text-navy-950/50"
+                    >
+                      {industry}
+                    </span>
+                  ))}
+                </div>
+              )}
               <Link
                 to={item.linkTo}
                 className="mt-5 inline-flex items-center gap-1.5 text-sm font-semibold text-brand-600 hover:text-brand-700"

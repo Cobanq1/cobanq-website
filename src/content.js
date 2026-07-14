@@ -23,7 +23,48 @@ export const site = {
 
 export const nav = {
   links: [
-    { label: "Solutions", to: "/solutions" },
+    {
+      label: "Solutions",
+      to: "/solutions",
+      dropdown: [
+        {
+          icon: "Send",
+          label: "Personal Money Transfers",
+          description: "Send money home to family and friends",
+          to: "/send-money",
+        },
+        {
+          icon: "Laptop",
+          label: "Freelancers",
+          description: "Get paid from clients and platforms worldwide",
+          to: "/send-money",
+        },
+        {
+          icon: "Building2",
+          label: "Business Payments",
+          description: "Cross-border payments built to scale",
+          to: "/business",
+        },
+        {
+          icon: "Users",
+          label: "Payroll",
+          description: "Pay distributed teams in their own currency",
+          to: "/business",
+        },
+        {
+          icon: "Wallet",
+          label: "Multi-Currency Wallets",
+          description: "Hold and manage GBP, EUR, USD, and more",
+          to: "/#features",
+        },
+        {
+          icon: "Landmark",
+          label: "Correspondent Banking & Partnerships",
+          description: "Expand payout corridors with us",
+          to: "/business",
+        },
+      ],
+    },
     { label: "Business", to: "/business" },
     { label: "About Us", to: "/about" },
     { label: "FAQ", to: "/faq" },
@@ -510,6 +551,7 @@ export const solutions = {
       title: "Business payments",
       description:
         "Cross-border payment solutions designed for scale, compliance, and speed — from global payouts to supplier settlements.",
+      industries: ["Import & Export", "Software Houses", "Wholesale & Retail", "Manufacturing", "Logistics"],
       linkLabel: "See business solutions",
       linkTo: "/business",
     },
