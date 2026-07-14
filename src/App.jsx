@@ -10,6 +10,11 @@ import Calculator from "./pages/Calculator";
 import SendMoney from "./pages/SendMoney";
 import Security from "./pages/Security";
 import Country from "./pages/Country";
+import Careers from "./pages/Careers";
+import Press from "./pages/Press";
+import Accessibility from "./pages/Accessibility";
+import Complaints from "./pages/Complaints";
+import Legal from "./pages/Legal";
 
 function App() {
   return (
@@ -25,6 +30,13 @@ function App() {
           <Route path="/calculator" element={<Calculator />} />
           <Route path="/send-money" element={<SendMoney />} />
           <Route path="/security" element={<Security />} />
+          <Route path="/careers" element={<Careers />} />
+          <Route path="/press" element={<Press />} />
+          <Route path="/accessibility" element={<Accessibility />} />
+          <Route path="/complaints" element={<Complaints />} />
+          <Route path="/terms" element={<Legal page="terms" />} />
+          <Route path="/privacy" element={<Legal page="privacy" />} />
+          <Route path="/cookies" element={<Legal page="cookies" />} />
           {/* Country landing pages — add more Route lines here as they're built */}
           <Route path="/pk" element={<Country slug="pk" />} />
         </Route>

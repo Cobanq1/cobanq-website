@@ -55,6 +55,24 @@ export const trustBar = {
   ],
 };
 
+// Text mentions only — not logos. Showing a platform's actual brand mark
+// here would imply a formal partnership CoBanq doesn't have; this is just
+// naming platforms freelancers/sellers commonly get paid from, in plain
+// text, the same way a payments site might say "works with PayPal."
+export const platformsMarquee = {
+  caption: "Popular with freelancers and sellers who get paid from",
+  platforms: [
+    "Upwork",
+    "Fiverr",
+    "Amazon",
+    "eBay",
+    "Daraz",
+    "Airbnb",
+    "Freelancer.com",
+    "Etsy",
+  ],
+};
+
 export const stats = [
   { value: "2003", label: "Founded in the UK" },
   { value: "30+", label: "Global payout corridors" },
@@ -660,6 +678,8 @@ export const footer = {
       links: [
         { label: "All Solutions", to: "/solutions" },
         { label: "Send Money", to: "/send-money" },
+        { label: "Multi-Currency Wallets", to: "/#features" },
+        { label: "Business Payments", to: "/business" },
         { label: "Calculator", to: "/calculator" },
       ],
     },
@@ -668,6 +688,8 @@ export const footer = {
       links: [
         { label: "About Us", to: "/about" },
         { label: "Security", to: "/security" },
+        { label: "Careers", to: "/careers" },
+        { label: "Press", to: "/press" },
         { label: "Contact", to: "/contact" },
       ],
     },
@@ -676,6 +698,8 @@ export const footer = {
       links: [
         { label: "FAQ", to: "/faq" },
         { label: "Support Center", to: "/contact" },
+        { label: "Complaints Procedure", to: "/complaints" },
+        { label: "Accessibility", to: "/accessibility" },
       ],
     },
     {
@@ -683,5 +707,138 @@ export const footer = {
       links: [{ label: "CoBanq for Freelancers", to: "https://cobanq.com/pk#" }],
     },
   ],
-  legalLinks: ["Terms of Service", "Privacy Policy"],
+  legalLinks: [
+    { label: "Terms of Service", to: "/terms" },
+    { label: "Privacy Policy", to: "/privacy" },
+    { label: "Cookie Policy", to: "/cookies" },
+  ],
+  copyrightRange: "2003–2026",
+};
+
+// -------------------- Careers, Press, Accessibility, Complaints --------------------
+// Honest, minimal pages — no fabricated job listings or press releases.
+// Replace with real content whenever you have it.
+
+export const careers = {
+  heading: "Careers at CoBanq",
+  intro:
+    "We're a small, FCA-regulated team building cross-border payments infrastructure. We don't have specific open roles listed here yet — but we're always glad to hear from people interested in fintech, compliance, and payments.",
+  cta: "Get in touch",
+  ctaTo: "/contact",
+};
+
+export const press = {
+  heading: "Press & Media",
+  intro:
+    "For press inquiries, interview requests, or media assets, please contact our team directly. We don't have published press releases listed here yet.",
+  cta: "Contact us",
+  ctaTo: "/contact",
+};
+
+export const accessibility = {
+  heading: "Accessibility Statement",
+  intro:
+    "CoBanq is committed to making our website usable by as many people as possible, regardless of ability or technology.",
+  commitments: [
+    "Designing with sufficient color contrast and readable text sizing",
+    "Supporting keyboard navigation across the site",
+    "Using semantic HTML and labelling for screen reader compatibility",
+    "Continuing to test and improve accessibility as the site evolves",
+  ],
+  contactNote:
+    "If you experience any difficulty accessing content on this site, please contact us at support@cobanq.com and we'll do our best to help.",
+};
+
+export const complaints = {
+  heading: "Complaints Procedure",
+  intro:
+    "CoBanq Ltd is committed to resolving customer complaints fairly and promptly, in line with our obligations as an FCA-regulated firm under the Payment Services Regulations 2017.",
+  steps: [
+    {
+      title: "1. Contact us",
+      description:
+        "Email support@cobanq.com with details of your complaint. We aim to acknowledge all complaints promptly.",
+    },
+    {
+      title: "2. We investigate",
+      description:
+        "Our team will review your complaint and aim to provide a final response as soon as possible, and within the timeframes required by FCA rules.",
+    },
+    {
+      title: "3. Financial Ombudsman Service",
+      description:
+        "If you're not satisfied with our response, you may be entitled to refer your complaint to the Financial Ombudsman Service, free of charge.",
+    },
+  ],
+  placeholderNote:
+    "This is placeholder complaints-procedure copy for the redesign — replace with your reviewed, compliant text before launch.",
+};
+
+// -------------------- Legal pages (Terms / Privacy / Cookies) --------------------
+// Placeholder legal text — this is NOT real legal copy. Replace every
+// section with text reviewed by your legal/compliance team before launch.
+
+export const legalPages = {
+  terms: {
+    heading: "Terms of Service",
+    updated: "Last updated: placeholder — add real date on publish",
+    sections: [
+      {
+        title: "1. Introduction",
+        body: "These Terms of Service govern your use of CoBanq's website and services. This is placeholder text for the redesign — replace with your reviewed legal terms before launch.",
+      },
+      {
+        title: "2. Using our services",
+        body: "Placeholder section describing eligibility, account registration, and acceptable use.",
+      },
+      {
+        title: "3. Fees and payments",
+        body: "Placeholder section describing how fees are calculated and disclosed before a transfer is confirmed.",
+      },
+      {
+        title: "4. Liability and disclaimers",
+        body: "Placeholder section — to be drafted with your legal team.",
+      },
+    ],
+  },
+  privacy: {
+    heading: "Privacy Policy",
+    updated: "Last updated: placeholder — add real date on publish",
+    sections: [
+      {
+        title: "1. Information we collect",
+        body: "Placeholder section describing the categories of personal data CoBanq collects (e.g. identity, contact, and transaction data for regulatory verification).",
+      },
+      {
+        title: "2. How we use your information",
+        body: "Placeholder section describing use for service delivery, fraud prevention, and compliance with AML/KYC obligations.",
+      },
+      {
+        title: "3. Your rights",
+        body: "Placeholder section describing data subject rights under UK GDPR.",
+      },
+      {
+        title: "4. Contact",
+        body: "For data protection inquiries, contact support@cobanq.com.",
+      },
+    ],
+  },
+  cookies: {
+    heading: "Cookie Policy",
+    updated: "Last updated: placeholder — add real date on publish",
+    sections: [
+      {
+        title: "1. What are cookies",
+        body: "Placeholder section explaining cookies and similar technologies used on this site.",
+      },
+      {
+        title: "2. How we use cookies",
+        body: "Placeholder section describing essential, analytics, and preference cookies.",
+      },
+      {
+        title: "3. Managing cookies",
+        body: "Placeholder section describing how visitors can manage or disable cookies in their browser.",
+      },
+    ],
+  },
 };

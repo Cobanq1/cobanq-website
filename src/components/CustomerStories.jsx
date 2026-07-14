@@ -44,7 +44,7 @@ export default function CustomerStories() {
               <div
                 key={story.name}
                 ref={(el) => (slideRefs.current[i] = el)}
-                className={`w-[85vw] max-w-[420px] shrink-0 overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-300 ${
+                className={`w-[88vw] max-w-[480px] shrink-0 overflow-hidden rounded-3xl border bg-white shadow-sm transition-all duration-300 ${
                   active === i ? "border-brand-500 opacity-100" : "border-navy-950/10 opacity-40"
                 }`}
               >
@@ -59,13 +59,23 @@ export default function CustomerStories() {
                       {story.country}
                     </p>
                   </div>
-                  <div className="flex items-center justify-center bg-gradient-to-br from-navy-900 to-navy-950 p-8">
-                    <div className="relative">
-                      <PersonAvatar seed={story.name} size={112} className="shadow-xl" />
-                      <div className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white ring-4 ring-navy-950">
-                        <Icon size={16} />
-                      </div>
-                    </div>
+                  <div className="relative flex flex-col items-center justify-center gap-3 overflow-hidden bg-gradient-to-br from-navy-900 to-navy-950 p-8">
+                    <div
+                      className="pointer-events-none absolute inset-0 opacity-70"
+                      style={{
+                        background:
+                          "radial-gradient(160px circle at 50% 40%, rgba(91,141,239,0.4), transparent 70%)",
+                      }}
+                    />
+                    <PersonAvatar
+                      seed={story.name}
+                      size={168}
+                      className="relative shadow-2xl ring-4 ring-white/10"
+                    />
+                    <span className="relative inline-flex items-center gap-1.5 rounded-full bg-white/10 px-3 py-1 text-xs font-semibold text-white/80">
+                      <Icon size={12} />
+                      {story.role}
+                    </span>
                   </div>
                 </div>
               </div>

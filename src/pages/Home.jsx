@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router-dom";
 import Hero from "../components/Hero";
 import TrustBar from "../components/TrustBar";
+import PlatformsMarquee from "../components/PlatformsMarquee";
 import UseCaseSlider from "../components/UseCaseSlider";
 import Stats from "../components/Stats";
 import Features from "../components/Features";
@@ -17,6 +18,7 @@ export default function Home() {
     <>
       <Hero onWatchDemo={openDemo} />
       <TrustBar />
+      <PlatformsMarquee />
       <UseCaseSlider />
       <Stats />
       <Features />

@@ -59,13 +59,17 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/40">
-            © {new Date().getFullYear()} {site.name}. All rights reserved.
+            © {footer.copyrightRange} {site.legalName}. All rights reserved.
           </p>
           <div className="flex gap-5">
-            {footer.legalLinks.map((label) => (
-              <a key={label} href="#" className="text-xs text-white/40 hover:text-white/70">
-                {label}
-              </a>
+            {footer.legalLinks.map((link) => (
+              <SmartLink
+                key={link.label}
+                to={link.to}
+                className="text-xs text-white/40 hover:text-white/70"
+              >
+                {link.label}
+              </SmartLink>
             ))}
           </div>
         </div>
