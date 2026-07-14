@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Quote, Ship, Store, Users, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { successStories } from "../content";
+import PersonAvatar from "./PersonAvatar";
 
 const icons = { Ship, Store, Users, Laptop };
 
@@ -82,8 +83,11 @@ export default function CustomerStories() {
                     </p>
                   </div>
                   <div className="flex items-center justify-center bg-gradient-to-br from-navy-900 to-navy-950 p-8">
-                    <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/10">
-                      <Icon className="text-brand-400" size={34} />
+                    <div className="relative">
+                      <PersonAvatar seed={story.name} size={128} className="shadow-xl" />
+                      <div className="absolute -bottom-1 -right-1 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white ring-4 ring-navy-950">
+                        <Icon size={16} />
+                      </div>
                     </div>
                   </div>
                 </div>

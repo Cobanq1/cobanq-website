@@ -1,6 +1,7 @@
 import { useOutletContext } from "react-router-dom";
-import { TrendingUp, Landmark, Blocks, ArrowRight, CheckCircle2, Handshake } from "lucide-react";
+import { TrendingUp, Landmark, Blocks, ArrowRight, CheckCircle2, Link2 } from "lucide-react";
 import { business } from "../content";
+import PersonAvatar from "../components/PersonAvatar";
 
 const icons = { TrendingUp, Landmark, Blocks };
 
@@ -61,8 +62,12 @@ export default function Business() {
               style={{ background: "linear-gradient(135deg, #3b6fe0, #5b8def)" }}
             />
             <div className="relative flex h-full flex-col items-center justify-center gap-6 py-10 text-center">
-              <div className="flex h-20 w-20 items-center justify-center rounded-full bg-white/10">
-                <Handshake className="text-brand-400" size={36} />
+              <div className="flex items-center">
+                <PersonAvatar seed="CoBanq Partnerships Lead" size={72} className="ring-4 ring-navy-950" />
+                <div className="z-10 -mx-2 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white ring-4 ring-navy-950">
+                  <Link2 size={16} />
+                </div>
+                <PersonAvatar seed="Partner Institution Lead" size={72} className="ring-4 ring-navy-950" />
               </div>
               <p className="text-2xl font-bold text-white">30+ payout corridors</p>
               <p className="max-w-xs text-sm text-white/50">

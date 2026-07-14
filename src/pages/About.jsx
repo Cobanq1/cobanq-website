@@ -1,6 +1,8 @@
-import { Users } from "lucide-react";
 import { about, site } from "../content";
 import TrustStats from "../components/TrustStats";
+import PersonAvatar from "../components/PersonAvatar";
+
+const teamSeeds = ["CoBanq Compliance Lead", "CoBanq Legal Counsel", "CoBanq Regulatory Officer"];
 
 export default function About() {
   return (
@@ -28,10 +30,20 @@ export default function About() {
 
       <section className="border-t border-navy-950/5 bg-white py-20">
         <div className="mx-auto grid max-w-5xl gap-10 px-6 lg:grid-cols-[220px_1fr] lg:px-8">
-          <div className="flex h-56 items-center justify-center rounded-3xl bg-navy-950 lg:h-full">
-            <div className="flex h-16 w-16 items-center justify-center rounded-full bg-white/10">
-              <Users className="text-brand-400" size={28} />
+          <div className="flex h-56 flex-col items-center justify-center gap-4 rounded-3xl bg-navy-950 lg:h-full">
+            <div className="flex -space-x-4">
+              {teamSeeds.map((seed) => (
+                <PersonAvatar
+                  key={seed}
+                  seed={seed}
+                  size={56}
+                  className="ring-4 ring-navy-950"
+                />
+              ))}
             </div>
+            <p className="px-4 text-center text-xs font-semibold text-white/40">
+              Our compliance &amp; legal team
+            </p>
           </div>
 
           <div>

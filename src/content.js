@@ -16,6 +16,9 @@ export const site = {
   registeredAddress: "One Canada Square, 37th Floor, Canary Wharf, London, United Kingdom, E14 5AA",
   fcaNumber: "508565",
   companyNumber: "04995400",
+  // Live sign up / log in flow — every "Get started" CTA on the site sends
+  // people here instead of opening a local placeholder form.
+  onboardingUrl: "https://cobanq-preview.netlify.app/onboarding",
 };
 
 export const nav = {

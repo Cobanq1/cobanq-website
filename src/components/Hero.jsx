@@ -1,5 +1,5 @@
 import { ArrowRight, PlayCircle, ArrowUpRight, Globe2 } from "lucide-react";
-import { hero } from "../content";
+import { hero, site } from "../content";
 
 export default function Hero({ onWatchDemo }) {
   return (
@@ -29,7 +29,7 @@ export default function Hero({ onWatchDemo }) {
 
           <div className="mt-9 flex flex-wrap items-center gap-4">
             <a
-              href="#signup"
+              href={site.onboardingUrl}
               className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
             >
               {hero.primaryCta}

@@ -3,8 +3,8 @@ import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import GetStartedModal from "./GetStartedModal";
 import DemoModal from "./DemoModal";
+import { site } from "../content";
 
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
@@ -22,11 +22,13 @@ function ScrollToTop() {
 }
 
 export default function Layout() {
-  const [getStartedOpen, setGetStartedOpen] = useState(false);
   const [demoOpen, setDemoOpen] = useState(false);
 
   const context = {
-    openGetStarted: () => setGetStartedOpen(true),
+    // Sends people straight to the live sign up / log in flow.
+    openGetStarted: () => {
+      window.location.href = site.onboardingUrl;
+    },
     openDemo: () => setDemoOpen(true),
   };
 
@@ -39,7 +41,6 @@ export default function Layout() {
       </main>
       <Footer />
 
-      <GetStartedModal open={getStartedOpen} onClose={() => setGetStartedOpen(false)} />
       <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
     </div>
   );
