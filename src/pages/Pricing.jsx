@@ -155,7 +155,7 @@ export default function Pricing() {
         </div>
 
         <div className="mx-auto mt-10 max-w-6xl px-6 lg:px-8">
-          <p className="border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
+          <p className="whitespace-pre-line border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
             {pricing.footnote}
           </p>
         </div>

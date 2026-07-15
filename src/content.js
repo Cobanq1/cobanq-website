@@ -101,17 +101,21 @@ export const trustBar = {
 // here would imply a formal partnership CoBanq doesn't have; this is just
 // naming platforms freelancers/sellers commonly get paid from, in plain
 // text, the same way a payments site might say "works with PayPal."
+// Platform marks load from the Simple Icons CDN at the visitor's browser
+// (nominative use — naming where payouts come from, not claiming any
+// partnership). Daraz isn't on Simple Icons, so it stays text-only until
+// a mark is supplied.
 export const platformsMarquee = {
   caption: "Popular with freelancers and sellers who get paid from",
   platforms: [
-    "Upwork",
-    "Fiverr",
-    "Amazon",
-    "eBay",
-    "Daraz",
-    "Airbnb",
-    "Freelancer.com",
-    "Etsy",
+    { name: "Upwork", slug: "upwork" },
+    { name: "Fiverr", slug: "fiverr" },
+    { name: "Amazon", slug: "amazon" },
+    { name: "eBay", slug: "ebay" },
+    { name: "Daraz", slug: null },
+    { name: "Airbnb", slug: "airbnb" },
+    { name: "Freelancer.com", slug: "freelancer" },
+    { name: "Etsy", slug: "etsy" },
   ],
 };
 
@@ -735,17 +739,17 @@ export const pricing = {
     "Three plans built around how money actually moves through your business — from a single freelance invoice, to marketplace payouts, to full multi-currency operations.",
   ruler: {
     label: "Monthly volume processed",
-    start: "£0",
+    start: "$0",
     marks: [
-      { position: 33.3, label: "£40k — Freelancers → Sales" },
-      { position: 66.6, label: "£80k — Sellers → Sales" },
+      { position: 33.3, label: "$50k — Freelancer → Sales" },
+      { position: 66.6, label: "$100k — Ecommerce → Sales" },
     ],
-    end: "£120k+ — Business → Sales",
+    end: "$150k+ — Business → Sales",
   },
   plans: [
     {
-      tag: "Freelancers",
-      name: "Freelancers",
+      tag: "Freelancer",
+      name: "Freelancer",
       description: "Get paid by clients anywhere, in any currency, without losing the difference.",
       monthlyFee: "£9.99",
       monthlyFeeNote: "Flat monthly account fee",
@@ -757,8 +761,9 @@ export const pricing = {
             { label: "From another CoBanq balance", value: "Free" },
             { label: "Via a local-currency receiving account", value: "Free" },
             { label: "Via a non-local currency account", value: "1%" },
-            { label: "From a payer using a credit card", value: "3.5% + £0.25" },
-            { label: "From a payer using bank transfer (UK/EU)", value: "1%" },
+            { label: "From a payer using a credit card", value: "3.5% + $0.30" },
+            { label: "From a payer using ACH / UK / EU bank", value: "1%" },
+            { label: "From a payer using PayPal", value: "3.5% + $0.30" },
           ],
         },
         {
@@ -768,24 +773,26 @@ export const pricing = {
         {
           title: "Withdraw & transfer",
           rows: [
-            { label: "To a bank account, same country & currency", value: "Free" },
-            { label: "To a bank account, different currency", value: "2%" },
+            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+            { label: "To a bank account, different currency", value: "Free transfer*" },
           ],
         },
         {
           title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
         },
       ],
       salesCta: {
-        threshold: "Processing £40,000+ / month",
+        threshold: "Processing $50,000+ / month",
         description: "High-volume freelancers get custom rates. Let's talk.",
       },
     },
     {
-      tag: "eCommerce & Marketplace",
+      tag: "Ecommerce & Marketplace",
       name: "Sellers",
-      description: "One flat rate for payouts from Amazon, Etsy, Daraz, and every card network in between.",
+      description:
+        "One flat rate for payouts from Amazon, Etsy, Shopify, Walmart, Daraz, and every card network in between.",
       monthlyFee: "£14.99",
       monthlyFeeNote: "Flat monthly account fee",
       featured: false,
@@ -794,8 +801,8 @@ export const pricing = {
           title: "Receive payments",
           rows: [
             { label: "From another CoBanq balance", value: "Free" },
-            { label: "Payouts from marketplaces (Amazon, Etsy, eBay, Daraz)", value: "1%" },
-            { label: "From a payer using card or bank transfer", value: "1%" },
+            { label: "Payouts from marketplaces (Amazon, Etsy, Walmart, Daraz, etc.)", value: "1%" },
+            { label: "From a payer using card, ACH, or PayPal", value: "1%" },
           ],
         },
         {
@@ -805,24 +812,25 @@ export const pricing = {
         {
           title: "Withdraw & transfer",
           rows: [
-            { label: "To a bank account, same country & currency", value: "Free" },
-            { label: "To a bank account, different currency", value: "2%" },
+            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+            { label: "To a bank account, different currency", value: "Free transfer*" },
           ],
         },
         {
           title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
         },
       ],
       salesCta: {
-        threshold: "Processing £80,000+ / month",
+        threshold: "Processing $100,000+ / month",
         description: "Scaling sellers get custom rates and a dedicated account manager.",
       },
     },
     {
       tag: "Business",
       name: "Business",
-      description: "Multi-currency banking for companies moving money across borders, teams, and vendors.",
+      description: "Multi-currency banking for companies moving money across borders, teams and vendors.",
       monthlyFee: "£19.99",
       monthlyFeeNote: "Flat monthly account fee",
       featured: true,
@@ -831,7 +839,7 @@ export const pricing = {
           title: "Receive payments",
           rows: [
             { label: "From another CoBanq balance", value: "Free" },
-            { label: "From clients via card, bank transfer, or wire", value: "1%" },
+            { label: "From clients via card, ACH, or bank", value: "1%" },
           ],
         },
         {
@@ -844,27 +852,28 @@ export const pricing = {
         {
           title: "Withdraw & transfer",
           rows: [
-            { label: "To a bank account, same country & currency", value: "Free" },
-            { label: "To a bank account, different currency", value: "2%" },
+            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+            { label: "To a bank account, different currency", value: "Free transfer*" },
           ],
         },
         {
           title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
         },
       ],
       salesCta: {
-        threshold: "Processing £120,000+ / month",
+        threshold: "Processing $150,000+ / month",
         description: "Enterprise volume gets custom pricing built around your flows.",
       },
     },
   ],
   footnote:
-    "Fees shown are standard rates and may vary by sender/recipient location, payment method, and currency corridor. Percentage-based fees apply per transaction unless noted otherwise. This is placeholder pricing for the redesign — replace with your reviewed, final rates before launch. Businesses processing above their plan's monthly volume threshold should contact Sales for custom pricing.",
+    "Fees shown are standard rates and may vary by sender/recipient location, payment method, and currency corridor. Percentage-based fees apply per transaction unless noted otherwise. Businesses processing above their tier's monthly volume threshold should contact Sales for custom pricing.\n\n*No transfer fee on currency exchange or cross-currency withdrawals — a small margin is built into the exchange rate instead of a separate charge.",
   faq: [
     {
       q: "How are CoBanq's fees structured?",
-      a: "Each plan has a flat monthly account fee, plus small percentage-based fees on specific transaction types (like receiving from a card payer, or withdrawing to a different currency). The exact fee and rate are always shown before you confirm a transfer.",
+      a: "Each plan has a flat monthly account fee, plus small percentage-based fees on specific transaction types like receiving from a card or PayPal payer. Currency exchange and cross-currency withdrawals carry no separate transfer fee — a small margin is built into the exchange rate instead. The exact rate is always shown before you confirm a transfer.",
     },
     {
       q: "Are there any hidden charges?",
@@ -872,15 +881,15 @@ export const pricing = {
     },
     {
       q: "What withdrawal fees apply for bank transfers?",
-      a: "Withdrawing to a bank account in the same country and currency is free. Withdrawing to a different currency carries a 2% fee, shown upfront before you confirm.",
+      a: "Withdrawing to a UK bank account in GBP carries a small fixed fee (£0.005). Withdrawing to a bank account in the same country and currency outside the UK is free. Withdrawing to a different currency has no separate transfer fee — the cost is built into the exchange rate, shown upfront before you confirm.",
     },
     {
       q: "Do fees vary by currency or payment method?",
-      a: "Yes — card payments generally cost more to process than bank transfers, which is why receiving via card carries a higher fee than receiving via local bank transfer. Fees can also vary slightly by corridor.",
+      a: "Yes — card and PayPal payments generally cost more to process than bank transfers, which is why receiving via card or PayPal carries a higher fee than receiving via local bank transfer. Fees can also vary slightly by corridor.",
     },
     {
       q: "Which plan is right for me?",
-      a: "Freelancers is built for individuals invoicing clients directly. Sellers suits marketplace and eCommerce payouts (Amazon, Etsy, eBay, Daraz, and similar). Business is for companies running payroll, paying suppliers, or managing multi-currency operations.",
+      a: "Freelancer is built for individuals invoicing clients directly. Sellers suits marketplace and eCommerce payouts (Amazon, Etsy, Walmart, Daraz, and similar). Business is for companies running payroll, paying suppliers, or managing multi-currency operations.",
     },
     {
       q: "What happens if I process more than my plan's monthly volume?",

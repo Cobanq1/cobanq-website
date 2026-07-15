@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Quote, Ship, Store, Users, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { successStories } from "../content";
 import PersonAvatar from "./PersonAvatar";
@@ -8,17 +8,39 @@ const icons = { Ship, Store, Users, Laptop };
 
 export default function CustomerStories() {
   const slideRefs = useRef([]);
+  const trackRef = useRef(null);
   const [active, setActive] = useState(0);
+  const [paused, setPaused] = useState(false);
 
-  const goTo = (i) => {
-    const clamped = Math.max(0, Math.min(successStories.length - 1, i));
-    setActive(clamped);
-    slideRefs.current[clamped]?.scrollIntoView({
+  // Scroll the carousel track only — never the page. scrollIntoView would
+  // vertically drag the viewport to this section on every auto-advance.
+  const centerSlide = (i) => {
+    const track = trackRef.current;
+    const slide = slideRefs.current[i];
+    if (!track || !slide) return;
+    track.scrollTo({
+      left: slide.offsetLeft - (track.clientWidth - slide.clientWidth) / 2,
       behavior: "smooth",
-      inline: "center",
-      block: "nearest",
     });
   };
+
+  const goTo = (i) => {
+    const wrapped = (i + successStories.length) % successStories.length;
+    setActive(wrapped);
+    centerSlide(wrapped);
+  };
+
+  useEffect(() => {
+    if (paused) return;
+    const timer = setInterval(() => {
+      setActive((i) => {
+        const next = (i + 1) % successStories.length;
+        centerSlide(next);
+        return next;
+      });
+    }, 4500);
+    return () => clearInterval(timer);
+  }, [paused]);
 
   return (
     <section className="bg-gradient-to-b from-brand-50/40 to-white py-24">
@@ -37,8 +59,15 @@ export default function CustomerStories() {
         </p>
       </div>
 
-      <div className="relative mt-12">
-        <div className="flex justify-center gap-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+      <div
+        className="relative mt-12"
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+      >
+        <div
+          ref={trackRef}
+          className="flex justify-center gap-6 overflow-x-auto px-6 pb-4 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+        >
           {successStories.map((story, i) => {
             const Icon = icons[story.icon];
             return (
