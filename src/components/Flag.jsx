@@ -94,6 +94,63 @@ const flags = {
       <circle cx="15" cy="10" r="5.5" fill="#BC002D" />
     </svg>
   ),
+  de: (
+    <svg viewBox="0 0 30 20" className="h-full w-full">
+      <rect width="30" height="6.67" fill="#000" />
+      <rect y="6.67" width="30" height="6.67" fill="#DD0000" />
+      <rect y="13.33" width="30" height="6.67" fill="#FFCE00" />
+    </svg>
+  ),
+  fr: (
+    <svg viewBox="0 0 30 20" className="h-full w-full">
+      <rect width="10" height="20" fill="#0055A4" />
+      <rect x="10" width="10" height="20" fill="#fff" />
+      <rect x="20" width="10" height="20" fill="#EF4135" />
+    </svg>
+  ),
+  ca: (
+    <svg viewBox="0 0 30 20" className="h-full w-full">
+      <rect width="30" height="20" fill="#fff" />
+      <rect width="7.5" height="20" fill="#FF0000" />
+      <rect x="22.5" width="7.5" height="20" fill="#FF0000" />
+      <polygon
+        points="15,4.5 16.2,7.5 19,6.7 17.5,9.3 20,10.3 17.2,11 18,14 15,12.3 12,14 12.8,11 10,10.3 12.5,9.3 11,6.7 13.8,7.5"
+        fill="#FF0000"
+      />
+    </svg>
+  ),
+  au: (
+    <svg viewBox="0 0 30 20" className="h-full w-full">
+      <rect width="30" height="20" fill="#00247D" />
+      <g transform="scale(0.5)">
+        <rect width="30" height="20" fill="#00247D" />
+        <polygon points="0,0 30,20 30,15 7.5,0" fill="#fff" />
+        <polygon points="30,0 0,20 0,15 22.5,0" fill="#fff" />
+        <polygon points="0,0 30,20 30,17.5 5,0" fill="#CF142B" />
+        <polygon points="30,0 0,20 0,17.5 25,0" fill="#CF142B" />
+        <rect x="12" width="6" height="20" fill="#fff" />
+        <rect y="7" width="30" height="6" fill="#fff" />
+        <rect x="13.2" width="3.6" height="20" fill="#CF142B" />
+        <rect y="8.2" width="30" height="3.6" fill="#CF142B" />
+      </g>
+      {[
+        [21, 5],
+        [24, 10],
+        [22, 15],
+        [26, 3],
+        [17, 15],
+      ].map(([cx, cy], i) => (
+        <circle key={i} cx={cx} cy={cy} r="0.6" fill="#fff" />
+      ))}
+    </svg>
+  ),
+  ch: (
+    <svg viewBox="0 0 30 20" className="h-full w-full">
+      <rect width="30" height="20" fill="#FF0000" />
+      <rect x="12.5" y="6" width="5" height="8" fill="#fff" />
+      <rect x="9.5" y="9" width="11" height="2" fill="#fff" />
+    </svg>
+  ),
 };
 
 export default function Flag({ code, className = "h-6 w-8" }) {

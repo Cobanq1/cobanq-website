@@ -5,6 +5,7 @@ import PlatformsMarquee from "../components/PlatformsMarquee";
 import UseCaseSlider from "../components/UseCaseSlider";
 import Stats from "../components/Stats";
 import Features from "../components/Features";
+import DashboardPreview from "../components/DashboardPreview";
 import AudienceTabs from "../components/AudienceTabs";
 import HowItWorks from "../components/HowItWorks";
 import CountryCarousel from "../components/CountryCarousel";
@@ -22,6 +23,7 @@ export default function Home() {
       <UseCaseSlider />
       <Stats />
       <Features />
+      <DashboardPreview />
       <AudienceTabs />
       <HowItWorks />
       <CountryCarousel />

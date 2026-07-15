@@ -66,6 +66,7 @@ export const nav = {
       ],
     },
     { label: "Business", to: "/business" },
+    { label: "Pricing", to: "/pricing" },
     { label: "About Us", to: "/about" },
     { label: "FAQ", to: "/faq" },
     { label: "Contact", to: "/contact" },
@@ -127,6 +128,15 @@ export const liveActivity = [
   { name: "David K.", countryCode: "ae", amount: "+AED 3,200", direction: "received" },
   { name: "Maria S.", countryCode: "us", amount: "+$1,200.00", direction: "received" },
   { name: "Yusuf B.", countryCode: "bd", amount: "-৳12,400", direction: "sent" },
+  // Major currencies
+  { name: "Sofia M.", countryCode: "de", amount: "+€2,150.00", direction: "received" },
+  { name: "Émile D.", countryCode: "fr", amount: "-€430.00", direction: "sent" },
+  { name: "Kenji T.", countryCode: "jp", amount: "+¥85,000", direction: "received" },
+  { name: "Liam O.", countryCode: "ca", amount: "-CA$320.00", direction: "sent" },
+  { name: "Chloe W.", countryCode: "au", amount: "+AU$1,050.00", direction: "received" },
+  { name: "Elena R.", countryCode: "ch", amount: "-CHF 210.00", direction: "sent" },
+  { name: "Daniel B.", countryCode: "us", amount: "-$640.00", direction: "sent" },
+  { name: "Hannah P.", countryCode: "gb", amount: "+£920.00", direction: "received" },
 ];
 
 export const stats = [
@@ -135,6 +145,36 @@ export const stats = [
   { value: "FCA", label: "Regulated, No. 508565" },
   { value: "24/7", label: "Account tracking & support" },
 ];
+
+// A mocked-up screenshot of the account dashboard for the homepage.
+// Every name, address, account number, and figure below is invented —
+// none of it is a real customer's data.
+export const dashboardPreview = {
+  heading: "See your CoBanq dashboard",
+  subhead: "One place to track balances, send payments, and manage your account.",
+  disclaimer: "Demo dashboard — illustrative account and figures, not a real customer's data.",
+  userName: "Jordan Lee",
+  navItems: ["Dashboard", "Payments", "Beneficiaries", "Foreign Exchange", "Transactions"],
+  balances: [
+    { code: "USD", countryCode: "us", amount: "$12,480.50" },
+    { code: "GBP", countryCode: "gb", amount: "£9,240.00" },
+    { code: "EUR", countryCode: "eu", amount: "€3,150.75" },
+  ],
+  account: {
+    name: "Vertex Trading Ltd",
+    address: "42 Market Street, London, United Kingdom, EC1A 1BB",
+    accountNo: "10293847",
+    sortCode: "04-00-72",
+    swift: "COBAGB2L",
+    iban: "GB29 COBA 0400 7212 3456 78",
+  },
+  payments: [
+    { name: "Northwind Supplies", ref: "TXN-48213-AB", countryCode: "us", amount: "$4,250.00", status: "Completed" },
+    { name: "Ferro Trade Ltd", ref: "TXN-48198-QW", countryCode: "gb", amount: "£1,120.00", status: "Completed" },
+    { name: "Marlin & Co", ref: "TXN-48177-ZX", countryCode: "de", amount: "€2,480.00", status: "Approved" },
+    { name: "Lumen Works", ref: "TXN-48150-LK", countryCode: "us", amount: "$980.00", status: "Completed" },
+  ],
+};
 
 export const features = {
   heading: "Everything you need to move money globally",
@@ -629,6 +669,173 @@ export const calculator = {
     { code: "JPY", name: "Japanese Yen", rateToGbp: 188.3 },
   ],
   feePercent: 0.5,
+};
+
+// -------------------- Pricing page --------------------
+
+export const pricing = {
+  eyebrow: "CoBanq / Pricing",
+  heading: "Simple fees that scale with how you get paid.",
+  subhead:
+    "Three plans built around how money actually moves through your business — from a single freelance invoice, to marketplace payouts, to full multi-currency operations.",
+  ruler: {
+    label: "Monthly volume processed",
+    start: "£0",
+    marks: [
+      { position: 33.3, label: "£40k — Freelancers → Sales" },
+      { position: 66.6, label: "£80k — Sellers → Sales" },
+    ],
+    end: "£120k+ — Business → Sales",
+  },
+  plans: [
+    {
+      tag: "Freelancers",
+      name: "Freelancers",
+      description: "Get paid by clients anywhere, in any currency, without losing the difference.",
+      monthlyFee: "£9.99",
+      monthlyFeeNote: "Flat monthly account fee",
+      featured: false,
+      sections: [
+        {
+          title: "Receive payments",
+          rows: [
+            { label: "From another CoBanq balance", value: "Free" },
+            { label: "Via a local-currency receiving account", value: "Free" },
+            { label: "Via a non-local currency account", value: "1%" },
+            { label: "From a payer using a credit card", value: "3.5% + £0.25" },
+            { label: "From a payer using bank transfer (UK/EU)", value: "1%" },
+          ],
+        },
+        {
+          title: "Send payments",
+          rows: [{ label: "To another CoBanq account, same country", value: "Free" }],
+        },
+        {
+          title: "Withdraw & transfer",
+          rows: [
+            { label: "To a bank account, same country & currency", value: "Free" },
+            { label: "To a bank account, different currency", value: "2%" },
+          ],
+        },
+        {
+          title: "Currency exchange",
+          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+        },
+      ],
+      salesCta: {
+        threshold: "Processing £40,000+ / month",
+        description: "High-volume freelancers get custom rates. Let's talk.",
+      },
+    },
+    {
+      tag: "eCommerce & Marketplace",
+      name: "Sellers",
+      description: "One flat rate for payouts from Amazon, Etsy, Daraz, and every card network in between.",
+      monthlyFee: "£14.99",
+      monthlyFeeNote: "Flat monthly account fee",
+      featured: false,
+      sections: [
+        {
+          title: "Receive payments",
+          rows: [
+            { label: "From another CoBanq balance", value: "Free" },
+            { label: "Payouts from marketplaces (Amazon, Etsy, eBay, Daraz)", value: "1%" },
+            { label: "From a payer using card or bank transfer", value: "1%" },
+          ],
+        },
+        {
+          title: "Send payments",
+          rows: [{ label: "To another CoBanq account, same country", value: "Free" }],
+        },
+        {
+          title: "Withdraw & transfer",
+          rows: [
+            { label: "To a bank account, same country & currency", value: "Free" },
+            { label: "To a bank account, different currency", value: "2%" },
+          ],
+        },
+        {
+          title: "Currency exchange",
+          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+        },
+      ],
+      salesCta: {
+        threshold: "Processing £80,000+ / month",
+        description: "Scaling sellers get custom rates and a dedicated account manager.",
+      },
+    },
+    {
+      tag: "Business",
+      name: "Business",
+      description: "Multi-currency banking for companies moving money across borders, teams, and vendors.",
+      monthlyFee: "£19.99",
+      monthlyFeeNote: "Flat monthly account fee",
+      featured: true,
+      sections: [
+        {
+          title: "Receive payments",
+          rows: [
+            { label: "From another CoBanq balance", value: "Free" },
+            { label: "From clients via card, bank transfer, or wire", value: "1%" },
+          ],
+        },
+        {
+          title: "Send payments",
+          rows: [
+            { label: "To another CoBanq account, same country", value: "Free" },
+            { label: "Payroll batch payouts", value: "0.5%" },
+          ],
+        },
+        {
+          title: "Withdraw & transfer",
+          rows: [
+            { label: "To a bank account, same country & currency", value: "Free" },
+            { label: "To a bank account, different currency", value: "2%" },
+          ],
+        },
+        {
+          title: "Currency exchange",
+          rows: [{ label: "Move funds between your CoBanq balances", value: "0.5%" }],
+        },
+      ],
+      salesCta: {
+        threshold: "Processing £120,000+ / month",
+        description: "Enterprise volume gets custom pricing built around your flows.",
+      },
+    },
+  ],
+  footnote:
+    "Fees shown are standard rates and may vary by sender/recipient location, payment method, and currency corridor. Percentage-based fees apply per transaction unless noted otherwise. This is placeholder pricing for the redesign — replace with your reviewed, final rates before launch. Businesses processing above their plan's monthly volume threshold should contact Sales for custom pricing.",
+  faq: [
+    {
+      q: "How are CoBanq's fees structured?",
+      a: "Each plan has a flat monthly account fee, plus small percentage-based fees on specific transaction types (like receiving from a card payer, or withdrawing to a different currency). The exact fee and rate are always shown before you confirm a transfer.",
+    },
+    {
+      q: "Are there any hidden charges?",
+      a: "No. Every fee is listed on this page by category — receiving, sending, withdrawing, and currency exchange. If a transaction type isn't listed, it's free.",
+    },
+    {
+      q: "What withdrawal fees apply for bank transfers?",
+      a: "Withdrawing to a bank account in the same country and currency is free. Withdrawing to a different currency carries a 2% fee, shown upfront before you confirm.",
+    },
+    {
+      q: "Do fees vary by currency or payment method?",
+      a: "Yes — card payments generally cost more to process than bank transfers, which is why receiving via card carries a higher fee than receiving via local bank transfer. Fees can also vary slightly by corridor.",
+    },
+    {
+      q: "Which plan is right for me?",
+      a: "Freelancers is built for individuals invoicing clients directly. Sellers suits marketplace and eCommerce payouts (Amazon, Etsy, eBay, Daraz, and similar). Business is for companies running payroll, paying suppliers, or managing multi-currency operations.",
+    },
+    {
+      q: "What happens if I process more than my plan's monthly volume?",
+      a: "Once you're consistently processing above your plan's threshold, our business team can offer custom rates built around your actual volume — reach out via the \"Talk to Sales\" button on your plan.",
+    },
+    {
+      q: "Is CoBanq regulated?",
+      a: "Yes — CoBanq Ltd is authorized and regulated by the Financial Conduct Authority (FCA) under the Payment Services Regulations 2017, registration no. 508565. CoBanq is not a bank.",
+    },
+  ],
 };
 
 // -------------------- Send Money page --------------------

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { ArrowDownRight, ArrowUpRight } from "lucide-react";
 import { liveActivity } from "../content";
 import Flag from "./Flag";
@@ -24,32 +24,66 @@ const slots = [
   { top: "86%", left: "88%" },
 ];
 
+const COOLDOWN_MS = 60000;
+
 function randomBetween(min, max) {
   return min + Math.random() * (max - min);
 }
 
-function FloatingBadge({ style, delayOffset }) {
+// Shared across every badge so no two slots show the same person/amount
+// at once, and — as long as the pool has enough untapped entries — the
+// same one won't reappear within a minute of last being shown.
+function pickItem({ recentlyUsed, currentlyVisible, lastOwnIndex }) {
+  const now = Date.now();
+  const notVisible = liveActivity
+    .map((_, i) => i)
+    .filter((i) => !currentlyVisible.current.has(i));
+
+  const fresh = notVisible.filter(
+    (i) => !recentlyUsed.current.has(i) || now - recentlyUsed.current.get(i) > COOLDOWN_MS
+  );
+
+  let pool = fresh.length > 0 ? fresh : notVisible;
+  if (pool.length > 1) pool = pool.filter((i) => i !== lastOwnIndex);
+  if (pool.length === 0) pool = liveActivity.map((_, i) => i);
+
+  const chosen = pool[Math.floor(Math.random() * pool.length)];
+  recentlyUsed.current.set(chosen, now);
+  return chosen;
+}
+
+function FloatingBadge({ style, delayOffset, recentlyUsed, currentlyVisible }) {
   const [visible, setVisible] = useState(false);
-  const [item, setItem] = useState(() => liveActivity[Math.floor(Math.random() * liveActivity.length)]);
+  const [itemIndex, setItemIndex] = useState(null);
+  const lastOwnIndex = useRef(null);
 
   useEffect(() => {
     let timer;
     if (!visible) {
       timer = setTimeout(
         () => {
-          setItem(liveActivity[Math.floor(Math.random() * liveActivity.length)]);
+          const chosen = pickItem({ recentlyUsed, currentlyVisible, lastOwnIndex: lastOwnIndex.current });
+          lastOwnIndex.current = chosen;
+          currentlyVisible.current.add(chosen);
+          setItemIndex(chosen);
           setVisible(true);
         },
-        delayOffset + randomBetween(1500, 5000)
+        delayOffset + randomBetween(3000, 7000)
       );
     } else {
-      timer = setTimeout(() => setVisible(false), randomBetween(2200, 3200));
+      timer = setTimeout(() => {
+        if (itemIndex !== null) currentlyVisible.current.delete(itemIndex);
+        setVisible(false);
+      }, randomBetween(2500, 3500));
     }
     return () => clearTimeout(timer);
     // delayOffset only matters for the very first cycle
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [visible]);
 
+  if (itemIndex === null) return null;
+
+  const item = liveActivity[itemIndex];
   const isReceived = item.direction === "received";
   const Icon = isReceived ? ArrowDownRight : ArrowUpRight;
 
@@ -74,10 +108,19 @@ function FloatingBadge({ style, delayOffset }) {
 }
 
 export default function FloatingActivity() {
+  const recentlyUsed = useRef(new Map());
+  const currentlyVisible = useRef(new Set());
+
   return (
     <div className="pointer-events-none absolute inset-0 z-10 overflow-hidden">
       {slots.map((slot, i) => (
-        <FloatingBadge key={i} style={slot} delayOffset={i * 700} />
+        <FloatingBadge
+          key={i}
+          style={slot}
+          delayOffset={i * 700}
+          recentlyUsed={recentlyUsed}
+          currentlyVisible={currentlyVisible}
+        />
       ))}
     </div>
   );
