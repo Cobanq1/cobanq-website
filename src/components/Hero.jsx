@@ -1,7 +1,8 @@
-import { ArrowRight, PlayCircle, ArrowUpRight, Globe2 } from "lucide-react";
-import { hero, site } from "../content";
+import { ArrowRight, PlayCircle, ArrowUpRight, Globe2, Bell } from "lucide-react";
+import { hero, site, dashboardPreview } from "../content";
 import AvatarStack from "./AvatarStack";
 import FloatingActivity from "./FloatingActivity";
+import Flag from "./Flag";
 
 export default function Hero({ onWatchDemo }) {
   return (
@@ -59,39 +60,57 @@ export default function Hero({ onWatchDemo }) {
         </div>
 
         <div className="relative mx-auto w-full max-w-md lg:justify-self-end">
-          <div className="relative rounded-3xl border border-white/10 bg-white/5 p-6 shadow-2xl backdrop-blur">
-            <div className="rounded-2xl bg-gradient-to-br from-navy-700 via-navy-800 to-navy-950 p-6 text-white shadow-xl">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold uppercase tracking-widest text-white/50">
-                  Available balance
-                </span>
-                <span className="flex h-7 w-7 items-center justify-center rounded-full bg-brand-500 text-xs font-bold">
-                  C
-                </span>
+          <div className="relative overflow-hidden rounded-3xl border border-white/10 bg-white/5 shadow-2xl backdrop-blur">
+            <div className="flex items-center justify-between border-b border-white/10 bg-white/5 px-5 py-3">
+              <div className="flex items-center gap-1.5">
+                <span className="h-2 w-2 rounded-full bg-red-400/70" />
+                <span className="h-2 w-2 rounded-full bg-amber-400/70" />
+                <span className="h-2 w-2 rounded-full bg-emerald-400/70" />
               </div>
-              <p className="mt-4 text-3xl font-bold tracking-tight">$48,210.55</p>
-              <p className="mt-1 text-xs text-white/40">USD • Multi-currency account</p>
-              <div className="mt-6 flex gap-2 text-[10px] font-mono tracking-widest text-white/40">
-                <span>4291</span>
-                <span>••••</span>
-                <span>••••</span>
-                <span>0071</span>
-              </div>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-white/40">
+                Your dashboard
+              </span>
+              <Bell size={13} className="text-white/30" />
             </div>
 
-            <div className="mt-4 space-y-3">
-              {[
-                { name: "Client payment — Berlin", amount: "+€2,450.00" },
-                { name: "Payout to bank", amount: "-$1,200.00" },
-              ].map((row) => (
-                <div
-                  key={row.name}
-                  className="flex items-center justify-between rounded-xl bg-white/5 px-4 py-3 text-sm text-white/80"
-                >
-                  <span>{row.name}</span>
-                  <span className="font-semibold text-white">{row.amount}</span>
-                </div>
-              ))}
+            <div className="p-5">
+              <p className="text-sm font-bold text-white">
+                Welcome back, {dashboardPreview.userName}!
+              </p>
+
+              <div className="mt-4 grid grid-cols-2 gap-2.5">
+                {dashboardPreview.balances.slice(0, 2).map((b, i) => (
+                  <div
+                    key={b.code}
+                    className={`rounded-xl p-3 ${
+                      i === 0
+                        ? "bg-gradient-to-br from-navy-700 via-navy-800 to-navy-950"
+                        : "bg-white/5"
+                    }`}
+                  >
+                    <div className="flex items-center gap-1.5">
+                      <Flag code={b.countryCode} className="h-3 w-5 rounded-sm" />
+                      <span className="text-[10px] font-semibold text-white/50">{b.code}</span>
+                    </div>
+                    <p className="mt-1.5 text-base font-bold text-white">{b.amount}</p>
+                  </div>
+                ))}
+              </div>
+
+              <div className="mt-3 space-y-2">
+                {dashboardPreview.payments.slice(0, 2).map((p) => (
+                  <div
+                    key={p.ref}
+                    className="flex items-center justify-between gap-2 rounded-xl bg-white/5 px-3.5 py-2.5"
+                  >
+                    <span className="flex items-center gap-2 truncate text-xs text-white/80">
+                      <Flag code={p.countryCode} className="h-3 w-5 shrink-0 rounded-sm" />
+                      <span className="truncate">{p.name}</span>
+                    </span>
+                    <span className="shrink-0 text-xs font-semibold text-white">{p.amount}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
