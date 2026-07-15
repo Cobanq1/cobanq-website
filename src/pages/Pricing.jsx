@@ -26,7 +26,8 @@ function VolumeRuler() {
           >
             <div className="mx-auto h-3.5 w-0.5 bg-navy-950/30" />
             <p className="mt-2 whitespace-nowrap text-[11px] font-medium text-navy-950/50">
-              {mark.label}
+              <span className="sm:hidden">{mark.short}</span>
+              <span className="hidden sm:inline">{mark.label}</span>
             </p>
           </div>
         ))}
@@ -34,7 +35,8 @@ function VolumeRuler() {
           {ruler.start}
         </p>
         <p className="absolute right-0 top-6 text-right text-[11px] font-medium text-navy-950/40">
-          {ruler.end}
+          <span className="sm:hidden">{ruler.endShort}</span>
+          <span className="hidden sm:inline">{ruler.end}</span>
         </p>
       </div>
     </div>

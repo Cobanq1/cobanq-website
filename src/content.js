@@ -741,10 +741,11 @@ export const pricing = {
     label: "Monthly volume processed",
     start: "$0",
     marks: [
-      { position: 33.3, label: "$50k — Freelancer → Sales" },
-      { position: 66.6, label: "$100k — Ecommerce → Sales" },
+      { position: 33.3, label: "$50k — Freelancer → Sales", short: "$50k" },
+      { position: 66.6, label: "$100k — Ecommerce → Sales", short: "$100k" },
     ],
     end: "$150k+ — Business → Sales",
+    endShort: "$150k+",
   },
   plans: [
     {

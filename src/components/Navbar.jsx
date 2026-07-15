@@ -99,7 +99,7 @@ export default function Navbar({ onGetStarted }) {
           <span className="hidden text-xs italic text-navy-950/40 sm:inline">{site.since}</span>
         </Link>
 
-        <nav className="hidden items-center gap-7 md:flex">
+        <nav className="hidden items-center gap-7 lg:flex">
           {nav.links.map((link) =>
             link.dropdown ? (
               <SolutionsDropdown
@@ -124,7 +124,7 @@ export default function Navbar({ onGetStarted }) {
           )}
         </nav>
 
-        <div className="hidden items-center gap-3 md:flex">
+        <div className="hidden items-center gap-3 lg:flex">
           <a
             href={site.onboardingUrl}
             className="text-sm font-semibold text-navy-800/80 hover:text-navy-950"
@@ -143,7 +143,7 @@ export default function Navbar({ onGetStarted }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="text-navy-950 md:hidden"
+          className="text-navy-950 lg:hidden"
           aria-label="Toggle menu"
         >
           {open ? <X size={26} /> : <Menu size={26} />}
@@ -151,7 +151,7 @@ export default function Navbar({ onGetStarted }) {
       </div>
 
       {open && (
-        <div className="border-t border-navy-900/10 bg-white px-6 py-4 md:hidden">
+        <div className="border-t border-navy-900/10 bg-white px-6 py-4 lg:hidden">
           <nav className="flex flex-col gap-4">
             {nav.links.map((link) =>
               link.dropdown ? (
