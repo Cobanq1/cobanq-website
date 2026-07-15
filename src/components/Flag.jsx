@@ -83,9 +83,22 @@ const flags = {
     <svg viewBox="0 0 30 20" className="h-full w-full">
       <rect width="30" height="20" fill="#fff" />
       {Array.from({ length: 7 }).map((_, i) => (
-        <rect key={i} y={(i * 20) / 13} width="30" height={20 / 13} fill="#B22234" />
+        <rect key={i} y={(i * 2 * 20) / 13} width="30" height={20 / 13} fill="#B22234" />
       ))}
-      <rect width="13" height="10.8" fill="#3C3B6E" />
+      <rect width="13" height={(7 * 20) / 13} fill="#3C3B6E" />
+      {Array.from({ length: 12 }).map((_, i) => {
+        const col = i % 4;
+        const row = Math.floor(i / 4);
+        return (
+          <circle
+            key={i}
+            cx={2 + col * 3}
+            cy={1.8 + row * 3.2}
+            r="0.5"
+            fill="#fff"
+          />
+        );
+      })}
     </svg>
   ),
   jp: (

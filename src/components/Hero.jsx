@@ -100,7 +100,7 @@ export default function Hero({ onWatchDemo }) {
               <div className="mt-3 space-y-2">
                 {dashboardPreview.payments.slice(0, 2).map((p) => (
                   <div
-                    key={p.ref}
+                    key={p.name}
                     className="flex items-center justify-between gap-2 rounded-xl bg-white/5 px-3.5 py-2.5"
                   >
                     <span className="flex items-center gap-2 truncate text-xs text-white/80">

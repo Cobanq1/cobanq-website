@@ -1,6 +1,7 @@
-import { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2 } from "lucide-react";
+import { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2, ChevronDown } from "lucide-react";
 import { features } from "../content";
 import PersonAvatar from "./PersonAvatar";
+import Flag from "./Flag";
 
 const icons = { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2 };
 
@@ -33,7 +34,15 @@ export default function Features() {
               className="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full opacity-70 blur-3xl"
               style={{ background: "linear-gradient(135deg, #3b6fe0, #5b8def)" }}
             />
-            <div className="relative flex h-full flex-col sm:flex-row sm:items-start sm:justify-between sm:gap-6">
+            <div
+              className="pointer-events-none absolute inset-0 opacity-[0.15]"
+              style={{
+                backgroundImage:
+                  "radial-gradient(circle, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                backgroundSize: "22px 22px",
+              }}
+            />
+            <div className="relative flex h-full flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-8">
               <div className="flex h-full flex-col">
                 <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 text-white">
                   <HeroIcon size={26} />
@@ -55,11 +64,52 @@ export default function Features() {
                 </div>
               </div>
 
-              <div className="relative mt-8 flex shrink-0 items-center gap-3 self-start rounded-2xl bg-white/5 px-5 py-4 sm:mt-0">
-                <PersonAvatar seed={personSeeds[hero.title]} size={56} />
-                <div>
-                  <p className="text-sm font-bold text-white">Meet Priya</p>
-                  <p className="text-xs text-white/50">Uses her wallet daily</p>
+              <div className="relative mx-auto mt-10 w-full max-w-[280px] shrink-0 lg:mx-0 lg:mt-0">
+                <div className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-navy-800 to-navy-950 p-5 shadow-2xl">
+                  <div className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg">
+                    <Flag code="eu" className="h-3.5 w-5 rounded-sm" />
+                    EUR
+                  </div>
+
+                  <p className="text-sm font-bold text-white">Set currency</p>
+
+                  <div className="mt-4 flex items-center justify-between border-b border-white/10 pb-3 text-xs">
+                    <span className="text-white/40">Date</span>
+                    <span className="font-semibold text-white/80">04/07</span>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between text-xs">
+                    <span className="text-white/40">Invoice</span>
+                    <span className="font-semibold text-white/80">42481-317189</span>
+                  </div>
+
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {[
+                      { code: "gb", label: "GBP" },
+                      { code: "eu", label: "EUR" },
+                      { code: "us", label: "USD" },
+                    ].map((c) => (
+                      <span
+                        key={c.code}
+                        className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/80"
+                      >
+                        <Flag code={c.code} className="h-3 w-4 rounded-sm" />
+                        {c.label}
+                      </span>
+                    ))}
+                  </div>
+
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    className="mt-5 w-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600 py-2.5 text-xs font-bold text-white shadow-lg shadow-brand-600/30"
+                  >
+                    Confirm
+                  </button>
+                </div>
+
+                <div className="absolute -bottom-4 -left-4 flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-[11px] font-semibold text-navy-950 shadow-xl">
+                  <PersonAvatar seed={personSeeds[hero.title]} size={22} />
+                  Priya sent €420
                 </div>
               </div>
             </div>
