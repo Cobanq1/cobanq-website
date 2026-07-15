@@ -1,6 +1,7 @@
 import { ArrowRight, PlayCircle, ArrowUpRight, Globe2 } from "lucide-react";
 import { hero, site } from "../content";
 import AvatarStack from "./AvatarStack";
+import FloatingActivity from "./FloatingActivity";
 
 export default function Hero({ onWatchDemo }) {
   return (
@@ -12,6 +13,8 @@ export default function Hero({ onWatchDemo }) {
             "radial-gradient(600px circle at 15% 20%, rgba(91,141,239,0.3), transparent 60%), radial-gradient(500px circle at 85% 80%, rgba(36,56,122,0.6), transparent 60%)",
         }}
       />
+
+      <FloatingActivity />
 
       <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 py-20 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-28">
         <div>
