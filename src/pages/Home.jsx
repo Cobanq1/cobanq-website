@@ -10,6 +10,7 @@ import HowItWorks from "../components/HowItWorks";
 import CountryCarousel from "../components/CountryCarousel";
 import CustomerStories from "../components/CustomerStories";
 import CTA from "../components/CTA";
+import LiveActivityPopup from "../components/LiveActivityPopup";
 
 export default function Home() {
   const { openGetStarted, openDemo } = useOutletContext();
@@ -27,6 +28,7 @@ export default function Home() {
       <CountryCarousel />
       <CustomerStories />
       <CTA onGetStarted={openGetStarted} />
+      <LiveActivityPopup />
     </>
   );
 }

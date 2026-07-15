@@ -114,6 +114,21 @@ export const platformsMarquee = {
   ],
 };
 
+// Illustrative "live activity" popups shown briefly on the homepage —
+// there's no live backend behind this site, so these are a cycling demo
+// of the kind of activity the product implies, not real transaction
+// data. Each popup carries a small "Demo activity" tag for honesty.
+export const liveActivity = [
+  { name: "Amina Y.", countryCode: "ng", amount: "+₦210,000", direction: "received" },
+  { name: "Farhan I.", countryCode: "pk", amount: "-₨45,000", direction: "sent" },
+  { name: "Priya N.", countryCode: "in", amount: "+₹64,200", direction: "received" },
+  { name: "Carlos M.", countryCode: "ph", amount: "-₱18,500", direction: "sent" },
+  { name: "Grace O.", countryCode: "gb", amount: "-£78.00", direction: "sent" },
+  { name: "David K.", countryCode: "ae", amount: "+AED 3,200", direction: "received" },
+  { name: "Maria S.", countryCode: "us", amount: "+$1,200.00", direction: "received" },
+  { name: "Yusuf B.", countryCode: "bd", amount: "-৳12,400", direction: "sent" },
+];
+
 export const stats = [
   { value: "2003", label: "Founded in the UK" },
   { value: "30+", label: "Global payout corridors" },
