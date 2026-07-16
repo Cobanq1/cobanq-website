@@ -23,9 +23,6 @@ export default function Footer() {
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-white/50">
               {footer.description}
             </p>
-            <p className="mt-4 max-w-xs text-xs leading-relaxed text-white/35">
-              {footer.regulatoryNote}
-            </p>
             <div className="mt-5 flex gap-3">
               {socialLinks.map((label) => (
                 <a
@@ -57,7 +54,11 @@ export default function Footer() {
           ))}
         </div>
 
-        <div className="mt-14 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
+        <p className="mt-14 border-t border-white/10 pt-8 text-xs leading-relaxed text-white/35">
+          {footer.regulatoryNote}
+        </p>
+
+        <div className="mt-8 flex flex-col gap-4 border-t border-white/10 pt-8 sm:flex-row sm:items-center sm:justify-between">
           <p className="text-xs text-white/40">
             © {footer.copyrightRange} {site.legalName}. All rights reserved.
           </p>

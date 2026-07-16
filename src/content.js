@@ -1170,7 +1170,8 @@ export const countries = {
 export const footer = {
   description:
     "CoBanq is a modern financial platform designed to make international money transfers and payments seamless, secure, and affordable.",
-  regulatoryNote: "CoBanq is regulated by the Financial Conduct Authority (FCA) and holds an API license. CoBanq is not a bank.",
+  regulatoryNote:
+    "Cobanq Ltd is a company registered in England and Wales with company number 04995400 and ICO registration number Z3153690. Cobanq Ltd is authorised and regulated by the Financial Conduct Authority as an Authorised Payment Institution under the Payment Services Regulations 2017, with Firm Reference Number 508565. Cobanq is not a Bank.",
   columns: [
     {
       // Mirrors the navbar Solutions dropdown, plus the overview/tool pages.
