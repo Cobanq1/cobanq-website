@@ -79,7 +79,7 @@ export const hero = {
   eyebrow: "FCA-regulated, since 2003",
   headline: "Powering the flow of global capital",
   subhead:
-    "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home, and for businesses moving money across borders.",
+    "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home with Bhejo, and for businesses moving money across borders.",
   primaryCta: "Get started",
   secondaryCta: "See how it works",
   microcopy: "FCA regulated · Registration No. 508565 · CoBanq is not a bank.",
@@ -546,13 +546,14 @@ export const useCases = [
   },
   {
     id: "wallet",
-    tag: "Wallets",
+    tag: "Business",
     icon: "Wallet",
-    title: "Hold multiple currencies in one place",
-    description: "Collect and pay out in GBP, EUR, USD, JPY, AED, PKR, and more.",
+    title: "Business wallets for every currency you trade in",
+    description:
+      "Businesses collect and pay out in GBP, EUR, USD, JPY, AED, PKR, and more — from one wallet.",
     stat: { value: "6+", label: "Currencies supported" },
-    linkLabel: "Explore wallets",
-    linkTo: "/#features",
+    linkLabel: "Explore business wallets",
+    linkTo: "/wallets",
   },
   {
     id: "business",
@@ -582,17 +583,15 @@ export const audienceTabs = [
     id: "individuals",
     label: "For Individuals",
     icon: "Users",
-    headline: "Send money home, without the wait",
+    headline: "Send money home with Bhejo",
     description:
-      "Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and more — with the fee and rate shown before you confirm.",
+      "For individuals, CoBanq offers one thing done well: Bhejo, our personal remittance service. Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and more — with the fee and rate shown before you confirm.",
     bullets: [
       "Transfers processed within 24 hours",
       "Bank transfer, debit or credit card",
       "Real-time tracking from your dashboard",
     ],
-    // External signup flow for personal transfers (separate from the main
-    // CoBanq onboarding URL used elsewhere on the site).
-    cta: { label: "Send money", to: "https://burqfx.com/signup" },
+    cta: { label: "Send money with Bhejo", to: "/send-money" },
   },
   {
     id: "business",
@@ -646,19 +645,19 @@ export const solutions = {
   items: [
     {
       icon: "Send",
-      title: "Personal money transfers",
+      title: "Personal money transfers — Bhejo",
       description:
-        "Send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
-      linkLabel: "See how it works",
+        "Bhejo, powered by CoBanq, is our remittance service for individuals: send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
+      linkLabel: "Send with Bhejo",
       linkTo: "/send-money",
     },
     {
       icon: "Wallet",
       title: "Multi-currency wallets",
       description:
-        "Collect, hold, and pay out in GBP, EUR, USD, JPY, AED, PKR, and more — one wallet for individuals and businesses working across currencies.",
+        "Collect, hold, and pay out in GBP, EUR, USD, JPY, AED, PKR, and more — one wallet for businesses working across currencies.",
       linkLabel: "Explore wallets",
-      linkTo: "/#features",
+      linkTo: "/wallets",
     },
     {
       icon: "Building2",
@@ -1046,10 +1045,10 @@ export const payroll = {
 // -------------------- Multi-Currency Wallets page --------------------
 
 export const wallets = {
-  eyebrow: "Multi-Currency Wallets",
-  heading: "One wallet, every currency you work in",
+  eyebrow: "Multi-Currency Wallets for Business",
+  heading: "One wallet, every currency your business works in",
   subhead:
-    "Hold balances in GBP, EUR, USD, JPY, AED, PKR, and more — collect, convert, and pay out without juggling separate bank accounts for every currency.",
+    "A business account that holds balances in GBP, EUR, USD, JPY, AED, PKR, and more — collect, convert, and pay out without juggling separate bank accounts for every currency. Sending money home as an individual? That's Bhejo, our personal remittance service.",
   features: [
     {
       icon: "Wallet",
