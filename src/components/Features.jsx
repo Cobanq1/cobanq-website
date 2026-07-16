@@ -1,4 +1,5 @@
-import { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2, ChevronDown } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2 } from "lucide-react";
 import { features } from "../content";
 import PersonAvatar from "./PersonAvatar";
 import Flag from "./Flag";
@@ -13,6 +14,141 @@ const personSeeds = {
   "Send money home": "Remittance Sender",
   "Built for business": "Business Owner",
 };
+
+// Interactive demo data for the big wallet card — one illustrative invoice
+// shown converting into whichever currency is selected. Amounts are static
+// demo figures, not live rates.
+const walletCurrencies = [
+  { label: "GBP", flag: "gb", amount: "£1,240.00" },
+  { label: "EUR", flag: "eu", amount: "€1,455.20" },
+  { label: "USD", flag: "us", amount: "$1,573.40" },
+  { label: "JPY", flag: "jp", amount: "¥232,800" },
+  { label: "AED", flag: "ae", amount: "AED 5,778" },
+  { label: "PKR", flag: "pk", amount: "₨440,650" },
+];
+
+const walletToasts = [
+  { seed: "Wallet Customer", text: "Priya sent €420" },
+  { seed: "Remittance Sender", text: "Omar received $1,150" },
+  { seed: "Business Owner", text: "Ayesha paid a £96 invoice" },
+  { seed: "Freelance Designer", text: "Carlos withdrew ₱18,500" },
+];
+
+// The big feature card is a working demo: pick a currency (or let it
+// auto-cycle) and the mock incoming payment converts into it live.
+function WalletHeroCard({ hero, HeroIcon }) {
+  const [active, setActive] = useState(0);
+  const [toast, setToast] = useState(0);
+  const lastClick = useRef(0);
+
+  // Auto-cycle through currencies, but stay out of the way for a while
+  // after the visitor picks one themselves.
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (Date.now() - lastClick.current < 8000) return;
+      setActive((i) => (i + 1) % walletCurrencies.length);
+    }, 3000);
+    return () => clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    const timer = setInterval(() => setToast((i) => (i + 1) % walletToasts.length), 3500);
+    return () => clearInterval(timer);
+  }, []);
+
+  const pick = (i) => {
+    lastClick.current = Date.now();
+    setActive(i);
+  };
+
+  const current = walletCurrencies[active];
+  const currentToast = walletToasts[toast];
+
+  return (
+    <div className="relative flex h-full flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-8">
+      <div className="flex h-full flex-col">
+        <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 text-white">
+          <HeroIcon size={26} />
+        </div>
+        <h3 className="mt-8 text-2xl font-bold text-white">{hero.title}</h3>
+        <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60">{hero.description}</p>
+
+        <div className="mt-8 flex max-w-md flex-wrap gap-2">
+          {walletCurrencies.map((currency, i) => (
+            <button
+              key={currency.label}
+              type="button"
+              onClick={() => pick(i)}
+              className={`flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-semibold transition ${
+                i === active
+                  ? "border-brand-400 bg-brand-500/20 text-white"
+                  : "border-white/15 bg-white/5 text-white/60 hover:border-white/30 hover:text-white"
+              }`}
+            >
+              <Flag code={currency.flag} className="h-3 w-4 rounded-sm" />
+              {currency.label}
+            </button>
+          ))}
+        </div>
+        <p className="mt-3 text-[11px] text-white/35">
+          Tap a currency to see the same payment land in your wallet.
+        </p>
+      </div>
+
+      <div className="relative mx-auto mt-10 w-full max-w-[300px] shrink-0 lg:mx-0 lg:mt-0">
+        <div className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-navy-800 to-navy-950 p-5 shadow-2xl">
+          <div
+            key={current.label}
+            className="absolute -right-3 -top-3 flex animate-[fadeIn_.35s_ease] items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg"
+          >
+            <Flag code={current.flag} className="h-3.5 w-5 rounded-sm" />
+            {current.label}
+          </div>
+
+          <p className="text-sm font-bold text-white">Incoming payment</p>
+
+          <div className="mt-4 flex items-center justify-between border-b border-white/10 pb-3 text-xs">
+            <span className="text-white/40">Date</span>
+            <span className="font-semibold text-white/80">04/07</span>
+          </div>
+          <div className="mt-3 flex items-center justify-between border-b border-white/10 pb-3 text-xs">
+            <span className="text-white/40">Invoice</span>
+            <span className="font-semibold text-white/80">42481-317189</span>
+          </div>
+
+          <p className="mt-4 text-[10px] font-bold uppercase tracking-widest text-white/40">
+            You receive
+          </p>
+          <p
+            key={current.amount}
+            className="mt-1 animate-[fadeIn_.35s_ease] text-3xl font-extrabold tracking-tight text-white"
+          >
+            {current.amount}
+          </p>
+          <p className="mt-1 text-[11px] text-emerald-400">
+            No transfer fee — rate shown upfront
+          </p>
+
+          <button
+            type="button"
+            tabIndex={-1}
+            className="mt-5 w-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600 py-2.5 text-xs font-bold text-white shadow-lg shadow-brand-600/30"
+          >
+            Confirm
+          </button>
+        </div>
+
+        <div
+          key={currentToast.text}
+          className="absolute -bottom-4 -left-4 flex animate-[fadeIn_.4s_ease] items-center gap-2 rounded-xl bg-white px-3 py-2 text-[11px] font-semibold text-navy-950 shadow-xl"
+        >
+          <PersonAvatar seed={currentToast.seed} size={22} />
+          {currentToast.text}
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Features() {
   const [hero, ...rest] = features.items;
@@ -42,77 +178,7 @@ export default function Features() {
                 backgroundSize: "22px 22px",
               }}
             />
-            <div className="relative flex h-full flex-col lg:flex-row lg:items-center lg:justify-between lg:gap-8">
-              <div className="flex h-full flex-col">
-                <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-400 to-brand-600 text-white">
-                  <HeroIcon size={26} />
-                </div>
-                <h3 className="mt-8 text-2xl font-bold text-white">{hero.title}</h3>
-                <p className="mt-3 max-w-md text-sm leading-relaxed text-white/60">
-                  {hero.description}
-                </p>
-
-                <div className="mt-8 flex flex-wrap gap-2">
-                  {["GBP", "EUR", "USD", "JPY", "AED", "PKR"].map((currency) => (
-                    <span
-                      key={currency}
-                      className="rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-semibold text-white/70"
-                    >
-                      {currency}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              <div className="relative mx-auto mt-10 w-full max-w-[280px] shrink-0 lg:mx-0 lg:mt-0">
-                <div className="relative rounded-2xl border border-white/10 bg-gradient-to-b from-navy-800 to-navy-950 p-5 shadow-2xl">
-                  <div className="absolute -right-3 -top-3 flex items-center gap-1.5 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-3.5 py-1.5 text-xs font-bold text-white shadow-lg">
-                    <Flag code="eu" className="h-3.5 w-5 rounded-sm" />
-                    EUR
-                  </div>
-
-                  <p className="text-sm font-bold text-white">Set currency</p>
-
-                  <div className="mt-4 flex items-center justify-between border-b border-white/10 pb-3 text-xs">
-                    <span className="text-white/40">Date</span>
-                    <span className="font-semibold text-white/80">04/07</span>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between text-xs">
-                    <span className="text-white/40">Invoice</span>
-                    <span className="font-semibold text-white/80">42481-317189</span>
-                  </div>
-
-                  <div className="mt-5 flex flex-wrap gap-1.5">
-                    {[
-                      { code: "gb", label: "GBP" },
-                      { code: "eu", label: "EUR" },
-                      { code: "us", label: "USD" },
-                    ].map((c) => (
-                      <span
-                        key={c.code}
-                        className="flex items-center gap-1.5 rounded-full border border-white/15 bg-white/5 px-2.5 py-1 text-[11px] font-semibold text-white/80"
-                      >
-                        <Flag code={c.code} className="h-3 w-4 rounded-sm" />
-                        {c.label}
-                      </span>
-                    ))}
-                  </div>
-
-                  <button
-                    type="button"
-                    tabIndex={-1}
-                    className="mt-5 w-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600 py-2.5 text-xs font-bold text-white shadow-lg shadow-brand-600/30"
-                  >
-                    Confirm
-                  </button>
-                </div>
-
-                <div className="absolute -bottom-4 -left-4 flex items-center gap-2 rounded-xl bg-white px-3 py-2 text-[11px] font-semibold text-navy-950 shadow-xl">
-                  <PersonAvatar seed={personSeeds[hero.title]} size={22} />
-                  Priya sent €420
-                </div>
-              </div>
-            </div>
+            <WalletHeroCard hero={hero} HeroIcon={HeroIcon} />
           </div>
 
           {rest.map((item) => {
