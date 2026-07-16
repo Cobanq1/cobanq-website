@@ -1,75 +1,77 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, Laptop, Building2, Users } from "lucide-react";
 import { pricing } from "../content";
 
-function VolumeRuler() {
-  const { ruler } = pricing;
-  return (
-    <div className="mt-14">
-      <p className="text-xs font-semibold uppercase tracking-widest text-navy-950/40">
-        {ruler.label}
-      </p>
-      <div className="relative mt-7 h-10">
-        <div className="absolute inset-x-0 top-4 h-1.5 overflow-hidden rounded-full bg-navy-950/10">
-          <div className="flex h-full w-full">
-            <div className="h-full flex-1 bg-brand-400" />
-            <div className="h-full flex-1 bg-brand-500" />
-            <div className="h-full flex-1 bg-brand-700" />
-          </div>
-        </div>
-        {ruler.marks.map((mark) => (
-          <div
-            key={mark.label}
-            className="absolute top-0 -translate-x-1/2 text-center"
-            style={{ left: `${mark.position}%` }}
-          >
-            <div className="mx-auto h-3.5 w-0.5 bg-navy-950/30" />
-            <p className="mt-2 whitespace-nowrap text-[11px] font-medium text-navy-950/50">
-              <span className="sm:hidden">{mark.short}</span>
-              <span className="hidden sm:inline">{mark.label}</span>
-            </p>
-          </div>
-        ))}
-        <p className="absolute left-0 top-6 text-[11px] font-medium text-navy-950/40">
-          {ruler.start}
-        </p>
-        <p className="absolute right-0 top-6 text-right text-[11px] font-medium text-navy-950/40">
-          <span className="sm:hidden">{ruler.endShort}</span>
-          <span className="hidden sm:inline">{ruler.end}</span>
-        </p>
-      </div>
-    </div>
-  );
-}
+const categoryIcons = { freelancers: Laptop, business: Building2, payroll: Users };
+
+// Medal-style accents for the Bronze/Gold/Platinum packages; the free
+// freelancer plan uses the brand blue.
+const tierStyles = {
+  free: {
+    badge: "bg-brand-50 text-brand-600",
+    ring: "border-brand-500 shadow-xl shadow-brand-500/10 ring-2 ring-brand-500/15",
+    dot: "#3b6fe0",
+  },
+  bronze: {
+    badge: "bg-[#f7ede2] text-[#8a5a2a]",
+    ring: "",
+    dot: "#b08d57",
+  },
+  gold: {
+    badge: "bg-[#f8f1e1] text-[#9c7a2e]",
+    ring: "border-[#c9a24b] shadow-xl shadow-[#c9a24b]/15 ring-2 ring-[#c9a24b]/20",
+    dot: "#c9a24b",
+  },
+  platinum: {
+    badge: "bg-slate-100 text-slate-600",
+    ring: "",
+    dot: "#94a3b8",
+  },
+};
 
 function PricingCard({ plan }) {
   const [openSection, setOpenSection] = useState(0);
+  const tier = tierStyles[plan.tier] || tierStyles.free;
 
   return (
     <div
-      className={`flex flex-col rounded-3xl border bg-white transition ${
-        plan.featured
-          ? "border-brand-500 shadow-xl shadow-brand-500/10 ring-2 ring-brand-500/15"
-          : "border-navy-950/10"
+      className={`flex w-full flex-col rounded-3xl border bg-white transition ${
+        plan.featured ? tier.ring : "border-navy-950/10"
       }`}
     >
       <div className="border-b border-navy-950/10 p-7">
-        {plan.featured && (
-          <span className="mb-3 inline-block rounded-full bg-brand-50 px-3 py-1 text-[11px] font-bold uppercase tracking-wide text-brand-600">
-            Recommended
+        <div className="flex items-center justify-between">
+          <span
+            className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${tier.badge}`}
+          >
+            <span className="h-2 w-2 rounded-full" style={{ background: tier.dot }} />
+            {plan.name}
           </span>
-        )}
-        <p className="text-xs font-bold uppercase tracking-widest text-brand-600">{plan.tag}</p>
-        <h3 className="mt-2 text-2xl font-extrabold text-navy-950">{plan.name}</h3>
-        <p className="mt-2 min-h-[42px] text-sm leading-relaxed text-navy-950/60">
+          {plan.featured && plan.tier !== "free" && (
+            <span className="text-[11px] font-bold uppercase tracking-wide text-navy-950/40">
+              Most popular
+            </span>
+          )}
+        </div>
+        <p className="mt-3 min-h-[42px] text-sm leading-relaxed text-navy-950/60">
           {plan.description}
         </p>
-        <div className="mt-5 flex items-baseline gap-1.5">
+        <div className="mt-4 flex items-baseline gap-1.5">
           <span className="font-mono text-3xl font-bold text-navy-950">{plan.monthlyFee}</span>
-          <span className="text-xs text-navy-950/50">/ month</span>
+          {plan.monthlyFee !== "Free" && <span className="text-xs text-navy-950/50">/ month</span>}
         </div>
         <p className="mt-1 text-xs text-navy-950/40">{plan.monthlyFeeNote}</p>
+        {plan.headlineFee && (
+          <div className="mt-4 flex items-center justify-between rounded-xl bg-navy-950/[0.04] px-4 py-2.5">
+            <span className="text-xs font-semibold text-navy-950/60">
+              {plan.headlineFee.label}
+            </span>
+            <span className="font-mono text-sm font-bold text-navy-950">
+              {plan.headlineFee.value}
+            </span>
+          </div>
+        )}
       </div>
 
       <div className="flex-1">
@@ -94,10 +96,7 @@ function PricingCard({ plan }) {
               {isOpen && (
                 <div className="space-y-2.5 px-6 pb-4">
                   {section.rows.map((row) => (
-                    <div
-                      key={row.label}
-                      className="flex items-start justify-between gap-4 text-xs"
-                    >
+                    <div key={row.label} className="flex items-start justify-between gap-4 text-xs">
                       <span className="text-navy-950/60">{row.label}</span>
                       <span className="shrink-0 font-mono font-semibold text-brand-600">
                         {row.value}
@@ -111,19 +110,16 @@ function PricingCard({ plan }) {
         })}
       </div>
 
-      <div className={`m-5 rounded-2xl p-4 ${plan.featured ? "bg-brand-50" : "bg-navy-950/[0.03]"}`}>
-        <p className="text-[11px] font-bold uppercase tracking-wide text-brand-600">
-          {plan.salesCta.threshold}
-        </p>
-        <p className="mt-1.5 text-xs leading-relaxed text-navy-950/70">
-          {plan.salesCta.description}
-        </p>
+      <div className="p-5">
         <Link
           to="/contact"
-          className="mt-3 inline-flex items-center gap-1.5 rounded-full bg-navy-950 px-4 py-2 text-xs font-semibold text-white transition hover:bg-navy-800"
+          className={`block rounded-full py-3 text-center text-sm font-bold transition ${
+            plan.featured
+              ? "bg-gradient-to-r from-brand-500 to-brand-600 text-white shadow-lg shadow-brand-600/30 hover:from-brand-400 hover:to-brand-500"
+              : "border border-navy-950/15 text-navy-950 hover:border-navy-950/40"
+          }`}
         >
-          Talk to Sales
-          <ArrowRight size={12} />
+          Get started
         </Link>
       </div>
     </div>
@@ -131,7 +127,9 @@ function PricingCard({ plan }) {
 }
 
 export default function Pricing() {
+  const [activeCategory, setActiveCategory] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
+  const category = pricing.categories[activeCategory];
 
   return (
     <>
@@ -146,18 +144,59 @@ export default function Pricing() {
           <p className="mt-5 text-lg leading-relaxed text-navy-950/60">{pricing.subhead}</p>
         </div>
 
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
-          <VolumeRuler />
+        <div className="mx-auto mt-10 flex max-w-3xl flex-wrap justify-center gap-2 px-6">
+          {pricing.categories.map((cat, i) => {
+            const Icon = categoryIcons[cat.id];
+            const active = i === activeCategory;
+            return (
+              <button
+                key={cat.id}
+                type="button"
+                onClick={() => setActiveCategory(i)}
+                className={`flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-semibold transition ${
+                  active
+                    ? "bg-navy-950 text-white shadow-lg"
+                    : "border border-navy-950/15 text-navy-950/60 hover:border-navy-950/40 hover:text-navy-950"
+                }`}
+              >
+                <Icon size={15} />
+                {cat.label}
+              </button>
+            );
+          })}
         </div>
 
-        <div className="mx-auto mt-14 grid max-w-6xl grid-cols-1 gap-6 px-6 lg:grid-cols-3 lg:px-8">
-          {pricing.plans.map((plan) => (
+        <p key={category.id} className="mt-6 animate-[fadeIn_.3s_ease] text-center text-sm text-navy-950/50">
+          {category.blurb}
+        </p>
+
+        <div
+          key={`${category.id}-cards`}
+          className={`mx-auto mt-10 grid max-w-6xl animate-[fadeIn_.35s_ease] grid-cols-1 gap-6 px-6 lg:px-8 ${
+            category.plans.length === 1 ? "lg:max-w-md" : "lg:grid-cols-3"
+          }`}
+        >
+          {category.plans.map((plan) => (
             <PricingCard key={plan.name} plan={plan} />
           ))}
         </div>
 
         <div className="mx-auto mt-10 max-w-6xl px-6 lg:px-8">
-          <p className="whitespace-pre-line border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
+          <div className="flex flex-col items-start justify-between gap-4 rounded-2xl bg-navy-950 p-6 sm:flex-row sm:items-center">
+            <div>
+              <p className="text-sm font-bold text-white">{category.salesCta.threshold}</p>
+              <p className="mt-1 text-xs text-white/60">{category.salesCta.description}</p>
+            </div>
+            <Link
+              to="/contact"
+              className="inline-flex shrink-0 items-center gap-1.5 rounded-full bg-white px-5 py-2.5 text-xs font-bold text-navy-950 transition hover:bg-brand-50"
+            >
+              Talk to Sales
+              <ArrowRight size={13} />
+            </Link>
+          </div>
+
+          <p className="mt-8 whitespace-pre-line border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
             {pricing.footnote}
           </p>
         </div>

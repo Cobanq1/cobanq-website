@@ -735,165 +735,337 @@ export const pricing = {
   eyebrow: "CoBanq / Pricing",
   heading: "Simple fees that scale with how you get paid.",
   subhead:
-    "Three plans built around how money actually moves through your business — from a single freelance invoice, to marketplace payouts, to full multi-currency operations.",
-  ruler: {
-    label: "Monthly volume processed",
-    start: "$0",
-    marks: [
-      { position: 33.3, label: "$50k — Freelancer → Sales", short: "$50k" },
-      { position: 66.6, label: "$100k — Ecommerce → Sales", short: "$100k" },
-    ],
-    end: "$150k+ — Business → Sales",
-    endShort: "$150k+",
-  },
-  plans: [
+    "Three ways to price, built around who you are — freelancers and IT contractors pay nothing monthly, while businesses and payroll companies pick the package that matches their volume.",
+  categories: [
     {
-      tag: "Freelancer",
-      name: "Freelancer",
-      description: "Get paid by clients anywhere, in any currency, without losing the difference.",
-      monthlyFee: "£9.99",
-      monthlyFeeNote: "Flat monthly account fee",
-      featured: false,
-      sections: [
+      id: "freelancers",
+      label: "Freelancers & IT",
+      blurb: "One simple plan — no monthly fee. You only pay when money moves.",
+      plans: [
         {
-          title: "Receive payments",
-          rows: [
-            { label: "From another CoBanq balance", value: "Free" },
-            { label: "Via a local-currency receiving account", value: "Free" },
-            { label: "Via a non-local currency account", value: "1%" },
-            { label: "From a payer using a credit card", value: "3.5% + $0.30" },
-            { label: "From a payer using ACH / UK / EU bank", value: "1%" },
-            { label: "From a payer using PayPal", value: "3.5% + $0.30" },
+          tier: "free",
+          tag: "Freelancers & IT",
+          name: "Freelancer & IT",
+          description:
+            "For freelancers, IT contractors, and software professionals getting paid by clients anywhere.",
+          monthlyFee: "Free",
+          monthlyFeeNote: "No monthly account fee",
+          featured: true,
+          sections: [
+            {
+              title: "Receive payments",
+              rows: [
+                { label: "From another CoBanq balance", value: "Free" },
+                { label: "Via a local-currency receiving account", value: "Free" },
+                { label: "Via a non-local currency account", value: "1%" },
+                { label: "From a payer using a credit card", value: "3.5% + $0.30" },
+                { label: "From a payer using ACH / UK / EU bank", value: "1%" },
+                { label: "From a payer using PayPal", value: "3.5% + $0.30" },
+              ],
+            },
+            {
+              title: "Send payments",
+              rows: [{ label: "To another CoBanq account, same country", value: "Free" }],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+                { label: "To a bank account, different currency", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
-        },
-        {
-          title: "Send payments",
-          rows: [{ label: "To another CoBanq account, same country", value: "Free" }],
-        },
-        {
-          title: "Withdraw & transfer",
-          rows: [
-            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-            { label: "To a bank account, different currency", value: "Free transfer*" },
-          ],
-        },
-        {
-          title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
         },
       ],
       salesCta: {
         threshold: "Processing $50,000+ / month",
-        description: "High-volume freelancers get custom rates. Let's talk.",
+        description: "High-volume freelancers and IT contractors get custom rates. Let's talk.",
       },
     },
     {
-      tag: "Ecommerce & Marketplace",
-      name: "Sellers",
-      description:
-        "One flat rate for payouts from Amazon, Etsy, Shopify, Walmart, Daraz, and every card network in between.",
-      monthlyFee: "£14.99",
-      monthlyFeeNote: "Flat monthly account fee",
-      featured: false,
-      sections: [
+      id: "business",
+      label: "Business Enterprise",
+      blurb:
+        "Bronze, Gold, and Platinum packages — your transaction fees drop as you move up.",
+      plans: [
         {
-          title: "Receive payments",
-          rows: [
-            { label: "From another CoBanq balance", value: "Free" },
-            { label: "Payouts from marketplaces (Amazon, Etsy, Walmart, Daraz, etc.)", value: "1%" },
-            { label: "From a payer using card, ACH, or PayPal", value: "1%" },
+          tier: "bronze",
+          tag: "Business Enterprise",
+          name: "Bronze",
+          description: "Getting started with cross-border business payments.",
+          monthlyFee: "£49",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: false,
+          headlineFee: { label: "Transaction fee", value: "1%" },
+          sections: [
+            {
+              title: "Receive payments",
+              rows: [
+                { label: "From another CoBanq balance", value: "Free" },
+                { label: "From clients via card, ACH, or bank", value: "1%" },
+              ],
+            },
+            {
+              title: "Send payments",
+              rows: [
+                { label: "To another CoBanq account, same country", value: "Free" },
+                { label: "International supplier payments", value: "1%" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+                { label: "To a bank account, different currency", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
         },
         {
-          title: "Send payments",
-          rows: [{ label: "To another CoBanq account, same country", value: "Free" }],
-        },
-        {
-          title: "Withdraw & transfer",
-          rows: [
-            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-            { label: "To a bank account, different currency", value: "Free transfer*" },
+          tier: "gold",
+          tag: "Business Enterprise",
+          name: "Gold",
+          description: "For growing companies moving money every week.",
+          monthlyFee: "£99",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: true,
+          headlineFee: { label: "Transaction fee", value: "0.75%" },
+          sections: [
+            {
+              title: "Receive payments",
+              rows: [
+                { label: "From another CoBanq balance", value: "Free" },
+                { label: "From clients via card, ACH, or bank", value: "0.75%" },
+              ],
+            },
+            {
+              title: "Send payments",
+              rows: [
+                { label: "To another CoBanq account, same country", value: "Free" },
+                { label: "International supplier payments", value: "0.75%" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+                { label: "To a bank account, different currency", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
         },
         {
-          title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+          tier: "platinum",
+          tag: "Business Enterprise",
+          name: "Platinum",
+          description: "Our best rates, for high-volume operations.",
+          monthlyFee: "£199",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: false,
+          headlineFee: { label: "Transaction fee", value: "0.5%" },
+          sections: [
+            {
+              title: "Receive payments",
+              rows: [
+                { label: "From another CoBanq balance", value: "Free" },
+                { label: "From clients via card, ACH, or bank", value: "0.5%" },
+              ],
+            },
+            {
+              title: "Send payments",
+              rows: [
+                { label: "To another CoBanq account, same country", value: "Free" },
+                { label: "International supplier payments", value: "0.5%" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+                { label: "To a bank account, different currency", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
+          ],
         },
       ],
       salesCta: {
-        threshold: "Processing $100,000+ / month",
-        description: "Scaling sellers get custom rates and a dedicated account manager.",
+        threshold: "Enterprise volume?",
+        description: "Custom pricing built around your flows — talk to our business team.",
       },
     },
     {
-      tag: "Business",
-      name: "Business",
-      description: "Multi-currency banking for companies moving money across borders, teams and vendors.",
-      monthlyFee: "£19.99",
-      monthlyFeeNote: "Flat monthly account fee",
-      featured: true,
-      sections: [
+      id: "payroll",
+      label: "Payroll Companies",
+      blurb:
+        "Per-payout pricing that gets cheaper at scale — pay a flat fee for every employee payout.",
+      plans: [
         {
-          title: "Receive payments",
-          rows: [
-            { label: "From another CoBanq balance", value: "Free" },
-            { label: "From clients via card, ACH, or bank", value: "1%" },
+          tier: "bronze",
+          tag: "Payroll Companies",
+          name: "Bronze",
+          description: "For payroll providers running their first global batches.",
+          monthlyFee: "£49",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: false,
+          headlineFee: { label: "Per employee payout", value: "£1.00" },
+          sections: [
+            {
+              title: "Payroll payouts",
+              rows: [
+                { label: "Per employee payout", value: "£1.00" },
+                { label: "Batch upload (any team size)", value: "Free" },
+                { label: "Payout to another CoBanq account", value: "Free" },
+              ],
+            },
+            {
+              title: "Fund your account",
+              rows: [
+                { label: "From your business bank account", value: "Free" },
+                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
         },
         {
-          title: "Send payments",
-          rows: [
-            { label: "To another CoBanq account, same country", value: "Free" },
-            { label: "Payroll batch payouts", value: "0.5%" },
+          tier: "gold",
+          tag: "Payroll Companies",
+          name: "Gold",
+          description: "For payroll companies paying teams across several countries.",
+          monthlyFee: "£99",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: true,
+          headlineFee: { label: "Per employee payout", value: "£0.75" },
+          sections: [
+            {
+              title: "Payroll payouts",
+              rows: [
+                { label: "Per employee payout", value: "£0.75" },
+                { label: "Batch upload (any team size)", value: "Free" },
+                { label: "Payout to another CoBanq account", value: "Free" },
+              ],
+            },
+            {
+              title: "Fund your account",
+              rows: [
+                { label: "From your business bank account", value: "Free" },
+                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
         },
         {
-          title: "Withdraw & transfer",
-          rows: [
-            { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-            { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-            { label: "To a bank account, different currency", value: "Free transfer*" },
+          tier: "platinum",
+          tag: "Payroll Companies",
+          name: "Platinum",
+          description: "Our lowest per-payout rate, for high-volume payroll runs.",
+          monthlyFee: "£199",
+          monthlyFeeNote: "Flat monthly account fee",
+          featured: false,
+          headlineFee: { label: "Per employee payout", value: "£0.50" },
+          sections: [
+            {
+              title: "Payroll payouts",
+              rows: [
+                { label: "Per employee payout", value: "£0.50" },
+                { label: "Batch upload (any team size)", value: "Free" },
+                { label: "Payout to another CoBanq account", value: "Free" },
+              ],
+            },
+            {
+              title: "Fund your account",
+              rows: [
+                { label: "From your business bank account", value: "Free" },
+                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
+              ],
+            },
+            {
+              title: "Withdraw & transfer",
+              rows: [
+                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
+                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
+              ],
+            },
+            {
+              title: "Currency exchange",
+              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
+            },
           ],
-        },
-        {
-          title: "Currency exchange",
-          rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
         },
       ],
       salesCta: {
-        threshold: "Processing $150,000+ / month",
-        description: "Enterprise volume gets custom pricing built around your flows.",
+        threshold: "Paying thousands of employees a month?",
+        description: "Volume payroll pricing is negotiable — talk to our payroll team.",
       },
     },
   ],
   footnote:
-    "Fees shown are standard rates and may vary by sender/recipient location, payment method, and currency corridor. Percentage-based fees apply per transaction unless noted otherwise. Businesses processing above their tier's monthly volume threshold should contact Sales for custom pricing.\n\n*No transfer fee on currency exchange or cross-currency withdrawals — a small margin is built into the exchange rate instead of a separate charge.",
+    "Fees shown are standard rates and may vary by sender/recipient location, payment method, and currency corridor. Percentage-based fees apply per transaction unless noted otherwise. Businesses processing significant monthly volume should contact Sales for custom pricing.\n\n*No transfer fee on currency exchange or cross-currency withdrawals — a small margin is built into the exchange rate instead of a separate charge.",
   faq: [
     {
       q: "How are CoBanq's fees structured?",
-      a: "Each plan has a flat monthly account fee, plus small percentage-based fees on specific transaction types like receiving from a card or PayPal payer. Currency exchange and cross-currency withdrawals carry no separate transfer fee — a small margin is built into the exchange rate instead. The exact rate is always shown before you confirm a transfer.",
+      a: "Freelancers & IT professionals pay no monthly fee — just small per-transaction fees like 1% on receiving via bank transfer. Business Enterprise and Payroll Companies choose a Bronze, Gold, or Platinum package: a flat monthly fee, with transaction fees that drop as you move up the tiers. The exact rate is always shown before you confirm a transfer.",
     },
     {
       q: "Are there any hidden charges?",
-      a: "No. Every fee is listed on this page by category — receiving, sending, withdrawing, and currency exchange. If a transaction type isn't listed, it's free.",
+      a: "No. Every fee is listed on this page by category — receiving, sending, withdrawing, currency exchange, and payroll payouts. If a transaction type isn't listed, it's free.",
+    },
+    {
+      q: "What's the difference between Bronze, Gold, and Platinum?",
+      a: "The monthly fee rises and your transaction fees fall. For Business Enterprise, the transaction fee drops from 1% (Bronze) to 0.75% (Gold) to 0.5% (Platinum). For Payroll Companies, the per-employee payout fee drops from £1.00 to £0.75 to £0.50. If you move enough volume, a higher tier quickly pays for itself.",
     },
     {
       q: "What withdrawal fees apply for bank transfers?",
       a: "Withdrawing to a UK bank account in GBP carries a small fixed fee (£0.005). Withdrawing to a bank account in the same country and currency outside the UK is free. Withdrawing to a different currency has no separate transfer fee — the cost is built into the exchange rate, shown upfront before you confirm.",
     },
     {
-      q: "Do fees vary by currency or payment method?",
-      a: "Yes — card and PayPal payments generally cost more to process than bank transfers, which is why receiving via card or PayPal carries a higher fee than receiving via local bank transfer. Fees can also vary slightly by corridor.",
-    },
-    {
       q: "Which plan is right for me?",
-      a: "Freelancer is built for individuals invoicing clients directly. Sellers suits marketplace and eCommerce payouts (Amazon, Etsy, Walmart, Daraz, and similar). Business is for companies running payroll, paying suppliers, or managing multi-currency operations.",
+      a: "Freelancers & IT is for individuals and contractors invoicing clients directly — it's free monthly, so you can start today. Business Enterprise suits companies collecting from customers and paying suppliers across borders. Payroll Companies is for payroll providers and employers paying staff in multiple countries.",
     },
     {
-      q: "What happens if I process more than my plan's monthly volume?",
-      a: "Once you're consistently processing above your plan's threshold, our business team can offer custom rates built around your actual volume — reach out via the \"Talk to Sales\" button on your plan.",
+      q: "Can I switch tiers later?",
+      a: "Yes — you can move between Bronze, Gold, and Platinum as your volume changes. Upgrades take effect immediately; your new transaction rates apply from your next transfer.",
     },
     {
       q: "Is CoBanq regulated?",
