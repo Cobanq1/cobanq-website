@@ -30,7 +30,7 @@ export const nav = {
         {
           icon: "Send",
           label: "Personal Money Transfers",
-          description: "Send money home to family and friends",
+          description: "Bhejo — send money home to family and friends",
           to: "/send-money",
         },
         {
@@ -905,11 +905,62 @@ export const pricing = {
 
 // -------------------- Send Money page --------------------
 
+// CoBanq's remittance service runs under its own consumer brand, Bhejo —
+// the personal money transfers page carries the Bhejo identity with a
+// "Powered by CoBanq" lockup. Reviews are illustrative (invented names),
+// flagged as such on the page — no fabricated ratings or review counts.
 export const sendMoney = {
+  brand: "Bhejo",
+  poweredBy: "Powered by CoBanq",
   eyebrow: "Personal money transfers",
-  heading: "Send money home, without the wait",
+  heading: "Send international money transfers from the United Kingdom",
   subhead:
-    "Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries — with the fee and rate shown before you confirm.",
+    "Transfer money online with clear pricing, simple ways to pay, and fast delivery. Bhejo is CoBanq's personal remittance service, built on 20+ years of FCA-regulated payments experience.",
+  sendCard: {
+    heading: "Where would you like to send money?",
+    fromLabel: "Sending from:",
+    from: { countryCode: "gb", name: "United Kingdom" },
+    toLabel: "Sending to:",
+    toPlaceholder: "Select a country",
+    cta: "Start sending",
+  },
+  flagStrip: "Send to these countries and more",
+  reviews: {
+    heading: "See what our customers are saying",
+    disclaimer:
+      "Illustrative reviews — names and details are invented for this redesign, not real customer testimonials.",
+    items: [
+      {
+        title: "Arrived the same day",
+        body: "Sent money to my family in Lahore and it arrived the same day. The rate was exactly what I was shown before I confirmed.",
+        name: "Hamza R.",
+        detail: "Sends to Pakistan",
+      },
+      {
+        title: "No surprises on fees",
+        body: "I send money to my parents in Manila every month. The fee is clear before I press send — no surprises at the other end.",
+        name: "Grace D.",
+        detail: "Sends to the Philippines",
+      },
+      {
+        title: "Better than my bank",
+        body: "Switched from my bank after seeing how much I was losing on exchange rates. Should have done it years ago.",
+        name: "Chidi O.",
+        detail: "Sends to Nigeria",
+      },
+      {
+        title: "Quick and simple",
+        body: "Simple, quick, and my brother in Dhaka got the money within hours. The app-free web flow works fine on my phone.",
+        name: "Rafiq A.",
+        detail: "Sends to Bangladesh",
+      },
+    ],
+  },
+  countriesGrid: {
+    heading: "Where can you send money with Bhejo?",
+    subhead: "Select a country to get started with international money transfers.",
+    note: "More corridors are supported beyond this list — check the transfer flow for the full set.",
+  },
   paymentMethods: ["Bank transfer", "Debit card", "Credit card"],
 };
 
