@@ -1135,10 +1135,12 @@ export const sendMoney = {
 };
 
 // -------------------- Remittance onboarding flow --------------------
-// Remitly-style step-by-step signup for CoPay (personal remittance)
-// customers. One multiple-choice question per screen; answers personalize
-// the first transfer. Mirrors the embedded multi-currency account flow's
-// look — progress bar, option cards, focused single-column layout.
+// CoPay signup modeled on the Remitly web flow the user supplied on
+// video: profile (email/password) first, then "where do you want to
+// send money?" with the From country locked to the UK, then account
+// type, then a short set of multiple-choice questions (delivery method,
+// purpose, source of income, expected monthly volume) that double as
+// light KYC. One screen per question, progress bar, option cards.
 
 export const remittanceOnboarding = {
   brand: "CoPay",
@@ -1146,13 +1148,68 @@ export const remittanceOnboarding = {
   stepLabel: (current, total) => `Step ${current} of ${total}`,
   back: "Back",
   exitLabel: "Exit onboarding",
+  continueLabel: "Continue",
+  trust: "Regulated \u00b7 Encrypted \u00b7 Secure",
+  // Left-hand brand panel, mirroring the embedded account onboarding.
+  sidebar: {
+    heading: "Send money home, simply",
+    sub: "Create your CoPay account and start sending from the UK in minutes \u2014 with the fee and rate shown before you confirm.",
+    copyright: "\u00a9 CoBanq",
+  },
   steps: [
+    {
+      id: "profile",
+      type: "profile",
+      question: "Create your profile",
+      hint: "Already have an account?",
+      hintLinkLabel: "Log in",
+      fields: {
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email address",
+        password: "Password",
+        passwordHint: "At least 8 characters.",
+      },
+      submit: "Continue",
+    },
+    {
+      id: "accountType",
+      type: "cards",
+      question: "Select your account type",
+      hint: "You can create a different account later if your needs change.",
+      options: [
+        {
+          value: "personal",
+          icon: "User",
+          label: "Send as yourself",
+          sub: "Securely send money internationally to yourself, friends, and family",
+        },
+        {
+          value: "business",
+          icon: "Building2",
+          label: "Send as a business",
+          sub: "Pay suppliers and staff abroad — runs on CoBanq business accounts",
+        },
+      ],
+      // Business senders belong in the CoBanq business onboarding, not CoPay.
+      businessNote:
+        "Business payments run on CoBanq, not CoPay — we'll take you to the CoBanq business onboarding instead.",
+      businessCta: "Continue to CoBanq for business",
+    },
     {
       id: "destination",
       type: "country",
-      question: "Where are you sending money?",
-      hint: "Pick the country your recipient is in — you can send to other corridors later.",
-      otherOption: { value: "other", label: "Another country", sub: "30+ corridors supported" },
+      question: "Where do you want to send money?",
+      hint: "CoPay currently supports sending from the United Kingdom only.",
+      fromLabel: "From",
+      from: { countryCode: "gb", name: "United Kingdom" },
+      fromNote: "Sending is available from the UK only",
+      toLabel: "To",
+      toPlaceholder: "Choose a country",
+      popularLabel: "Or choose a popular country to send money",
+      popular: ["pk", "in", "ph"],
+      otherOption: { value: "other", label: "Another country" },
+      next: "Next",
     },
     {
       id: "method",
@@ -1201,44 +1258,29 @@ export const remittanceOnboarding = {
       ],
     },
     {
-      id: "amount",
-      type: "list",
-      question: "How much do you usually send at a time?",
-      hint: "A rough figure is fine — it helps us tailor rates and limits.",
+      id: "income",
+      type: "cards",
+      question: "What's your main source of income?",
+      hint: "A standard regulatory question — it helps us verify your transfers faster.",
       options: [
-        { value: "under100", label: "Under £100" },
-        { value: "100to500", label: "£100 – £500" },
-        { value: "500to2000", label: "£500 – £2,000" },
-        { value: "over2000", label: "More than £2,000" },
+        { value: "employment", icon: "Briefcase", label: "Salary or wages", sub: "Employed by a company" },
+        { value: "selfEmployed", icon: "Store", label: "Self-employed or business", sub: "Freelance, contracting, or your own business" },
+        { value: "savings", icon: "PiggyBank", label: "Savings or investments", sub: "Existing savings, dividends, or property income" },
+        { value: "pension", icon: "HandCoins", label: "Pension or benefits", sub: "Retirement income or state support" },
+        { value: "other", icon: "MoreHorizontal", label: "Other", sub: "You can tell us more later" },
       ],
     },
     {
-      id: "frequency",
+      id: "monthly",
       type: "list",
-      question: "How often do you plan to send?",
-      hint: "No commitment — send as often or as rarely as you like.",
+      question: "How much do you expect to send each month?",
+      hint: "A rough estimate is fine — it helps us set the right limits for your account.",
       options: [
-        { value: "weekly", label: "Every week or two" },
-        { value: "monthly", label: "About once a month" },
-        { value: "fewTimes", label: "A few times a year" },
-        { value: "once", label: "Just this once" },
+        { value: "under250", label: "Under \u00a3250" },
+        { value: "250to1000", label: "\u00a3250 \u2013 \u00a31,000" },
+        { value: "1000to3000", label: "\u00a31,000 \u2013 \u00a33,000" },
+        { value: "over3000", label: "More than \u00a33,000" },
       ],
-    },
-    {
-      id: "account",
-      type: "account",
-      question: "Create your CoPay account",
-      hint: "Almost there — your answers are saved and your first transfer is a couple of minutes away.",
-      fields: {
-        firstName: "First name",
-        lastName: "Last name",
-        email: "Email address",
-        password: "Create a password",
-        passwordHint: "At least 8 characters.",
-      },
-      submit: "Create account",
-      // Legal microcopy lives in the component — it needs inline links
-      // to /terms and /privacy.
     },
   ],
   done: {
@@ -1249,9 +1291,10 @@ export const remittanceOnboarding = {
       destination: "Sending to",
       method: "Delivery method",
       purpose: "Sending for",
-      amount: "Typical amount",
-      frequency: "How often",
+      income: "Source of income",
+      monthly: "Monthly estimate",
     },
+    fromRow: { label: "Sending from", value: "United Kingdom", countryCode: "gb" },
     cta: "Start your first transfer",
     secondary: "Back to CoPay",
     note: "Preview flow — account creation and transfers run in the live CoBanq app.",
