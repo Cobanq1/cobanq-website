@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
   ChevronDown,
@@ -13,7 +13,7 @@ import {
 import { sendMoney, countryCorridors, howItWorks } from "../content";
 import SmartLink from "../components/SmartLink";
 import Flag from "../components/Flag";
-import { BhejoMark } from "../components/BhejoLogo";
+import { CoPayMark } from "../components/CoPayLogo";
 
 const methodIcons = { "Bank transfer": Landmark, "Debit card": CreditCard, "Credit card": CreditCard };
 
@@ -29,7 +29,8 @@ function CircleFlag({ code, className = "h-12 w-12" }) {
 }
 
 // Remitly-style "where would you like to send money?" card. The destination
-// select is real; Start sending opens the onboarding flow.
+// select is real; Start sending opens the remittance onboarding flow with
+// the chosen country pre-selected.
 function SendCard({ onStart }) {
   const { sendCard } = sendMoney;
   const [dest, setDest] = useState("");
@@ -70,7 +71,7 @@ function SendCard({ onStart }) {
 
       <button
         type="button"
-        onClick={onStart}
+        onClick={() => onStart(dest)}
         className="mt-6 w-full rounded-full bg-gradient-to-r from-brand-500 to-brand-600 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
       >
         {sendCard.cta}
@@ -148,7 +149,9 @@ function Reviews() {
 }
 
 export default function SendMoney() {
-  const { openGetStarted } = useOutletContext();
+  const navigate = useNavigate();
+  const startOnboarding = (dest) =>
+    navigate(dest ? `/onboarding/remittance?to=${dest}` : "/onboarding/remittance");
 
   return (
     <>
@@ -164,10 +167,10 @@ export default function SendMoney() {
         <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-6 lg:grid-cols-2 lg:gap-10 lg:px-8">
           <div className="text-center lg:text-left">
             <div className="flex items-center justify-center gap-3 lg:justify-start">
-              <BhejoMark size={44} />
+              <CoPayMark size={44} />
               <div className="text-left">
-                <p className="text-3xl font-bold lowercase tracking-tight text-white">
-                  {sendMoney.brand.toLowerCase()}
+                <p className="text-3xl font-bold tracking-tight text-white">
+                  {sendMoney.brand}
                 </p>
                 <p className="text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-400">
                   {sendMoney.poweredBy}
@@ -184,7 +187,7 @@ export default function SendMoney() {
           </div>
 
           <div className="mx-auto w-full max-w-md lg:justify-self-end">
-            <SendCard onStart={openGetStarted} />
+            <SendCard onStart={startOnboarding} />
           </div>
         </div>
 
@@ -255,7 +258,7 @@ export default function SendMoney() {
 
           <button
             type="button"
-            onClick={openGetStarted}
+            onClick={() => startOnboarding()}
             className="mt-8 inline-flex items-center gap-2 rounded-full bg-navy-950 px-7 py-3.5 text-sm font-semibold text-white transition hover:bg-navy-800"
           >
             Get started

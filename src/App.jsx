@@ -19,6 +19,7 @@ import Freelancers from "./pages/Freelancers";
 import Payroll from "./pages/Payroll";
 import Wallets from "./pages/Wallets";
 import Pricing from "./pages/Pricing";
+import OnboardingRemittance from "./pages/OnboardingRemittance";
 
 function App() {
   return (
@@ -48,6 +49,8 @@ function App() {
           {/* Country landing pages — add more Route lines here as they're built */}
           <Route path="/pk" element={<Country slug="pk" />} />
         </Route>
+        {/* Focused flow without the site chrome, like the account onboarding. */}
+        <Route path="/onboarding/remittance" element={<OnboardingRemittance />} />
       </Routes>
     </BrowserRouter>
   );

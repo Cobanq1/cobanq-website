@@ -30,7 +30,7 @@ export const nav = {
         {
           icon: "Send",
           label: "Personal Money Transfers",
-          description: "Bhejo — send money home to family and friends",
+          description: "CoPay — send money home to family and friends",
           to: "/send-money",
         },
         {
@@ -79,7 +79,7 @@ export const hero = {
   eyebrow: "FCA-regulated, since 2003",
   headline: "Powering the flow of global capital",
   subhead:
-    "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home with Bhejo, and for businesses moving money across borders.",
+    "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home with CoPay, and for businesses moving money across borders.",
   primaryCta: "Get started",
   secondaryCta: "See how it works",
 };
@@ -582,15 +582,15 @@ export const audienceTabs = [
     id: "individuals",
     label: "For Individuals",
     icon: "Users",
-    headline: "Send money home with Bhejo",
+    headline: "Send money home with CoPay",
     description:
-      "For individuals, CoBanq offers one thing done well: Bhejo, our personal remittance service. Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and more — with the fee and rate shown before you confirm.",
+      "For individuals, CoBanq offers one thing done well: CoPay, our personal remittance service. Transfer to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and more — with the fee and rate shown before you confirm.",
     bullets: [
       "Transfers processed within 24 hours",
       "Bank transfer, debit or credit card",
       "Real-time tracking from your dashboard",
     ],
-    cta: { label: "Send money with Bhejo", to: "/send-money" },
+    cta: { label: "Send money with CoPay", to: "/send-money" },
   },
   {
     id: "business",
@@ -644,10 +644,10 @@ export const solutions = {
   items: [
     {
       icon: "Send",
-      title: "Personal money transfers — Bhejo",
+      title: "Personal money transfers — CoPay",
       description:
-        "Bhejo, powered by CoBanq, is our remittance service for individuals: send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
-      linkLabel: "Send with Bhejo",
+        "CoPay, powered by CoBanq, is our remittance service for individuals: send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
+      linkLabel: "Send with CoPay",
       linkTo: "/send-money",
     },
     {
@@ -1075,17 +1075,17 @@ export const pricing = {
 
 // -------------------- Send Money page --------------------
 
-// CoBanq's remittance service runs under its own consumer brand, Bhejo —
-// the personal money transfers page carries the Bhejo identity with a
+// CoBanq's remittance service runs under its own consumer brand, CoPay —
+// the personal money transfers page carries the CoPay identity with a
 // "Powered by CoBanq" lockup. Reviews are illustrative (invented names),
 // flagged as such on the page — no fabricated ratings or review counts.
 export const sendMoney = {
-  brand: "Bhejo",
+  brand: "CoPay",
   poweredBy: "Powered by CoBanq",
   eyebrow: "Personal money transfers",
   heading: "Send international money transfers from the United Kingdom",
   subhead:
-    "Transfer money online with clear pricing, simple ways to pay, and fast delivery. Bhejo is CoBanq's personal remittance service, built on 20+ years of FCA-regulated payments experience.",
+    "Transfer money online with clear pricing, simple ways to pay, and fast delivery. CoPay is CoBanq's personal remittance service, built on 20+ years of FCA-regulated payments experience.",
   sendCard: {
     heading: "Where would you like to send money?",
     fromLabel: "Sending from:",
@@ -1127,11 +1127,135 @@ export const sendMoney = {
     ],
   },
   countriesGrid: {
-    heading: "Where can you send money with Bhejo?",
+    heading: "Where can you send money with CoPay?",
     subhead: "Select a country to get started with international money transfers.",
     note: "More corridors are supported beyond this list — check the transfer flow for the full set.",
   },
   paymentMethods: ["Bank transfer", "Debit card", "Credit card"],
+};
+
+// -------------------- Remittance onboarding flow --------------------
+// Remitly-style step-by-step signup for CoPay (personal remittance)
+// customers. One multiple-choice question per screen; answers personalize
+// the first transfer. Mirrors the embedded multi-currency account flow's
+// look — progress bar, option cards, focused single-column layout.
+
+export const remittanceOnboarding = {
+  brand: "CoPay",
+  poweredBy: "Powered by CoBanq",
+  stepLabel: (current, total) => `Step ${current} of ${total}`,
+  back: "Back",
+  exitLabel: "Exit onboarding",
+  steps: [
+    {
+      id: "destination",
+      type: "country",
+      question: "Where are you sending money?",
+      hint: "Pick the country your recipient is in — you can send to other corridors later.",
+      otherOption: { value: "other", label: "Another country", sub: "30+ corridors supported" },
+    },
+    {
+      id: "method",
+      type: "cards",
+      question: "How should your recipient get the money?",
+      hint: "You can choose a different delivery method on any transfer.",
+      options: [
+        {
+          value: "bank",
+          icon: "Landmark",
+          label: "Bank deposit",
+          sub: "Straight into their bank account",
+        },
+        {
+          value: "cash",
+          icon: "Banknote",
+          label: "Cash pickup",
+          sub: "Collected from a local agent or partner bank",
+        },
+        {
+          value: "wallet",
+          icon: "Smartphone",
+          label: "Mobile wallet",
+          sub: "Sent to services like JazzCash, GCash, or bKash",
+        },
+        {
+          value: "unsure",
+          icon: "HelpCircle",
+          label: "Not sure yet",
+          sub: "We'll show you every option at checkout",
+        },
+      ],
+    },
+    {
+      id: "purpose",
+      type: "cards",
+      question: "What will you mostly send money for?",
+      hint: "As a regulated firm we ask this to keep transfers safe — it won't limit what you can do.",
+      options: [
+        { value: "family", icon: "HeartHandshake", label: "Supporting family or friends", sub: "Regular help with living costs" },
+        { value: "bills", icon: "ReceiptText", label: "Bills and utilities", sub: "Rent, electricity, phone top-ups" },
+        { value: "education", icon: "GraduationCap", label: "Education", sub: "School or university fees" },
+        { value: "property", icon: "PiggyBank", label: "Savings or property", sub: "Building something back home" },
+        { value: "gifts", icon: "Gift", label: "Gifts and occasions", sub: "Weddings, Eid, birthdays, emergencies" },
+        { value: "other", icon: "MoreHorizontal", label: "Something else", sub: "You can tell us more later" },
+      ],
+    },
+    {
+      id: "amount",
+      type: "list",
+      question: "How much do you usually send at a time?",
+      hint: "A rough figure is fine — it helps us tailor rates and limits.",
+      options: [
+        { value: "under100", label: "Under £100" },
+        { value: "100to500", label: "£100 – £500" },
+        { value: "500to2000", label: "£500 – £2,000" },
+        { value: "over2000", label: "More than £2,000" },
+      ],
+    },
+    {
+      id: "frequency",
+      type: "list",
+      question: "How often do you plan to send?",
+      hint: "No commitment — send as often or as rarely as you like.",
+      options: [
+        { value: "weekly", label: "Every week or two" },
+        { value: "monthly", label: "About once a month" },
+        { value: "fewTimes", label: "A few times a year" },
+        { value: "once", label: "Just this once" },
+      ],
+    },
+    {
+      id: "account",
+      type: "account",
+      question: "Create your CoPay account",
+      hint: "Almost there — your answers are saved and your first transfer is a couple of minutes away.",
+      fields: {
+        firstName: "First name",
+        lastName: "Last name",
+        email: "Email address",
+        password: "Create a password",
+        passwordHint: "At least 8 characters.",
+      },
+      submit: "Create account",
+      // Legal microcopy lives in the component — it needs inline links
+      // to /terms and /privacy.
+    },
+  ],
+  done: {
+    heading: (name) => (name ? `Welcome to CoPay, ${name}!` : "Welcome to CoPay!"),
+    subhead:
+      "Your account is set up. Here's what you told us — we'll use it to get your first transfer ready.",
+    summaryLabels: {
+      destination: "Sending to",
+      method: "Delivery method",
+      purpose: "Sending for",
+      amount: "Typical amount",
+      frequency: "How often",
+    },
+    cta: "Start your first transfer",
+    secondary: "Back to CoPay",
+    note: "Preview flow — account creation and transfers run in the live CoBanq app.",
+  },
 };
 
 // -------------------- Freelancers page --------------------
@@ -1219,7 +1343,7 @@ export const wallets = {
   eyebrow: "Multi-Currency Wallets for Business",
   heading: "One wallet, every currency your business works in",
   subhead:
-    "A business account that holds balances in GBP, EUR, USD, JPY, AED, PKR, and more — collect, convert, and pay out without juggling separate bank accounts for every currency. Sending money home as an individual? That's Bhejo, our personal remittance service.",
+    "A business account that holds balances in GBP, EUR, USD, JPY, AED, PKR, and more — collect, convert, and pay out without juggling separate bank accounts for every currency. Sending money home as an individual? That's CoPay, our personal remittance service.",
   features: [
     {
       icon: "Wallet",
