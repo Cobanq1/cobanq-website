@@ -82,7 +82,6 @@ export const hero = {
     "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home with Bhejo, and for businesses moving money across borders.",
   primaryCta: "Get started",
   secondaryCta: "See how it works",
-  microcopy: "FCA regulated · Registration No. 508565 · CoBanq is not a bank.",
 };
 
 // Real, verifiable facts about CoBanq — used instead of invented "trusted by"
