@@ -5,6 +5,17 @@ import { site, nav } from "../content";
 
 const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark };
 
+// One accent hue per dropdown item, matching the colorful icon chips used
+// across the rest of the site.
+const dropdownChips = [
+  "bg-brand-50 text-brand-600",
+  "bg-emerald-50 text-emerald-600",
+  "bg-violet-50 text-violet-600",
+  "bg-amber-50 text-amber-600",
+  "bg-sky-50 text-sky-600",
+  "bg-rose-50 text-rose-600",
+];
+
 function SolutionsDropdown({ link, open, setOpen }) {
   const containerRef = useRef(null);
 
@@ -45,7 +56,7 @@ function SolutionsDropdown({ link, open, setOpen }) {
       {open && (
         <div className="absolute left-1/2 top-full z-50 mt-3 w-[560px] -translate-x-1/2 rounded-2xl border border-navy-950/10 bg-white p-3 shadow-xl">
           <div className="grid grid-cols-2 gap-1">
-            {link.dropdown.map((item) => {
+            {link.dropdown.map((item, i) => {
               const Icon = dropdownIcons[item.icon];
               return (
                 <Link
@@ -54,7 +65,9 @@ function SolutionsDropdown({ link, open, setOpen }) {
                   onClick={() => setOpen(false)}
                   className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-navy-950/[0.03]"
                 >
-                  <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-brand-50 text-brand-600">
+                  <span
+                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${dropdownChips[i % dropdownChips.length]}`}
+                  >
                     <Icon size={16} />
                   </span>
                   <span>

@@ -50,10 +50,6 @@ export default function Hero({ onWatchDemo }) {
             </button>
           </div>
 
-          <p className="mt-5 text-xs font-medium uppercase tracking-wide text-white/40">
-            {hero.microcopy}
-          </p>
-
           <div className="mt-8">
             <AvatarStack dark caption="Joined by thousands of individuals and businesses" />
           </div>

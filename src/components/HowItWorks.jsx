@@ -18,7 +18,11 @@ export default function HowItWorks() {
         <div className="mt-16 grid grid-cols-1 gap-10 md:grid-cols-3">
           {howItWorks.steps.map((step, i) => (
             <div key={step.number} className="relative">
-              <div className="flex h-14 w-14 items-center justify-center rounded-full bg-navy-950 text-lg font-bold text-white">
+              <div
+                className={`flex h-14 w-14 items-center justify-center rounded-full text-lg font-bold text-white ${
+                  ["bg-gradient-to-br from-brand-400 to-brand-600", "bg-gradient-to-br from-emerald-400 to-emerald-600", "bg-gradient-to-br from-amber-400 to-amber-600"][i % 3]
+                }`}
+              >
                 {step.number}
               </div>
               <h3 className="mt-6 text-xl font-bold text-navy-950">{step.title}</h3>

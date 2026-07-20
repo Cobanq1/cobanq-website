@@ -181,9 +181,16 @@ export default function Features() {
             <WalletHeroCard hero={hero} HeroIcon={HeroIcon} />
           </div>
 
-          {rest.map((item) => {
+          {rest.map((item, i) => {
             const Icon = icons[item.icon];
             const seed = personSeeds[item.title];
+            const chip = [
+              "bg-emerald-50 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white",
+              "bg-violet-50 text-violet-600 group-hover:bg-violet-500 group-hover:text-white",
+              "bg-amber-50 text-amber-600 group-hover:bg-amber-500 group-hover:text-white",
+              "bg-sky-50 text-sky-600 group-hover:bg-sky-500 group-hover:text-white",
+              "bg-rose-50 text-rose-600 group-hover:bg-rose-500 group-hover:text-white",
+            ][i % 5];
             return (
               <div
                 key={item.title}
@@ -197,7 +204,9 @@ export default function Features() {
                     </div>
                   </div>
                 ) : (
-                  <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-brand-50 to-brand-100 text-brand-600 transition group-hover:from-brand-500 group-hover:to-brand-600 group-hover:text-white">
+                  <div
+                    className={`flex h-11 w-11 items-center justify-center rounded-xl transition ${chip}`}
+                  >
                     <Icon size={20} />
                   </div>
                 )}
