@@ -30,6 +30,27 @@ const tierStyles = {
   },
 };
 
+// Big clean price like "£49" with any pence rendered small — extra-bold
+// Manrope numerals, per the reference the user supplied.
+function Price({ value }) {
+  const match = value.match(/^([£$€]?)(\d[\d,]*)(?:\.(\d+))?$/);
+  if (!match) {
+    return (
+      <span className="font-num text-4xl font-extrabold tracking-tight text-navy-950">
+        {value}
+      </span>
+    );
+  }
+  const [, symbol, integer, decimals] = match;
+  return (
+    <span className="font-num font-extrabold tracking-tight text-navy-950">
+      {symbol && <span className="align-top text-2xl">{symbol}</span>}
+      <span className="text-5xl">{integer}</span>
+      {decimals && <span className="text-lg text-navy-950/70">.{decimals}</span>}
+    </span>
+  );
+}
+
 function PricingCard({ plan }) {
   const [openSection, setOpenSection] = useState(0);
   const tier = tierStyles[plan.tier] || tierStyles.free;
@@ -58,8 +79,10 @@ function PricingCard({ plan }) {
           {plan.description}
         </p>
         <div className="mt-4 flex items-baseline gap-1.5">
-          <span className="font-mono text-3xl font-bold text-navy-950">{plan.monthlyFee}</span>
-          {plan.monthlyFee !== "Free" && <span className="text-xs text-navy-950/50">/ month</span>}
+          <Price value={plan.monthlyFee} />
+          {plan.monthlyFee !== "Free" && (
+            <span className="text-xs text-navy-950/50">per month</span>
+          )}
         </div>
         <p className="mt-1 text-xs text-navy-950/40">{plan.monthlyFeeNote}</p>
         {plan.headlineFee && (
@@ -67,7 +90,7 @@ function PricingCard({ plan }) {
             <span className="text-xs font-semibold text-navy-950/60">
               {plan.headlineFee.label}
             </span>
-            <span className="font-mono text-sm font-bold text-navy-950">
+            <span className="font-num text-sm font-extrabold text-navy-950">
               {plan.headlineFee.value}
             </span>
           </div>
@@ -98,7 +121,7 @@ function PricingCard({ plan }) {
                   {section.rows.map((row) => (
                     <div key={row.label} className="flex items-start justify-between gap-4 text-xs">
                       <span className="text-navy-950/60">{row.label}</span>
-                      <span className="shrink-0 font-mono font-semibold text-brand-600">
+                      <span className="font-num shrink-0 font-bold text-brand-600">
                         {row.value}
                       </span>
                     </div>

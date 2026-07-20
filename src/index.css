@@ -4,9 +4,10 @@
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
   --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
   /* Headings — geometric grotesque for a modern fintech voice; body stays
-     Inter for readability. Numbers/fees render in IBM Plex Mono. */
+     Inter for readability. Prices/fees render in Manrope (font-num utility)
+     — round, geometric numerals like the reference the user supplied. */
   --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
-  --font-mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  --font-num: "Manrope", "Inter", system-ui, sans-serif;
 
   --color-navy-950: #050b1a;
   --color-navy-900: #0a1330;
