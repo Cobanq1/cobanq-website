@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import { remittanceOnboarding as flow, countryCorridors, site } from "../content";
 import Flag from "../components/Flag";
-import { CoPayMark } from "../components/CoPayLogo";
+import { CoPayMark, CoPayWordmark } from "../components/CoPayLogo";
 
 const icons = {
   Landmark,
@@ -468,27 +468,23 @@ export default function OnboardingRemittance() {
   return (
     <div className="flex min-h-screen bg-white">
       {/* Brand panel — same treatment as the embedded account onboarding. */}
-      <aside className="relative hidden w-[36%] max-w-md flex-col justify-between overflow-hidden bg-navy-950 p-10 lg:flex">
+      <aside className="relative hidden w-[36%] max-w-md flex-col justify-between overflow-hidden bg-copay-ink p-10 lg:flex">
         <div
-          className="pointer-events-none absolute inset-0 opacity-60"
+          className="pointer-events-none absolute inset-0"
           style={{
             background:
-              "radial-gradient(500px circle at 20% 15%, rgba(91,141,239,0.25), transparent 60%), radial-gradient(600px circle at 80% 90%, rgba(36,56,122,0.5), transparent 60%)",
+              "radial-gradient(500px circle at 20% 15%, rgba(43,113,173,0.3), transparent 60%), radial-gradient(600px circle at 80% 90%, rgba(29,80,133,0.4), transparent 60%)",
           }}
         />
-        <div className="relative flex items-center gap-3">
-          <CoPayMark size={40} />
-          <span>
-            <span className="block text-2xl font-bold leading-none tracking-tight text-white">
-              {flow.brand}
-            </span>
-            <span className="mt-1 block text-[10px] font-semibold uppercase tracking-[0.25em] text-brand-400">
-              {flow.poweredBy}
-            </span>
-          </span>
+        <div className="relative">
+          {/* Inverted pill — the navy logo tile would vanish on this panel. */}
+          <CoPayWordmark height={44} inverted />
+          <p className="mt-3 text-[10px] font-semibold uppercase tracking-[0.3em] text-copay-blue">
+            {flow.poweredBy}
+          </p>
         </div>
         <div className="relative">
-          <h2 className="text-3xl font-extrabold leading-tight tracking-tight text-white">
+          <h2 className="font-serif text-3xl font-bold leading-tight tracking-tight text-white">
             {flow.sidebar.heading}
           </h2>
           <p className="mt-4 max-w-sm leading-relaxed text-white/60">{flow.sidebar.sub}</p>
@@ -503,7 +499,7 @@ export default function OnboardingRemittance() {
             {/* Compact brand for small screens where the panel is hidden. */}
             <div className="flex items-center gap-2.5 lg:hidden">
               <CoPayMark size={28} />
-              <span className="text-lg font-bold tracking-tight text-navy-950">{flow.brand}</span>
+              <CoPayWordmark height={30} />
             </div>
             <div className="hidden items-center gap-3 lg:flex">
               {!done && stepIndex > 0 && (

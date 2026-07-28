@@ -23,6 +23,16 @@
   --color-brand-500: #3b6fe0;
   --color-brand-600: #2c56c4;
   --color-brand-700: #1e3f9e;
+
+  /* CoPay — the consumer remittance brand. Sampled from the supplied
+     logo sheet; used on the CoPay pages and onboarding only, so the
+     parent CoBanq palette above stays untouched. */
+  --color-copay-ink: #01082a;
+  --color-copay-ink-soft: #0b1642;
+  --color-copay-blue: #2b71ad;
+  --color-copay-blue-deep: #1d5085;
+  --color-copay-blue-soft: #e8f0f7;
+  --color-copay-paper: #f4f4f6;
 }
 
 html {
@@ -59,12 +69,16 @@ body {
 }
 
 /* Section and page headings use the display face; smaller UI headings
-   (footer columns, card labels) stay in the body face. */
-h1,
-h2,
-h3 {
-  font-family: var(--font-display);
-  letter-spacing: -0.015em;
+   (footer columns, card labels) stay in the body face. Layered as base so
+   a font utility (e.g. CoPay's font-serif headings) can still override it —
+   unlayered rules would beat Tailwind's utility layer. */
+@layer base {
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.015em;
+  }
 }
 
 /* Space Grotesk tops out at 700 — keep "extrabold" utilities honest

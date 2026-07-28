@@ -1083,9 +1083,64 @@ export const sendMoney = {
   brand: "CoPay",
   poweredBy: "Powered by CoBanq",
   eyebrow: "Personal money transfers",
-  heading: "Send international money transfers from the United Kingdom",
+  heading: "Send money home.",
+  headingAccent: "From the UK, to the people who count on you.",
   subhead:
-    "Transfer money online with clear pricing, simple ways to pay, and fast delivery. CoPay is CoBanq's personal remittance service, built on 20+ years of FCA-regulated payments experience.",
+    "CoPay is CoBanq's personal remittance service — clear pricing, simple ways to pay, and fast delivery, built on 20+ years of FCA-regulated payments experience.",
+  heroTrust: [
+    { icon: "ShieldCheck", label: "FCA regulated" },
+    { icon: "CalendarCheck", label: "Since 2003" },
+    { icon: "Globe", label: "30+ corridors" },
+  ],
+  // The three dots in the CoPay app icon read as a journey — the money
+  // grows closer as it travels. This band spells that out.
+  journey: {
+    eyebrow: "Sent, arriving home",
+    heading: "Three steps you can watch",
+    subhead:
+      "Every transfer moves through the same three moments — and you see the fee and the rate before the first one.",
+    stages: [
+      { label: "You send", detail: "Pay by bank transfer, debit, or credit card" },
+      { label: "On its way", detail: "Tracked end to end, with updates as it moves" },
+      { label: "Delivered home", detail: "Into their bank, wallet, or cash to collect" },
+    ],
+  },
+  benefits: {
+    heading: "Why families choose CoPay",
+    items: [
+      {
+        icon: "Tags",
+        title: "The rate you're shown is the rate you get",
+        description:
+          "Fee and exchange rate appear before you confirm — nothing extra is taken at the other end.",
+      },
+      {
+        icon: "Zap",
+        title: "Most transfers land within hours",
+        description:
+          "Many corridors deliver the same day; you'll see the expected arrival time before you send.",
+      },
+      {
+        icon: "ShieldCheck",
+        title: "Regulated since 2003",
+        description:
+          "CoPay runs on CoBanq Ltd, authorised by the FCA under the Payment Services Regulations 2017.",
+      },
+      {
+        icon: "Handshake",
+        title: "Pay the way that suits you",
+        description:
+          "Bank transfer, debit card, or credit card — and your recipient picks how they collect.",
+      },
+    ],
+  },
+  closing: {
+    heading: "Your first transfer is a few minutes away",
+    subhead:
+      "Create a CoPay account, verify your ID once, and send whenever you need to. Sending is available from the United Kingdom.",
+    cta: "Create your account",
+    secondary: "See how it works",
+  },
   sendCard: {
     heading: "Where would you like to send money?",
     fromLabel: "Sending from:",
