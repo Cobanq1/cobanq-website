@@ -1,233 +1,110 @@
-import { useEffect, useRef, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import { Menu, X, ChevronDown, ArrowRight, Send, Laptop, Building2, Users, Wallet, Landmark, Palette } from "lucide-react";
-import { site, nav } from "../content";
+import { useEffect, useState } from "react";
+import { Link, NavLink, useLocation } from "react-router-dom";
+import { Menu, X, Phone } from "lucide-react";
+import Logo from "./Logo";
+import { Container, Button } from "./ui";
+import { site } from "../site";
 
-const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark, Palette };
-
-// One accent hue per dropdown item, matching the colorful icon chips used
-// across the rest of the site.
-const dropdownChips = [
-  "bg-brand-50 text-brand-600",
-  "bg-emerald-50 text-emerald-600",
-  "bg-violet-50 text-violet-600",
-  "bg-amber-50 text-amber-600",
-  "bg-sky-50 text-sky-600",
-  "bg-rose-50 text-rose-600",
+const links = [
+  { to: "/services", label: "Services" },
+  { to: "/clients", label: "For businesses" },
+  { to: "/careers", label: "Work with us" },
+  { to: "/about", label: "About" },
+  { to: "/contact", label: "Contact" },
 ];
 
-function SolutionsDropdown({ link, open, setOpen }) {
-  const containerRef = useRef(null);
-
-  // Click-to-open/close, not hover — hover-based open/close is fragile
-  // here because the gap between the trigger and the absolutely
-  // positioned panel creates a dead zone that closes the menu before
-  // a pointer moving from the button to an item ever reaches it.
-  useEffect(() => {
-    if (!open) return;
-    const handleClickOutside = (e) => {
-      if (containerRef.current && !containerRef.current.contains(e.target)) {
-        setOpen(false);
-      }
-    };
-    const handleEscape = (e) => {
-      if (e.key === "Escape") setOpen(false);
-    };
-    document.addEventListener("mousedown", handleClickOutside);
-    document.addEventListener("keydown", handleEscape);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [open, setOpen]);
-
-  return (
-    <div ref={containerRef} className="relative">
-      <button
-        type="button"
-        onClick={() => setOpen((v) => !v)}
-        className="flex items-center gap-1 text-sm font-medium text-navy-800/70 transition hover:text-navy-950"
-        aria-expanded={open}
-      >
-        {link.label}
-        <ChevronDown size={14} className={`transition-transform ${open ? "rotate-180" : ""}`} />
-      </button>
-
-      {open && (
-        <div className="absolute left-1/2 top-full z-50 mt-3 w-[560px] -translate-x-1/2 rounded-2xl border border-navy-950/10 bg-white p-3 shadow-xl">
-          <div className="grid grid-cols-2 gap-1">
-            {link.dropdown.map((item, i) => {
-              const Icon = dropdownIcons[item.icon];
-              return (
-                <Link
-                  key={item.label}
-                  to={item.to}
-                  onClick={() => setOpen(false)}
-                  className="flex items-start gap-3 rounded-xl p-3 transition hover:bg-navy-950/[0.03]"
-                >
-                  <span
-                    className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-lg ${dropdownChips[i % dropdownChips.length]}`}
-                  >
-                    <Icon size={16} />
-                  </span>
-                  <span>
-                    <span className="block text-sm font-semibold text-navy-950">
-                      {item.label}
-                    </span>
-                    <span className="block text-xs text-navy-950/50">{item.description}</span>
-                  </span>
-                </Link>
-              );
-            })}
-          </div>
-          <Link
-            to={link.to}
-            onClick={() => setOpen(false)}
-            className="mt-1 flex items-center gap-1.5 rounded-xl px-3 py-2.5 text-sm font-semibold text-brand-600 transition hover:bg-navy-950/[0.03]"
-          >
-            See all solutions
-            <ArrowRight size={14} />
-          </Link>
-        </div>
-      )}
-    </div>
-  );
-}
-
-export default function Navbar({ onGetStarted }) {
+export default function Navbar() {
   const [open, setOpen] = useState(false);
-  const [dropdownOpen, setDropdownOpen] = useState(false);
-  const [mobileSolutionsOpen, setMobileSolutionsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const { pathname } = useLocation();
+
+  useEffect(() => setOpen(false), [pathname]);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 12);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <header className="sticky top-0 z-50 border-b border-navy-900/10 bg-white/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
-        <Link to="/" className="flex items-baseline gap-2 text-navy-950">
-          <span
-            className="text-2xl font-semibold tracking-tight"
-            style={{ fontFamily: "var(--font-serif)" }}
-          >
-            {site.name}
-          </span>
-          <span className="hidden text-xs italic text-navy-950/40 sm:inline">{site.since}</span>
-        </Link>
+    <header
+      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-300 ${
+        scrolled || open ? "border-b border-white/10 bg-ink-950/95 backdrop-blur" : "bg-transparent"
+      }`}
+    >
+      <Container>
+        <div className="flex h-20 items-center justify-between gap-6">
+          <Link to="/" aria-label={`${site.name} — home`}>
+            <Logo />
+          </Link>
 
-        <nav className="hidden items-center gap-7 lg:flex">
-          {nav.links.map((link) =>
-            link.dropdown ? (
-              <SolutionsDropdown
-                key={link.label}
-                link={link}
-                open={dropdownOpen}
-                setOpen={setDropdownOpen}
-              />
-            ) : (
+          <nav className="hidden items-center gap-1 lg:flex">
+            {links.map((l) => (
               <NavLink
-                key={link.label}
-                to={link.to}
+                key={l.to}
+                to={l.to}
                 className={({ isActive }) =>
-                  `text-sm font-medium transition hover:text-navy-950 ${
-                    isActive ? "text-navy-950" : "text-navy-800/70"
+                  `rounded-full px-4 py-2 text-sm font-medium transition ${
+                    isActive ? "text-gold-400" : "text-ink-200/75 hover:text-white"
                   }`
                 }
               >
-                {link.label}
+                {l.label}
               </NavLink>
-            )
-          )}
-        </nav>
+            ))}
+          </nav>
 
-        <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href={site.onboardingUrl}
-            className="text-sm font-semibold text-navy-800/80 hover:text-navy-950"
-          >
-            {nav.loginLabel}
-          </a>
+          <div className="hidden items-center gap-3 lg:flex">
+            <a
+              href={`tel:${site.phoneLink}`}
+              className="flex items-center gap-2 text-sm font-semibold text-white transition hover:text-gold-400"
+            >
+              <Phone className="h-4 w-4 text-gold-400" strokeWidth={2.2} />
+              {site.phone}
+            </a>
+            <Button to="/contact">Get a quote</Button>
+          </div>
+
           <button
             type="button"
-            onClick={onGetStarted}
-            className="rounded-full bg-gradient-to-r from-navy-800 to-navy-950 px-5 py-2.5 text-sm font-semibold text-white transition hover:from-navy-700 hover:to-navy-900"
+            onClick={() => setOpen((v) => !v)}
+            aria-expanded={open}
+            aria-label={open ? "Close menu" : "Open menu"}
+            className="rounded-full border border-white/20 p-2.5 text-white lg:hidden"
           >
-            {nav.signupLabel}
+            {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
         </div>
-
-        <button
-          type="button"
-          onClick={() => setOpen((v) => !v)}
-          className="text-navy-950 lg:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={26} /> : <Menu size={26} />}
-        </button>
-      </div>
+      </Container>
 
       {open && (
-        <div className="border-t border-navy-900/10 bg-white px-6 py-4 lg:hidden">
-          <nav className="flex flex-col gap-4">
-            {nav.links.map((link) =>
-              link.dropdown ? (
-                <div key={link.label}>
-                  <button
-                    type="button"
-                    onClick={() => setMobileSolutionsOpen((v) => !v)}
-                    className="flex w-full items-center justify-between text-sm font-medium text-navy-800/80"
-                  >
-                    {link.label}
-                    <ChevronDown
-                      size={16}
-                      className={`transition-transform ${mobileSolutionsOpen ? "rotate-180" : ""}`}
-                    />
-                  </button>
-                  {mobileSolutionsOpen && (
-                    <div className="mt-3 flex flex-col gap-3 border-l border-navy-900/10 pl-4">
-                      {link.dropdown.map((item) => (
-                        <Link
-                          key={item.label}
-                          to={item.to}
-                          onClick={() => setOpen(false)}
-                          className="text-sm text-navy-800/70"
-                        >
-                          {item.label}
-                        </Link>
-                      ))}
-                      <Link
-                        to={link.to}
-                        onClick={() => setOpen(false)}
-                        className="text-sm font-semibold text-brand-600"
-                      >
-                        See all solutions
-                      </Link>
-                    </div>
-                  )}
-                </div>
-              ) : (
+        <div className="border-t border-white/10 bg-ink-950 lg:hidden">
+          <Container className="py-5">
+            <nav className="flex flex-col">
+              {links.map((l) => (
                 <NavLink
-                  key={link.label}
-                  to={link.to}
-                  onClick={() => setOpen(false)}
-                  className="text-sm font-medium text-navy-800/80"
+                  key={l.to}
+                  to={l.to}
+                  className={({ isActive }) =>
+                    `border-b border-white/5 py-3.5 text-base font-medium ${
+                      isActive ? "text-gold-400" : "text-ink-200"
+                    }`
+                  }
                 >
-                  {link.label}
+                  {l.label}
                 </NavLink>
-              )
-            )}
-            <hr className="border-navy-900/10" />
-            <a href={site.onboardingUrl} className="text-sm font-semibold text-navy-800/80">
-              {nav.loginLabel}
-            </a>
-            <button
-              type="button"
-              onClick={() => {
-                setOpen(false);
-                onGetStarted?.();
-              }}
-              className="rounded-full bg-gradient-to-r from-navy-800 to-navy-950 px-5 py-2.5 text-center text-sm font-semibold text-white"
-            >
-              {nav.signupLabel}
-            </button>
-          </nav>
+              ))}
+            </nav>
+            <div className="mt-5 flex flex-col gap-3">
+              <Button href={`tel:${site.phoneLink}`} size="lg">
+                <Phone className="h-4 w-4" /> Call {site.phone}
+              </Button>
+              <Button to="/contact" tone="outlineLight" size="lg">
+                Request a quote
+              </Button>
+            </div>
+          </Container>
         </div>
       )}
     </header>

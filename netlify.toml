@@ -2,9 +2,17 @@
   command = "npm run build"
   publish = "dist"
 
-# Client-side routing (React Router) — send every path to index.html
-# so /faq, /pk, /business etc. work on direct load and on refresh.
+# Client-side routing (React Router) — send every path to index.html so
+# /services, /careers, /contact etc. work on a direct load and on refresh.
+# Netlify handles form POSTs before this rule, so submissions are unaffected.
 [[redirects]]
   from = "/*"
   to = "/index.html"
   status = 200
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"

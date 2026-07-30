@@ -1,18 +1,17 @@
-import { useState } from "react";
-import { Outlet, useLocation } from "react-router-dom";
 import { useEffect } from "react";
+import { Outlet, useLocation } from "react-router-dom";
 import Navbar from "./Navbar";
 import Footer from "./Footer";
-import DemoModal from "./DemoModal";
-import { site } from "../content";
+import CallBar from "./CallBar";
 
+/** React Router keeps the scroll position between routes; this resets it. */
 function ScrollToTop() {
   const { pathname, hash } = useLocation();
   useEffect(() => {
     if (hash) {
-      const el = document.querySelector(hash);
+      const el = document.getElementById(hash.slice(1));
       if (el) {
-        el.scrollIntoView({ behavior: "smooth" });
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
         return;
       }
     }
@@ -22,26 +21,15 @@ function ScrollToTop() {
 }
 
 export default function Layout() {
-  const [demoOpen, setDemoOpen] = useState(false);
-
-  const context = {
-    // Sends people straight to the live sign up / log in flow.
-    openGetStarted: () => {
-      window.location.href = site.onboardingUrl;
-    },
-    openDemo: () => setDemoOpen(true),
-  };
-
   return (
-    <div className="min-h-screen bg-white">
+    <div className="flex min-h-screen flex-col">
       <ScrollToTop />
-      <Navbar onGetStarted={context.openGetStarted} />
-      <main>
-        <Outlet context={context} />
+      <Navbar />
+      <main className="flex-1 pb-20 lg:pb-0">
+        <Outlet />
       </main>
       <Footer />
-
-      <DemoModal open={demoOpen} onClose={() => setDemoOpen(false)} />
+      <CallBar />
     </div>
   );
 }

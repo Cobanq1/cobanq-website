@@ -1,87 +1,118 @@
-import { LifeBuoy, Building2, ShieldCheck, Mail, MapPin } from "lucide-react";
-import { contact, site } from "../content";
+import { Phone, MessageCircle, Mail, Clock, MapPin, UserPlus } from "lucide-react";
+import { Container, PageHero, SectionHeading, Button } from "../components/ui";
 import EnquiryForm from "../components/EnquiryForm";
-import PersonPhoto from "../components/PersonPhoto";
-
-const icons = { LifeBuoy, Building2, ShieldCheck };
-const personSeeds = {
-  "Support Center": "Support Agent",
-  "Business & Partnerships": "Partnerships Manager",
-  "Regulatory & Compliance": "Compliance Officer",
-};
-
-const contactFields = [
-  { name: "name", label: "Name", autoComplete: "name", wide: true },
-  { name: "email", label: "Email", type: "email", autoComplete: "email", wide: true },
-  { name: "message", label: "Message", type: "textarea", wide: true },
-];
+import { CLIENT_FORM, clientFields } from "../forms";
+import { site } from "../site";
 
 export default function Contact() {
+  const waNumber = site.phoneLink.replace("+", "");
+
   return (
-    <section className="bg-white py-20">
-      <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
-        <h1 className="text-4xl font-extrabold tracking-tight text-navy-950 sm:text-5xl">
-          {contact.heading}
-        </h1>
-        <p className="mt-5 text-lg leading-relaxed text-navy-950/60">{contact.subhead}</p>
-      </div>
+    <>
+      <PageHero
+        eyebrow="Contact"
+        title="Talk to us."
+        lead={`Ask for ${site.contactName}. For anything urgent — a site that needs covering tonight, an alarm activation, a shift that's just gone down — phone rather than email.`}
+      />
 
-      <div className="mx-auto mt-14 grid max-w-5xl grid-cols-1 gap-5 px-6 sm:grid-cols-3 lg:px-8">
-        {contact.cards.map((card) => {
-          const Icon = icons[card.icon];
-          return (
-            <div key={card.title} className="rounded-2xl border border-navy-950/10 p-6">
-              <div className="relative inline-flex">
-                <PersonPhoto seed={personSeeds[card.title]} size={44} />
-                <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
-                  <Icon size={10} />
-                </div>
-              </div>
-              <h3 className="mt-4 text-sm font-bold text-navy-950">{card.title}</h3>
-              <p className="mt-1.5 text-xs leading-relaxed text-navy-950/60">{card.description}</p>
-            </div>
-          );
-        })}
-      </div>
-
-      <div className="mx-auto mt-14 grid max-w-5xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
-        <EnquiryForm
-          formName="contact"
-          fields={contactFields}
-          submitLabel="Send message"
-          successHeading="Message sent"
-          successBody="Thanks — we'll reply by email."
-        />
-
-        <div className="flex flex-col justify-center gap-6">
-          <div className="flex items-start gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-950 text-white">
-              <Mail size={18} />
-            </span>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-navy-950/40">
-                Email
+      <section className="bg-white py-20 sm:py-24">
+        <Container>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <a
+              href={`tel:${site.phoneLink}`}
+              className="group rounded-2xl border border-ink-200 bg-ink-900 p-7 transition hover:border-gold-400"
+            >
+              <Phone className="h-6 w-6 text-gold-400" strokeWidth={1.9} />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-400">
+                Call us
               </p>
-              <p className="mt-1 text-sm font-semibold text-navy-950">{contact.email}</p>
+              <p className="mt-2 text-2xl font-bold text-white">{site.phone}</p>
+              <p className="mt-2 text-sm text-ink-400">
+                {site.contactName} · {site.contactRole}
+              </p>
+            </a>
+
+            {site.whatsapp && (
+              <a
+                href={`https://wa.me/${waNumber}`}
+                target="_blank"
+                rel="noreferrer"
+                className="rounded-2xl border border-ink-200 bg-white p-7 transition hover:border-gold-400"
+              >
+                <MessageCircle className="h-6 w-6 text-gold-500" strokeWidth={1.9} />
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-600">
+                  WhatsApp
+                </p>
+                <p className="mt-2 text-2xl font-bold text-ink-900">Message us</p>
+                <p className="mt-2 text-sm text-ink-500">
+                  Handy for sending site details or a licence photo.
+                </p>
+              </a>
+            )}
+
+            {site.email && (
+              <a
+                href={`mailto:${site.email}`}
+                className="rounded-2xl border border-ink-200 bg-white p-7 transition hover:border-gold-400"
+              >
+                <Mail className="h-6 w-6 text-gold-500" strokeWidth={1.9} />
+                <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-600">
+                  Email
+                </p>
+                <p className="mt-2 break-all text-lg font-bold text-ink-900">{site.email}</p>
+              </a>
+            )}
+
+            <div className="rounded-2xl border border-ink-200 bg-white p-7">
+              <Clock className="h-6 w-6 text-gold-500" strokeWidth={1.9} />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-600">
+                Hours
+              </p>
+              <p className="mt-2 text-lg font-bold text-ink-900">Office 8am – 8pm, 7 days</p>
+              <p className="mt-2 text-sm text-ink-500">
+                Live sites and alarm response are covered 24 hours.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-ink-200 bg-white p-7">
+              <MapPin className="h-6 w-6 text-gold-500" strokeWidth={1.9} />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-gold-600">
+                Coverage
+              </p>
+              <p className="mt-2 text-lg font-bold text-ink-900">{site.coverage}</p>
+            </div>
+
+            <div className="rounded-2xl border border-dashed border-ink-300 bg-ink-50 p-7">
+              <UserPlus className="h-6 w-6 text-ink-600" strokeWidth={1.9} />
+              <p className="mt-5 text-[11px] font-bold uppercase tracking-[0.2em] text-ink-500">
+                Looking for work?
+              </p>
+              <p className="mt-2 text-lg font-bold text-ink-900">Officers register here</p>
+              <Button to="/careers" tone="outlineDark" className="mt-4">
+                Register your details
+              </Button>
             </div>
           </div>
-          <div className="flex items-start gap-4">
-            <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl bg-navy-950 text-white">
-              <MapPin size={18} />
-            </span>
-            <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-navy-950/40">
-                Registered office
-              </p>
-              <p className="mt-1 max-w-xs text-sm font-semibold text-navy-950">{contact.address}</p>
-            </div>
+        </Container>
+      </section>
+
+      <section className="bg-ink-50 py-20 sm:py-24">
+        <Container>
+          <div className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr]">
+            <SectionHeading
+              eyebrow="Enquiry form"
+              title="Or send us the details."
+              lead="Tell us what you need covering and we'll come back with availability and a rate. Officers looking for shifts should use the registration form instead — it asks the right questions."
+            />
+            <EnquiryForm
+              formName={CLIENT_FORM}
+              fields={clientFields}
+              submitLabel="Send enquiry"
+              successNote="We'll review the details and come back to you with availability and a rate."
+            />
           </div>
-          <p className="text-xs leading-relaxed text-navy-950/40">
-            {site.legalName} is regulated by the Financial Conduct Authority (FCA), registration
-            no. {site.fcaNumber}. {site.name} is not a bank.
-          </p>
-        </div>
-      </div>
-    </section>
+        </Container>
+      </section>
+    </>
   );
 }

@@ -1,52 +1,99 @@
 <!doctype html>
-<html lang="en">
+<html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="CoBanq — FCA-regulated international money transfers, business payments, and multi-currency wallets, since 2003." />
+    <meta name="theme-color" content="#070b10" />
+
+    <title>Alliance Security Group — SIA Licensed Security Services in the UK</title>
+    <meta
+      name="description"
+      content="Alliance Security Group supplies SIA licensed security officers, key holding and alarm response, CCTV operators, dog handling security and fire marshals across the UK. Direct contracts and subcontract work welcome."
+    />
+    <link rel="canonical" href="https://www.alliancesecuritygroup.co.uk/" />
+
+    <!-- Social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Alliance Security Group" />
+    <meta property="og:title" content="Alliance Security Group — SIA Licensed Security Services" />
+    <meta
+      property="og:description"
+      content="SIA licensed security officers, key holding and alarm response, CCTV operators, dog handlers and fire marshals. Call 07539 559947."
+    />
+    <meta name="twitter:card" content="summary" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&family=Manrope:wght@600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800;900&family=Inter:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <title>CoBanq — Powering the flow of global capital</title>
+
+    <!-- Tells Google what kind of business this is and how to contact it. -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SecurityService",
+        "name": "Alliance Security Group",
+        "legalName": "Alliance Security Group Limited",
+        "description": "SIA licensed security officers, key holding and alarm response, CCTV operators, dog handling security and fire marshals.",
+        "telephone": "+447539559947",
+        "areaServed": "GB",
+        "knowsAbout": [
+          "SIA licensed security officers",
+          "Key holding and alarm response",
+          "CCTV operators",
+          "Dog handling security",
+          "Fire marshals"
+        ]
+      }
+    </script>
   </head>
   <body>
     <!--
+      ─────────────────────────────────────────────────────────────────────
       Netlify Forms detection.
 
-      Netlify scans the deployed HTML at build time to register forms, and a
-      React SPA renders its forms in JS where the scanner can't see them.
-      These hidden copies exist purely so the form names and fields are
-      registered; the real submissions are posted by src/components/EnquiryForm.jsx.
-      Keep the `name` and the field `name`s in sync with the React forms, and
-      set the destination address under Site configuration → Forms → Notifications.
+      Netlify registers forms by scanning the HTML it receives at build
+      time. A React app builds its forms in JavaScript, where that scanner
+      cannot see them — so these hidden copies exist purely to register the
+      form names and their fields. The real submissions are posted by
+      src/components/EnquiryForm.jsx.
+
+      If you add a field in src/forms.js, add an input with the same `name`
+      here too, or that field will be dropped from the emailed submission.
+
+      Choose where submissions are emailed in the Netlify dashboard:
+        Site configuration → Forms → Form notifications.
+      ─────────────────────────────────────────────────────────────────────
     -->
-    <form name="business-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+    <form name="client-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
       <input type="text" name="company" />
       <input type="email" name="email" />
       <input type="tel" name="phone" />
-      <input type="text" name="interest" />
-      <input type="text" name="corridors" />
-      <input type="text" name="volume" />
+      <input type="text" name="services" />
+      <input type="text" name="location" />
+      <input type="text" name="arrangement" />
+      <input type="text" name="hours" />
+      <input type="text" name="start" />
       <textarea name="message"></textarea>
       <input name="bot-field" />
     </form>
-    <form name="white-label-enquiry" data-netlify="true" netlify-honeypot="bot-field" hidden>
+
+    <form name="officer-application" data-netlify="true" netlify-honeypot="bot-field" hidden>
       <input type="text" name="name" />
-      <input type="text" name="company" />
+      <input type="tel" name="phone" />
       <input type="email" name="email" />
-      <input type="url" name="website" />
-      <input type="text" name="volume" />
-      <textarea name="message"></textarea>
-      <input name="bot-field" />
-    </form>
-    <form name="contact" data-netlify="true" netlify-honeypot="bot-field" hidden>
-      <input type="text" name="name" />
-      <input type="email" name="email" />
+      <input type="text" name="location" />
+      <input type="text" name="roles" />
+      <input type="text" name="sia" />
+      <input type="text" name="licence_expiry" />
+      <input type="text" name="experience" />
+      <input type="text" name="availability" />
+      <input type="text" name="transport" />
+      <input type="text" name="travel" />
       <textarea name="message"></textarea>
       <input name="bot-field" />
     </form>

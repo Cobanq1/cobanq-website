@@ -2,56 +2,79 @@
 
 @theme {
   --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-serif: "Playfair Display", Georgia, "Times New Roman", serif;
-  /* Headings — geometric grotesque for a modern fintech voice; body stays
-     Inter for readability. Prices/fees render in Manrope (font-num utility)
-     — round, geometric numerals like the reference the user supplied. */
-  --font-display: "Space Grotesk", "Inter", system-ui, sans-serif;
-  --font-num: "Manrope", "Inter", system-ui, sans-serif;
+  /* Archivo is a sturdy, slightly condensed grotesque — it carries the
+     uniformed-services weight the brand needs without looking military-kitsch. */
+  --font-display: "Archivo", "Inter", system-ui, sans-serif;
 
-  --color-navy-950: #050b1a;
-  --color-navy-900: #0a1330;
-  --color-navy-800: #111c42;
-  --color-navy-700: #1a2a5c;
-  --color-navy-600: #24387a;
+  /* Ink — the near-black steel the site is built on. */
+  --color-ink-950: #070b10;
+  --color-ink-900: #0b121b;
+  --color-ink-800: #111a25;
+  --color-ink-700: #1b2836;
+  --color-ink-600: #2a3a4d;
+  --color-ink-500: #55677d;
+  --color-ink-400: #8496a9;
+  --color-ink-200: #d7dfe8;
+  --color-ink-100: #eaeff5;
+  --color-ink-50: #f5f8fb;
 
-  /* Single theme color family — a brighter blue used only for gradients,
-     accents, and interactive states. No secondary hue (e.g. orange). */
-  --color-brand-50: #eef4ff;
-  --color-brand-100: #dce8ff;
-  --color-brand-400: #5b8def;
-  --color-brand-500: #3b6fe0;
-  --color-brand-600: #2c56c4;
-  --color-brand-700: #1e3f9e;
-
-  /* CoPay — the consumer remittance brand. Sampled from the supplied
-     logo sheet; used on the CoPay pages and onboarding only, so the
-     parent CoBanq palette above stays untouched. */
-  --color-copay-ink: #01082a;
-  --color-copay-ink-soft: #0b1642;
-  --color-copay-blue: #2b71ad;
-  --color-copay-blue-deep: #1d5085;
-  --color-copay-blue-soft: #e8f0f7;
-  --color-copay-paper: #f4f4f6;
+  /* Gold — the single accent. Used for emphasis and interactive states only. */
+  --color-gold-300: #f2cf87;
+  --color-gold-400: #e7b24b;
+  --color-gold-500: #d29a2d;
+  --color-gold-600: #a97821;
 }
 
 html {
   scroll-behavior: smooth;
 }
 
-@keyframes marquee {
-  from {
-    transform: translateX(0);
-  }
-  to {
-    transform: translateX(-50%);
+body {
+  font-family: var(--font-sans);
+  background-color: #ffffff;
+  color: var(--color-ink-900);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+@layer base {
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.02em;
   }
 }
 
-@keyframes fadeIn {
+::selection {
+  background: var(--color-gold-400);
+  color: var(--color-ink-950);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-gold-400);
+  outline-offset: 3px;
+}
+
+/* A faint diagonal hatch used behind dark sections — reads as brushed steel
+   rather than a flat block of navy. */
+.bg-hatch {
+  background-image: repeating-linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.035) 0px,
+    rgba(255, 255, 255, 0.035) 1px,
+    transparent 1px,
+    transparent 9px
+  );
+}
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(6px);
+    transform: translateY(14px);
   }
   to {
     opacity: 1;
@@ -59,42 +82,15 @@ html {
   }
 }
 
-body {
-  font-family: var(--font-sans);
-  background-color: #ffffff;
-  color: var(--color-navy-950);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
+.animate-rise {
+  animation: rise 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
-/* Section and page headings use the display face; smaller UI headings
-   (footer columns, card labels) stay in the body face. Layered as base so
-   a font utility (e.g. CoPay's font-serif headings) can still override it —
-   unlayered rules would beat Tailwind's utility layer. */
-@layer base {
-  h1,
-  h2,
-  h3 {
-    font-family: var(--font-display);
-    letter-spacing: -0.015em;
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
-}
-
-/* Space Grotesk tops out at 700 — keep "extrabold" utilities honest
-   instead of letting the browser synthesize a fake heavier weight. */
-h1,
-h2,
-h3 {
-  font-weight: 700;
-}
-
-::selection {
-  background: var(--color-brand-500);
-  color: #ffffff;
-}
-
-:focus-visible {
-  outline: 2px solid var(--color-brand-500);
-  outline-offset: 2px;
+  .animate-rise {
+    animation: none;
+  }
 }

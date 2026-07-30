@@ -1,63 +1,29 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
 import Home from "./pages/Home";
-import About from "./pages/About";
-import Business from "./pages/Business";
-import Solutions from "./pages/Solutions";
-import Faq from "./pages/Faq";
-import Contact from "./pages/Contact";
-import Calculator from "./pages/Calculator";
-import SendMoney from "./pages/SendMoney";
-import Security from "./pages/Security";
-import Country from "./pages/Country";
+import Services from "./pages/Services";
+import Clients from "./pages/Clients";
 import Careers from "./pages/Careers";
-import Press from "./pages/Press";
-import Accessibility from "./pages/Accessibility";
-import Complaints from "./pages/Complaints";
-import Legal from "./pages/Legal";
-import Freelancers from "./pages/Freelancers";
-import Payroll from "./pages/Payroll";
-import Wallets from "./pages/Wallets";
-import Pricing from "./pages/Pricing";
-import OnboardingRemittance from "./pages/OnboardingRemittance";
-import WhiteLabel from "./pages/WhiteLabel";
-import BusinessEnquiry from "./pages/BusinessEnquiry";
+import About from "./pages/About";
+import Contact from "./pages/Contact";
+import Privacy from "./pages/Privacy";
+import NotFound from "./pages/NotFound";
 
-function App() {
+export default function App() {
   return (
     <BrowserRouter>
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/business" element={<Business />} />
-          <Route path="/solutions" element={<Solutions />} />
-          <Route path="/faq" element={<Faq />} />
-          <Route path="/contact" element={<Contact />} />
-          <Route path="/calculator" element={<Calculator />} />
-          <Route path="/send-money" element={<SendMoney />} />
-          <Route path="/freelancers" element={<Freelancers />} />
-          <Route path="/payroll" element={<Payroll />} />
-          <Route path="/wallets" element={<Wallets />} />
-          <Route path="/white-label" element={<WhiteLabel />} />
-          <Route path="/business-enquiry" element={<BusinessEnquiry />} />
-          <Route path="/pricing" element={<Pricing />} />
-          <Route path="/security" element={<Security />} />
+          <Route path="/services" element={<Services />} />
+          <Route path="/clients" element={<Clients />} />
           <Route path="/careers" element={<Careers />} />
-          <Route path="/press" element={<Press />} />
-          <Route path="/accessibility" element={<Accessibility />} />
-          <Route path="/complaints" element={<Complaints />} />
-          <Route path="/terms" element={<Legal page="terms" />} />
-          <Route path="/privacy" element={<Legal page="privacy" />} />
-          <Route path="/cookies" element={<Legal page="cookies" />} />
-          {/* Country landing pages — add more Route lines here as they're built */}
-          <Route path="/pk" element={<Country slug="pk" />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/privacy" element={<Privacy />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
-        {/* Focused flow without the site chrome, like the account onboarding. */}
-        <Route path="/onboarding/remittance" element={<OnboardingRemittance />} />
       </Routes>
     </BrowserRouter>
   );
 }
-
-export default App;
