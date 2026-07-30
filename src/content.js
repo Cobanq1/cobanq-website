@@ -52,6 +52,12 @@ export const nav = {
           to: "/payroll",
         },
         {
+          icon: "Palette",
+          label: "White-Label",
+          description: "Run regulated payments under your own brand",
+          to: "/white-label",
+        },
+        {
           icon: "Wallet",
           label: "Multi-Currency Wallets",
           description: "Hold and manage GBP, EUR, USD, and more",
@@ -661,6 +667,7 @@ export const solutions = {
     { who: "I invoice clients or platforms overseas", to: "#freelancers", label: "Freelancers" },
     { who: "My company pays suppliers abroad", to: "#business", label: "Business payments" },
     { who: "I pay staff in other countries", to: "#payroll", label: "Payroll" },
+    { who: "I want to offer payments under my own brand", to: "/white-label", label: "White-label" },
     { who: "I hold balances in several currencies", to: "#wallets", label: "Wallets" },
     { who: "I want to build on your rails", to: "#partnerships", label: "Partnerships" },
   ],
@@ -751,6 +758,27 @@ export const solutions = {
       linkTo: "/payroll",
     },
     {
+      id: "white-label",
+      icon: "Palette",
+      title: "White-label banking",
+      tagline: "Run regulated payments under your own brand",
+      photo: "",
+      seed: "Platform Founder",
+      description:
+        "Put your own name and domain on a payments product that runs on CoBanq's regulated infrastructure. Your customers see your brand; the licensing, payout network, and compliance stay with us.",
+      forWho: "Platforms, brokers, and brands offering payments",
+      features: [
+        "Your brand, your domain, on the customer-facing portal",
+        "Multi-currency accounts and payouts issued under your programme",
+        "Customer onboarding, KYC, and screening handled on regulated rails",
+        "Access to the same 30+ payout corridors as our direct customers",
+        "Launch without building a payments stack or holding your own licence",
+      ],
+      linkLabel: "Explore white-label",
+      linkTo: "/white-label",
+      note: "Pricing is quoted per programme — talk to us about your volumes.",
+    },
+    {
       id: "wallets",
       icon: "Wallet",
       title: "Multi-currency wallets",
@@ -828,6 +856,180 @@ export const solutions = {
     primary: "Get started",
     secondary: "Talk to our team",
   },
+};
+
+// -------------------- White-label page --------------------
+// CoBanq already offers "platform, white-label, or correspondent"
+// integration models (see the business page); this is the white-label
+// model written out in full. Deliberately no published price list —
+// programmes are quoted individually, so the page ends in an enquiry
+// form rather than tiers.
+
+export const whiteLabel = {
+  eyebrow: "White-label",
+  heading: "Your brand. Our regulated rails.",
+  subhead:
+    "Launch a payments product under your own name without building the licensing, banking, and compliance stack behind it. Your customers see you; CoBanq runs everything underneath.",
+  primaryCta: "Request a demo",
+  secondaryCta: "See all solutions",
+  stats: [
+    { value: "2003", label: "Operating since" },
+    { value: "30+", label: "Payout corridors" },
+    { value: "FCA", label: "Authorised, No. 508565" },
+  ],
+  featuresHeading: "What your programme includes",
+  featuresSub:
+    "Everything a customer touches carries your brand. Everything a regulator looks at sits with us.",
+  features: [
+    {
+      icon: "Palette",
+      title: "Fully branded portal",
+      description:
+        "Your logo, colours, and domain across the web portal your customers sign in to — not a co-branded skin on someone else's product.",
+    },
+    {
+      icon: "Landmark",
+      title: "Accounts and payouts",
+      description:
+        "Issue multi-currency accounts and send payouts under your programme, across the same corridor network our direct customers use.",
+    },
+    {
+      icon: "ShieldCheck",
+      title: "Compliance handled",
+      description:
+        "Onboarding, KYC, sanctions screening, and transaction monitoring run on CoBanq's FCA-authorised infrastructure.",
+    },
+    {
+      icon: "RefreshCcw",
+      title: "FX built in",
+      description:
+        "Currency conversion is part of the platform, with the margin visible to you on every transaction your customers make.",
+    },
+    {
+      icon: "Users",
+      title: "Support behind you",
+      description:
+        "A partnership team that knows your corridors, from integration through to growth once the programme is live.",
+    },
+    {
+      icon: "Workflow",
+      title: "Integration that fits",
+      description:
+        "Take the hosted portal as it comes, or integrate deeper through our platform and correspondent models as your product matures.",
+    },
+  ],
+  stepsHeading: "How a programme comes together",
+  steps: [
+    {
+      number: "01",
+      title: "Tell us what you're building",
+      description:
+        "We start with your customers, your markets, and the corridors and currencies you need to reach.",
+    },
+    {
+      number: "02",
+      title: "Scope and agree the programme",
+      description:
+        "We work through the commercials, the compliance split, and the integration model that suits your product.",
+    },
+    {
+      number: "03",
+      title: "Brand and configure",
+      description:
+        "Your branding, domain, and product configuration are applied, and we test the flows your customers will use.",
+    },
+    {
+      number: "04",
+      title: "Launch and grow",
+      description:
+        "You go live under your own brand with our partnership team alongside you as volumes build.",
+    },
+  ],
+  audienceHeading: "Who runs a white-label programme",
+  audience: [
+    {
+      title: "Marketplaces and platforms",
+      description:
+        "Pay out to sellers, drivers, or creators in their own currency, inside your own product.",
+    },
+    {
+      title: "Brokers and financial services firms",
+      description:
+        "Offer clients funding, settlement, and FX under your brand instead of sending them elsewhere.",
+    },
+    {
+      title: "Money service businesses",
+      description:
+        "Extend into new corridors without adding banking relationships one country at a time.",
+    },
+    {
+      title: "Software providers",
+      description:
+        "Add payments to a product your customers already use, and make it part of what you sell.",
+    },
+  ],
+  pricing: {
+    eyebrow: "Pricing",
+    heading: "Quoted per programme, not off a price list",
+    body:
+      "White-label pricing depends on your corridors, currencies, expected volumes, and how deeply you integrate — so we quote it properly rather than publishing tiers that would not fit you. Tell us what you're planning and we'll come back with numbers.",
+    points: [
+      "No published tiers — your programme is priced on its own shape",
+      "Commercials agreed up front, including how FX margin is shared",
+      "Scoped against your real volumes, not a headline rate",
+    ],
+  },
+  form: {
+    heading: "Talk to our partnerships team",
+    subhead: "Tell us about your programme and we'll get back to you.",
+    fields: {
+      name: "Your name",
+      company: "Company",
+      email: "Work email",
+      website: "Company website",
+      volume: "Expected monthly volume",
+      volumePlaceholder: "Select a range",
+      volumeOptions: [
+        "Under £100k",
+        "£100k – £500k",
+        "£500k – £2m",
+        "More than £2m",
+        "Not sure yet",
+      ],
+      message: "What are you building?",
+      messagePlaceholder:
+        "Your customers, the markets and currencies you need, and where you are in the process.",
+    },
+    submit: "Send enquiry",
+    disclaimer:
+      "This is a placeholder form — connect it to your real inbox or CRM before launch.",
+    successHeading: "Thanks — enquiry received",
+    successBody:
+      "Our partnerships team will come back to you. Nothing is sent anywhere yet: this form is a placeholder until it's wired to your inbox.",
+  },
+  faqHeading: "Common questions",
+  faq: [
+    {
+      q: "Whose licence does the programme run on?",
+      a: "CoBanq Ltd is an Authorised Payment Institution under the Payment Services Regulations 2017 (FRN 508565), and white-label programmes run on that authorisation. You do not need your own licence to launch, though we'll work through where regulatory responsibility sits for your particular model.",
+    },
+    {
+      q: "Do my customers ever see CoBanq?",
+      a: "The portal your customers use carries your brand and sits on your domain. Where regulation requires the underlying provider to be disclosed, that disclosure appears — we'll agree the exact wording as part of scoping.",
+    },
+    {
+      q: "Which currencies and countries can we cover?",
+      a: "Programmes draw on the same payout network as our direct customers — 30+ corridors across Asia, Africa, Europe, and the Middle East, with major currencies including GBP, EUR, USD, JPY, AED, and PKR.",
+    },
+    {
+      q: "How long does it take to launch?",
+      a: "It depends on your integration model and the compliance work your programme needs. We'll give you a realistic timeline during scoping rather than a number that ignores onboarding and testing.",
+    },
+    {
+      q: "Can we start white-label and integrate deeper later?",
+      a: "Yes. White-label, platform, and correspondent models are different depths of the same infrastructure, and programmes commonly move between them as the product matures.",
+    },
+  ],
 };
 
 // -------------------- Contact page --------------------
@@ -1726,6 +1928,7 @@ export const footer = {
         { label: "Freelancers", to: "/freelancers" },
         { label: "Business Payments", to: "/business" },
         { label: "Payroll", to: "/payroll" },
+        { label: "White-Label", to: "/white-label" },
         { label: "Multi-Currency Wallets", to: "/wallets" },
         { label: "Correspondent Banking & Partnerships", to: "/business" },
         { label: "Calculator", to: "/calculator" },

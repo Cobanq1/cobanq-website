@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import { Menu, X, ChevronDown, ArrowRight, Send, Laptop, Building2, Users, Wallet, Landmark } from "lucide-react";
+import { Menu, X, ChevronDown, ArrowRight, Send, Laptop, Building2, Users, Wallet, Landmark, Palette } from "lucide-react";
 import { site, nav } from "../content";
 
-const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark };
+const dropdownIcons = { Send, Laptop, Building2, Users, Wallet, Landmark, Palette };
 
 // One accent hue per dropdown item, matching the colorful icon chips used
 // across the rest of the site.

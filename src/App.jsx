@@ -20,6 +20,7 @@ import Payroll from "./pages/Payroll";
 import Wallets from "./pages/Wallets";
 import Pricing from "./pages/Pricing";
 import OnboardingRemittance from "./pages/OnboardingRemittance";
+import WhiteLabel from "./pages/WhiteLabel";
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
           <Route path="/freelancers" element={<Freelancers />} />
           <Route path="/payroll" element={<Payroll />} />
           <Route path="/wallets" element={<Wallets />} />
+          <Route path="/white-label" element={<WhiteLabel />} />
           <Route path="/pricing" element={<Pricing />} />
           <Route path="/security" element={<Security />} />
           <Route path="/careers" element={<Careers />} />

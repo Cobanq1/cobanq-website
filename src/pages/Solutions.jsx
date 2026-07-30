@@ -7,6 +7,7 @@ import {
   Headset,
   Landmark,
   Laptop,
+  Palette,
   Send,
   ShieldCheck,
   Tags,
@@ -16,7 +17,7 @@ import {
 import { solutions } from "../content";
 import PersonPhoto from "../components/PersonPhoto";
 
-const icons = { Send, Wallet, Building2, Landmark, Laptop, Users };
+const icons = { Send, Wallet, Building2, Landmark, Laptop, Users, Palette };
 const platformIcons = { ShieldCheck, Globe, Tags, Headset };
 
 function SolutionSection({ item, index }) {
@@ -156,19 +157,32 @@ export default function Solutions() {
           <p className="mt-2 text-center text-sm text-navy-950/55">{solutions.chooserSub}</p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
-            {solutions.chooser.map((row) => (
-              <a
-                key={row.who}
-                href={row.to}
-                className="group flex items-center justify-between gap-3 rounded-2xl border border-navy-950/10 px-5 py-4 transition hover:border-brand-500/40 hover:shadow-md"
-              >
-                <span className="text-sm font-semibold text-navy-950/75">“{row.who}”</span>
-                <span className="flex shrink-0 items-center gap-1 text-xs font-bold text-brand-600">
-                  {row.label}
-                  <ArrowRight size={13} className="transition group-hover:translate-x-0.5" />
-                </span>
-              </a>
-            ))}
+            {solutions.chooser.map((row) => {
+              // Most rows jump to a section on this page; ones that point at
+              // a route need a Link so they navigate client-side.
+              const isAnchor = row.to.startsWith("#");
+              const className =
+                "group flex items-center justify-between gap-3 rounded-2xl border border-navy-950/10 px-5 py-4 transition hover:border-brand-500/40 hover:shadow-md";
+              const inner = (
+                <>
+                  <span className="text-sm font-semibold text-navy-950/75">“{row.who}”</span>
+                  <span className="flex shrink-0 items-center gap-1 text-xs font-bold text-brand-600">
+                    {row.label}
+                    <ArrowRight size={13} className="transition group-hover:translate-x-0.5" />
+                  </span>
+                </>
+              );
+
+              return isAnchor ? (
+                <a key={row.who} href={row.to} className={className}>
+                  {inner}
+                </a>
+              ) : (
+                <Link key={row.who} to={row.to} className={className}>
+                  {inner}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
