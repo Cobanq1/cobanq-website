@@ -637,45 +637,197 @@ export const countryCorridors = [
 
 // -------------------- Solutions (overview) page --------------------
 
+// Full detail for the /solutions page. Every claim here is drawn from
+// what the site already states about CoBanq — FCA authorisation, the
+// 30+ corridor network, the London office, and the products that have
+// their own pages. `photo` points at a file in /public/people; leave it
+// empty and the card falls back to an illustrated portrait.
+
 export const solutions = {
-  heading: "All solutions",
+  eyebrow: "All solutions",
+  heading: "One regulated platform. Every way you move money.",
   subhead:
-    "One regulated platform, built for however you move money across borders — whether that's sending money home, running a business, or partnering with us on payments infrastructure.",
+    "CoBanq has moved money across borders since 2003. Whether you're sending wages home to family, invoicing clients abroad, paying a distributed team, or building payout rails of your own, it runs on the same FCA-authorised infrastructure.",
+  trust: [
+    { value: "2003", label: "Operating since" },
+    { value: "30+", label: "Payout corridors" },
+    { value: "FCA", label: "Authorised, No. 508565" },
+    { value: "London", label: "Canary Wharf HQ" },
+  ],
+  chooserHeading: "Not sure which one you need?",
+  chooserSub: "Pick the description that sounds most like you.",
+  chooser: [
+    { who: "I send money to family abroad", to: "#copay", label: "CoPay" },
+    { who: "I invoice clients or platforms overseas", to: "#freelancers", label: "Freelancers" },
+    { who: "My company pays suppliers abroad", to: "#business", label: "Business payments" },
+    { who: "I pay staff in other countries", to: "#payroll", label: "Payroll" },
+    { who: "I hold balances in several currencies", to: "#wallets", label: "Wallets" },
+    { who: "I want to build on your rails", to: "#partnerships", label: "Partnerships" },
+  ],
   items: [
     {
+      id: "copay",
       icon: "Send",
-      title: "Personal money transfers — CoPay",
+      brand: "CoPay",
+      title: "Personal money transfers",
+      tagline: "Send money home, from the UK",
+      photo: "",
+      seed: "Remittance Sender",
       description:
-        "CoPay, powered by CoBanq, is our remittance service for individuals: send money home to family and friends in India, Nigeria, the Philippines, Pakistan, Bangladesh, and many more countries, with the fee and rate shown upfront.",
+        "CoPay is CoBanq's consumer remittance service. Send money from the United Kingdom to family and friends across our payout network, with the fee and the exchange rate shown before you confirm — and nothing deducted at the other end.",
+      forWho: "Individuals sending money home",
+      features: [
+        "Bank deposit, cash pickup, or mobile wallet — your recipient chooses",
+        "Fee and rate shown upfront, every transfer",
+        "Pay by bank transfer, debit card, or credit card",
+        "Most corridors deliver within hours",
+        "Verify your identity once, then send whenever you need to",
+      ],
+      tags: ["Pakistan", "India", "Nigeria", "Philippines", "Bangladesh", "UAE"],
+      tagsLabel: "Popular corridors",
       linkLabel: "Send with CoPay",
       linkTo: "/send-money",
+      note: "Sending is available from the United Kingdom.",
     },
     {
-      icon: "Wallet",
-      title: "Multi-currency wallets",
+      id: "freelancers",
+      icon: "Laptop",
+      title: "Freelancers & online sellers",
+      tagline: "Get paid by every client, on every platform",
+      photo: "",
+      seed: "Freelancer",
       description:
-        "Collect, hold, and pay out in GBP, EUR, USD, JPY, AED, PKR, and more — one wallet for businesses working across currencies.",
-      linkLabel: "Explore wallets",
-      linkTo: "/wallets",
+        "Collect earnings from international clients and marketplaces into your own account details, then convert and withdraw on your terms instead of accepting whatever rate a platform hands you.",
+      forWho: "Freelancers, contractors, and marketplace sellers",
+      features: [
+        "Local account details to receive client and platform payouts",
+        "Hold earnings in the currency you were paid in",
+        "Convert when the rate suits you, not on payout day",
+        "One place to track income across every client",
+      ],
+      tags: ["Upwork", "Fiverr", "Amazon", "eBay", "Etsy", "Airbnb", "Daraz"],
+      tagsLabel: "Commonly paid from",
+      linkLabel: "See freelancer accounts",
+      linkTo: "/freelancers",
     },
     {
+      id: "business",
       icon: "Building2",
       title: "Business payments",
+      tagline: "Cross-border payments built to scale",
+      photo: "",
+      seed: "Business Owner",
       description:
-        "Cross-border payment solutions designed for scale, compliance, and speed — from global payouts to supplier settlements.",
-      industries: ["Import & Export", "Software Houses", "Wholesale & Retail", "Manufacturing", "Logistics"],
+        "Pay suppliers, settle invoices, and move working capital between markets on regulated rails — with compliance handled as part of the platform rather than bolted on afterwards.",
+      forWho: "Importers, exporters, and companies trading across borders",
+      features: [
+        "Supplier settlements and global payouts from one account",
+        "Competitive FX with the margin visible before you commit",
+        "Compliance and screening built into the payment flow",
+        "Dedicated support for high-volume corridors",
+      ],
+      tags: ["Import & Export", "Software Houses", "Wholesale & Retail", "Manufacturing", "Logistics"],
+      tagsLabel: "Industries we work with",
       linkLabel: "See business solutions",
       linkTo: "/business",
     },
     {
-      icon: "Landmark",
-      title: "Correspondent banking & fintech partnerships",
+      id: "payroll",
+      icon: "Users",
+      title: "Global payroll",
+      tagline: "Pay distributed teams in their own currency",
+      photo: "",
+      seed: "Payroll Manager",
       description:
-        "We work with regulated institutions, money service businesses, and fintechs to expand payout corridors and embed FX and compliance-ready processing.",
+        "Run one payment cycle that lands in each person's local currency and local account, so your team is paid the amount they expect on the day they expect it.",
+      forWho: "Companies with staff or contractors in more than one country",
+      features: [
+        "Batch payouts across multiple countries in one run",
+        "Each recipient paid into a local account, in local currency",
+        "Repeatable cycles so every month runs the same way",
+        "Full records for your finance and audit trail",
+      ],
+      linkLabel: "See payroll",
+      linkTo: "/payroll",
+    },
+    {
+      id: "wallets",
+      icon: "Wallet",
+      title: "Multi-currency wallets",
+      tagline: "Hold and manage several currencies at once",
+      photo: "",
+      seed: "Wallet Customer",
+      description:
+        "Collect, hold, convert, and pay out across major currencies from a single business account, instead of opening and reconciling a separate bank account in every market you trade with.",
+      forWho: "Businesses working across several currencies",
+      features: [
+        "Hold balances without converting until you choose to",
+        "Convert between currencies inside the account",
+        "Pay out from the currency you're already holding",
+        "One dashboard for every balance and transaction",
+      ],
+      tags: ["GBP", "EUR", "USD", "JPY", "AED", "PKR"],
+      tagsLabel: "Currencies include",
+      linkLabel: "Explore wallets",
+      linkTo: "/wallets",
+      note: "Multi-currency wallets are a business product. Sending money home as an individual? That's CoPay.",
+    },
+    {
+      id: "partnerships",
+      icon: "Landmark",
+      title: "Correspondent banking & partnerships",
+      tagline: "Expand your payout reach on our rails",
+      photo: "",
+      seed: "Partnerships Manager",
+      description:
+        "We work with regulated institutions, money service businesses, and fintechs that want to reach more corridors without building the licensing, banking, and compliance stack from scratch.",
+      forWho: "Banks, MSBs, and fintech platforms",
+      features: [
+        "Platform, white-label, or correspondent integration models",
+        "Access to 30+ payout corridors through one relationship",
+        "FX and compliance-ready processing built in",
+        "Partnership support from onboarding through to growth",
+      ],
       linkLabel: "Partner with us",
       linkTo: "/business",
     },
   ],
+  platformHeading: "What every solution runs on",
+  platformSub:
+    "Whichever product you use, the same regulated infrastructure sits underneath it.",
+  platform: [
+    {
+      icon: "ShieldCheck",
+      title: "FCA authorised",
+      description:
+        "CoBanq Ltd is an Authorised Payment Institution under the Payment Services Regulations 2017, Firm Reference Number 508565.",
+    },
+    {
+      icon: "Globe",
+      title: "30+ payout corridors",
+      description:
+        "A payout network spanning Asia, Africa, Europe, and the Middle East, reached through a single account.",
+    },
+    {
+      icon: "Tags",
+      title: "Pricing you can see",
+      description:
+        "The fee and the exchange rate are shown before you confirm, so the amount arriving is the amount you were quoted.",
+    },
+    {
+      icon: "Headset",
+      title: "Support that knows your corridor",
+      description:
+        "Account tracking and a support team familiar with the specific routes your money takes.",
+    },
+  ],
+  cta: {
+    heading: "Not sure where you fit?",
+    subhead:
+      "Tell us how you move money and we'll point you at the right product — or set you up directly.",
+    primary: "Get started",
+    secondary: "Talk to our team",
+  },
 };
 
 // -------------------- Contact page --------------------

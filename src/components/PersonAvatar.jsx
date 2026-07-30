@@ -19,13 +19,16 @@ function pickFromSeed(seed, options) {
 }
 
 export default function PersonAvatar({ seed, size = 96, className = "" }) {
+  // A missing seed used to throw here and blank the whole page; fall back
+  // to a fixed one so a bad lookup costs a face, not the route.
+  const safeSeed = seed || "CoBanq Customer";
   const config = useMemo(
     () => ({
-      ...genConfig(seed),
-      bgColor: pickFromSeed(seed, bgPalette),
+      ...genConfig(safeSeed),
+      bgColor: pickFromSeed(safeSeed, bgPalette),
       shirtColor: "#3b6fe0",
     }),
-    [seed]
+    [safeSeed]
   );
 
   return (
