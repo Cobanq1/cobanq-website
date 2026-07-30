@@ -1,6 +1,6 @@
 import { about, site } from "../content";
 import TrustStats from "../components/TrustStats";
-import PersonAvatar from "../components/PersonAvatar";
+import PersonPhoto from "../components/PersonPhoto";
 
 const teamSeeds = ["CoBanq Compliance Lead", "CoBanq Legal Counsel", "CoBanq Regulatory Officer"];
 
@@ -33,7 +33,7 @@ export default function About() {
           <div className="flex h-56 flex-col items-center justify-center gap-4 rounded-3xl bg-navy-950 lg:h-full">
             <div className="flex -space-x-4">
               {teamSeeds.map((seed) => (
-                <PersonAvatar
+                <PersonPhoto
                   key={seed}
                   seed={seed}
                   size={56}

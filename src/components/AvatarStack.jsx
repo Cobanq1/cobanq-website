@@ -1,4 +1,4 @@
-import PersonAvatar from "./PersonAvatar";
+import PersonPhoto from "./PersonPhoto";
 
 const defaultSeeds = ["Amina Yusuf", "Farhan Iqbal", "Priya Nair", "Carlos Mendes"];
 
@@ -7,7 +7,7 @@ export default function AvatarStack({ seeds = defaultSeeds, size = 36, caption, 
     <div className="flex items-center gap-3">
       <div className="flex -space-x-3">
         {seeds.map((seed) => (
-          <PersonAvatar
+          <PersonPhoto
             key={seed}
             seed={seed}
             size={size}

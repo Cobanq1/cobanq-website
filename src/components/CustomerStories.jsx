@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Quote, Ship, Store, Users, Laptop, ChevronLeft, ChevronRight } from "lucide-react";
 import { successStories } from "../content";
-import PersonAvatar from "./PersonAvatar";
+import PersonPhoto from "./PersonPhoto";
 import Flag from "./Flag";
 
 const icons = { Ship, Store, Users, Laptop };
@@ -97,7 +97,7 @@ export default function CustomerStories() {
                           "radial-gradient(160px circle at 50% 40%, rgba(91,141,239,0.4), transparent 70%)",
                       }}
                     />
-                    <PersonAvatar
+                    <PersonPhoto
                       seed={story.name}
                       size={168}
                       className="relative shadow-2xl ring-4 ring-white/10"

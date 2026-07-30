@@ -38,9 +38,10 @@ function SolutionSection({ item, index }) {
             <PersonPhoto
               photo={item.photo}
               seed={item.seed}
-              alt={item.photo ? `${item.title} customer` : ""}
-              avatarSize={150}
+              alt={`${item.title} — CoBanq`}
+              size={150}
               rounded="rounded-[28px]"
+              fill
               className="h-full w-full"
             />
           </div>

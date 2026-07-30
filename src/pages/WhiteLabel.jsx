@@ -1,9 +1,7 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   ArrowRight,
   Check,
-  CheckCircle2,
   ChevronDown,
   Landmark,
   Palette,
@@ -12,107 +10,38 @@ import {
   Users,
   Workflow,
 } from "lucide-react";
-import { whiteLabel } from "../content";
+import { whiteLabel, site } from "../content";
+import EnquiryForm, { ContactFallback } from "../components/EnquiryForm";
 
 const featureIcons = { Palette, Landmark, ShieldCheck, RefreshCcw, Users, Workflow };
 
-const inputClass =
-  "mt-1.5 w-full rounded-xl border border-navy-950/15 bg-white px-4 py-3 text-sm outline-none transition focus:border-brand-500";
-
-// Enquiry form — this page deliberately has no price list, so the form is
-// the conversion point. Nothing is transmitted: it's a placeholder until
-// it's wired to a real inbox or CRM.
-function EnquiryForm() {
-  const { form } = whiteLabel;
-  const [submitted, setSubmitted] = useState(false);
-
-  if (submitted) {
-    return (
-      <div className="flex min-h-[420px] flex-col items-center justify-center rounded-3xl bg-navy-950/[0.03] p-10 text-center">
-        <CheckCircle2 className="text-brand-500" size={46} />
-        <h3 className="mt-5 text-xl font-bold text-navy-950">{form.successHeading}</h3>
-        <p className="mx-auto mt-3 max-w-sm text-sm leading-relaxed text-navy-950/60">
-          {form.successBody}
-        </p>
-      </div>
-    );
-  }
-
-  return (
-    <form
-      onSubmit={(e) => {
-        e.preventDefault();
-        setSubmitted(true);
-      }}
-      className="rounded-3xl bg-navy-950/[0.03] p-8"
-    >
-      <div className="grid gap-4 sm:grid-cols-2">
-        <label className="block text-xs font-semibold text-navy-950/60">
-          {form.fields.name}
-          <input required type="text" autoComplete="name" className={inputClass} />
-        </label>
-        <label className="block text-xs font-semibold text-navy-950/60">
-          {form.fields.company}
-          <input required type="text" autoComplete="organization" className={inputClass} />
-        </label>
-      </div>
-
-      <div className="mt-4 grid gap-4 sm:grid-cols-2">
-        <label className="block text-xs font-semibold text-navy-950/60">
-          {form.fields.email}
-          <input required type="email" autoComplete="email" className={inputClass} />
-        </label>
-        <label className="block text-xs font-semibold text-navy-950/60">
-          {form.fields.website}
-          <input type="url" placeholder="https://" className={inputClass} />
-        </label>
-      </div>
-
-      <label className="mt-4 block text-xs font-semibold text-navy-950/60">
-        {form.fields.volume}
-        <span className="relative mt-1.5 block">
-          <select
-            required
-            defaultValue=""
-            className="w-full appearance-none rounded-xl border border-navy-950/15 bg-white px-4 py-3 text-sm outline-none transition focus:border-brand-500"
-          >
-            <option value="" disabled>
-              {form.fields.volumePlaceholder}
-            </option>
-            {form.fields.volumeOptions.map((option) => (
-              <option key={option} value={option}>
-                {option}
-              </option>
-            ))}
-          </select>
-          <ChevronDown
-            size={16}
-            className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-navy-950/40"
-          />
-        </span>
-      </label>
-
-      <label className="mt-4 block text-xs font-semibold text-navy-950/60">
-        {form.fields.message}
-        <textarea
-          required
-          rows={4}
-          placeholder={form.fields.messagePlaceholder}
-          className={inputClass}
-        />
-      </label>
-
-      <button
-        type="submit"
-        className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-7 py-3.5 text-sm font-bold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
-      >
-        {form.submit}
-        <ArrowRight size={16} />
-      </button>
-      <p className="mt-3 text-center text-xs text-navy-950/40">{form.disclaimer}</p>
-    </form>
-  );
-}
+const enquiryFields = [
+  { name: "name", label: whiteLabel.form.fields.name, autoComplete: "name" },
+  { name: "company", label: whiteLabel.form.fields.company, autoComplete: "organization" },
+  { name: "email", label: whiteLabel.form.fields.email, type: "email", autoComplete: "email" },
+  {
+    name: "website",
+    label: whiteLabel.form.fields.website,
+    type: "url",
+    required: false,
+    placeholder: "https://",
+  },
+  {
+    name: "volume",
+    label: whiteLabel.form.fields.volume,
+    type: "select",
+    placeholder: whiteLabel.form.fields.volumePlaceholder,
+    options: whiteLabel.form.fields.volumeOptions,
+    wide: true,
+  },
+  {
+    name: "message",
+    label: whiteLabel.form.fields.message,
+    type: "textarea",
+    placeholder: whiteLabel.form.fields.messagePlaceholder,
+    wide: true,
+  },
+];
 
 export default function WhiteLabel() {
   return (
@@ -268,7 +197,14 @@ export default function WhiteLabel() {
               <p className="mt-1.5 text-sm text-navy-950/55">{whiteLabel.form.subhead}</p>
             </div>
             <div className="mt-5 px-2 pb-2">
-              <EnquiryForm />
+              <EnquiryForm
+                formName="white-label-enquiry"
+                fields={enquiryFields}
+                submitLabel={whiteLabel.form.submit}
+                successHeading={whiteLabel.form.successHeading}
+                successBody={whiteLabel.form.successBody}
+              />
+              <ContactFallback email={site.supportEmail} />
             </div>
           </div>
         </div>

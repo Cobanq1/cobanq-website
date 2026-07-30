@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Users, Building2, Landmark, ArrowRight, CheckCircle2 } from "lucide-react";
 import { audienceTabs } from "../content";
-import PersonAvatar from "./PersonAvatar";
+import PersonPhoto from "./PersonPhoto";
 import SmartLink from "./SmartLink";
 
 const icons = { Users, Building2, Landmark };
@@ -49,7 +49,7 @@ export default function AudienceTabs() {
           className="mt-10 grid animate-[fadeIn_0.4s_ease] gap-8 rounded-3xl bg-white p-10 shadow-sm sm:grid-cols-2 sm:p-12"
         >
           <div>
-            <PersonAvatar seed={avatarSeeds[active.id]} size={56} />
+            <PersonPhoto seed={avatarSeeds[active.id]} size={56} />
             <h3 className="mt-4 text-2xl font-bold text-navy-950">{active.headline}</h3>
             <p className="mt-4 text-sm leading-relaxed text-navy-950/60">{active.description}</p>
             <SmartLink

@@ -1,36 +1,45 @@
 import PersonAvatar from "./PersonAvatar";
+import { getPersonPhoto } from "../lib/people";
 
-// One slot for "a picture of a person".
+// One slot for "a picture of a person", used everywhere the site shows one.
 //
-// Pass `photo` (a path under /public, e.g. "/people/sender.jpg") and it
-// renders that image. Leave it empty and it falls back to the site's
-// illustrated portrait for that seed, so pages look finished before any
-// photography exists — drop files in and set the paths in content.js to
-// swap every face over without touching a component.
+// It resolves `seed` against the files in src/assets/people/ — a seed of
+// "Remittance Sender" looks for `remittance-sender.jpg`. If the file is
+// there you get the photograph; if it isn't you get the site's illustrated
+// portrait, so pages look finished with a partial set or none at all.
+// `photo` overrides the lookup with an explicit path when you need one.
 export default function PersonPhoto({
-  photo,
   seed,
-  alt = "",
+  photo,
+  alt,
+  size = 96,
   className = "",
-  rounded = "rounded-3xl",
-  avatarSize = 96,
+  rounded = "rounded-full",
+  fill = false,
 }) {
-  if (photo) {
+  const src = photo || getPersonPhoto(seed);
+
+  if (src) {
     return (
       <img
-        src={photo}
-        alt={alt}
+        src={src}
+        alt={alt || ""}
         loading="lazy"
-        className={`h-full w-full object-cover ${rounded} ${className}`}
+        className={`object-cover ${rounded} ${fill ? "h-full w-full" : ""} ${className}`}
+        style={fill ? undefined : { width: size, height: size }}
       />
     );
   }
 
-  return (
-    <span
-      className={`flex items-center justify-center bg-gradient-to-br from-brand-50 to-brand-100 ${rounded} ${className}`}
-    >
-      <PersonAvatar seed={seed} size={avatarSize} />
-    </span>
-  );
+  if (fill) {
+    return (
+      <span
+        className={`flex items-center justify-center bg-gradient-to-br from-brand-50 to-brand-100 ${rounded} ${className}`}
+      >
+        <PersonAvatar seed={seed} size={size} />
+      </span>
+    );
+  }
+
+  return <PersonAvatar seed={seed} size={size} className={`${rounded} ${className}`} />;
 }

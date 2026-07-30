@@ -1,7 +1,7 @@
-import { useState } from "react";
-import { LifeBuoy, Building2, ShieldCheck, Mail, MapPin, CheckCircle2, ArrowRight } from "lucide-react";
+import { LifeBuoy, Building2, ShieldCheck, Mail, MapPin } from "lucide-react";
 import { contact, site } from "../content";
-import PersonAvatar from "../components/PersonAvatar";
+import EnquiryForm from "../components/EnquiryForm";
+import PersonPhoto from "../components/PersonPhoto";
 
 const icons = { LifeBuoy, Building2, ShieldCheck };
 const personSeeds = {
@@ -10,14 +10,13 @@ const personSeeds = {
   "Regulatory & Compliance": "Compliance Officer",
 };
 
+const contactFields = [
+  { name: "name", label: "Name", autoComplete: "name", wide: true },
+  { name: "email", label: "Email", type: "email", autoComplete: "email", wide: true },
+  { name: "message", label: "Message", type: "textarea", wide: true },
+];
+
 export default function Contact() {
-  const [submitted, setSubmitted] = useState(false);
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    setSubmitted(true);
-  };
-
   return (
     <section className="bg-white py-20">
       <div className="mx-auto max-w-3xl px-6 text-center lg:px-8">
@@ -33,7 +32,7 @@ export default function Contact() {
           return (
             <div key={card.title} className="rounded-2xl border border-navy-950/10 p-6">
               <div className="relative inline-flex">
-                <PersonAvatar seed={personSeeds[card.title]} size={44} />
+                <PersonPhoto seed={personSeeds[card.title]} size={44} />
                 <div className="absolute -bottom-1 -right-1 flex h-5 w-5 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
                   <Icon size={10} />
                 </div>
@@ -46,52 +45,13 @@ export default function Contact() {
       </div>
 
       <div className="mx-auto mt-14 grid max-w-5xl gap-10 px-6 lg:grid-cols-2 lg:px-8">
-        <div className="rounded-3xl bg-navy-950/[0.03] p-8">
-          {submitted ? (
-            <div className="flex h-full flex-col items-center justify-center py-10 text-center">
-              <CheckCircle2 className="text-brand-500" size={44} />
-              <h3 className="mt-4 text-lg font-bold text-navy-950">Message sent</h3>
-              <p className="mt-2 text-sm text-navy-950/60">
-                This is a placeholder form — connect it to your real inbox or support system
-                whenever it's ready.
-              </p>
-            </div>
-          ) : (
-            <form onSubmit={handleSubmit} className="space-y-4">
-              <div>
-                <label className="text-xs font-semibold text-navy-950/60">Name</label>
-                <input
-                  required
-                  type="text"
-                  className="mt-1.5 w-full rounded-xl border border-navy-950/15 px-4 py-3 text-sm outline-none transition focus:border-brand-500"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-navy-950/60">Email</label>
-                <input
-                  required
-                  type="email"
-                  className="mt-1.5 w-full rounded-xl border border-navy-950/15 px-4 py-3 text-sm outline-none transition focus:border-brand-500"
-                />
-              </div>
-              <div>
-                <label className="text-xs font-semibold text-navy-950/60">Message</label>
-                <textarea
-                  required
-                  rows={4}
-                  className="mt-1.5 w-full rounded-xl border border-navy-950/15 px-4 py-3 text-sm outline-none transition focus:border-brand-500"
-                />
-              </div>
-              <button
-                type="submit"
-                className="inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
-              >
-                Send message
-                <ArrowRight size={16} />
-              </button>
-            </form>
-          )}
-        </div>
+        <EnquiryForm
+          formName="contact"
+          fields={contactFields}
+          submitLabel="Send message"
+          successHeading="Message sent"
+          successBody="Thanks — we'll reply by email."
+        />
 
         <div className="flex flex-col justify-center gap-6">
           <div className="flex items-start gap-4">

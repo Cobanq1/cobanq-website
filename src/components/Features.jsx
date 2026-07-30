@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2 } from "lucide-react";
 import { features } from "../content";
-import PersonAvatar from "./PersonAvatar";
+import PersonPhoto from "./PersonPhoto";
 import Flag from "./Flag";
 
 const icons = { Globe, Zap, ShieldCheck, BarChart3, Wallet, Building2 };
@@ -142,7 +142,7 @@ function WalletHeroCard({ hero, HeroIcon }) {
           key={currentToast.text}
           className="absolute -bottom-4 -left-4 flex animate-[fadeIn_.4s_ease] items-center gap-2 rounded-xl bg-white px-3 py-2 text-[11px] font-semibold text-navy-950 shadow-xl"
         >
-          <PersonAvatar seed={currentToast.seed} size={22} />
+          <PersonPhoto seed={currentToast.seed} size={22} />
           {currentToast.text}
         </div>
       </div>
@@ -198,7 +198,7 @@ export default function Features() {
               >
                 {seed ? (
                   <div className="relative inline-flex">
-                    <PersonAvatar seed={seed} size={48} />
+                    <PersonPhoto seed={seed} size={48} />
                     <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
                       <Icon size={12} />
                     </div>

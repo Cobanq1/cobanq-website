@@ -1,7 +1,7 @@
-import { useOutletContext } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { TrendingUp, Landmark, Blocks, ArrowRight, CheckCircle2, Link2 } from "lucide-react";
 import { business } from "../content";
-import PersonAvatar from "../components/PersonAvatar";
+import PersonPhoto from "../components/PersonPhoto";
 
 const icons = { TrendingUp, Landmark, Blocks };
 const personSeeds = {
@@ -11,7 +11,6 @@ const personSeeds = {
 };
 
 export default function Business() {
-  const { openGetStarted } = useOutletContext();
 
   return (
     <>
@@ -32,7 +31,7 @@ export default function Business() {
             return (
               <div key={card.title} className="rounded-3xl bg-white p-8 shadow-sm">
                 <div className="relative inline-flex">
-                  <PersonAvatar seed={personSeeds[card.title]} size={52} />
+                  <PersonPhoto seed={personSeeds[card.title]} size={52} />
                   <div className="absolute -bottom-1 -right-1 flex h-6 w-6 items-center justify-center rounded-full bg-brand-500 text-white ring-2 ring-white">
                     <Icon size={12} />
                   </div>
@@ -71,11 +70,11 @@ export default function Business() {
             />
             <div className="relative flex h-full flex-col items-center justify-center gap-6 py-10 text-center">
               <div className="flex items-center">
-                <PersonAvatar seed="CoBanq Partnerships Lead" size={72} className="ring-4 ring-navy-950" />
+                <PersonPhoto seed="CoBanq Partnerships Lead" size={72} className="ring-4 ring-navy-950" />
                 <div className="z-10 -mx-2 flex h-9 w-9 items-center justify-center rounded-full bg-brand-500 text-white ring-4 ring-navy-950">
                   <Link2 size={16} />
                 </div>
-                <PersonAvatar seed="Partner Institution Lead" size={72} className="ring-4 ring-navy-950" />
+                <PersonPhoto seed="Partner Institution Lead" size={72} className="ring-4 ring-navy-950" />
               </div>
               <p className="text-2xl font-bold text-white">30+ payout corridors</p>
               <p className="max-w-xs text-sm text-white/50">
@@ -92,14 +91,13 @@ export default function Business() {
             {business.cta.heading}
           </h2>
           <p className="mt-3 text-white/60">{business.cta.subhead}</p>
-          <button
-            type="button"
-            onClick={openGetStarted}
+          <Link
+            to={business.cta.primaryCtaTo}
             className="mt-7 inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-500 to-brand-600 px-7 py-3.5 text-sm font-semibold text-white shadow-lg shadow-brand-600/30 transition hover:from-brand-400 hover:to-brand-500"
           >
             {business.cta.primaryCta}
             <ArrowRight size={16} />
-          </button>
+          </Link>
         </div>
       </section>
     </>

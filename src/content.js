@@ -415,8 +415,36 @@ export const business = {
     heading: "Let's talk about your corridor",
     subhead: "Tell us about your business and our partnerships team will be in touch.",
     primaryCta: "Contact our business team",
+    primaryCtaTo: "/business-enquiry",
   },
 };
+
+// -------------------- Business enquiry page --------------------
+// The business CTA used to drop people into the signup flow, which is the
+// wrong destination for "talk to our team". This page takes the enquiry
+// instead and mails it on via Netlify Forms.
+
+export const businessEnquiry = {
+  eyebrow: "Business & partnerships",
+  heading: "Tell us about your business",
+  subhead:
+    "Send us the shape of what you need — corridors, currencies, volumes — and our partnerships team will come back to you by email.",
+  points: [
+    "Cross-border payouts, supplier settlement, and payroll",
+    "Multi-currency accounts for businesses trading across markets",
+    "Correspondent banking, white-label, and platform integrations",
+    "Preferential rates on higher transfer volumes",
+  ],
+  responseNote: "We typically reply within one business day.",
+  formHeading: "Business enquiry",
+  formSub: "The more you tell us, the more useful our first reply will be.",
+  submit: "Send enquiry",
+  successHeading: "Thanks — enquiry received",
+  successBody:
+    "Our partnerships team will be in touch by email. If it's urgent, reach us directly at support@cobanq.com.",
+};
+
+
 
 // -------------------- About page --------------------
 
