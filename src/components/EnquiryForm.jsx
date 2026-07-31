@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { CheckCircle2, Loader2, AlertCircle } from "lucide-react";
 import { Button } from "./ui";
 import { site } from "../site";
@@ -191,9 +192,9 @@ export default function EnquiryForm({ formName, fields, submitLabel = "Send enqu
         </Button>
         <p className="text-xs leading-relaxed text-ink-500">
           We only use your details to answer your enquiry. See our{" "}
-          <a href="/privacy" className="underline hover:text-ink-900">
+          <Link to="/privacy" className="underline hover:text-ink-900">
             privacy policy
-          </a>
+          </Link>
           .
         </p>
       </div>
