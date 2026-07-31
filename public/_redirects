@@ -1,0 +1,7 @@
+# Client-side routing (React Router) — send every path to index.html so
+# /services, /careers, /contact etc. work on a direct load and on refresh.
+#
+# netlify.toml does the same thing, but only for deploys connected to a git
+# repository. This file gets copied into dist/ by the build, so it also covers
+# manual drag-and-drop deploys where netlify.toml is never uploaded.
+/*  /index.html  200
