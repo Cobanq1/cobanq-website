@@ -681,7 +681,7 @@ export const solutions = {
   eyebrow: "All solutions",
   heading: "One regulated platform. Every way you move money.",
   subhead:
-    "CoBanq has moved money across borders since 2003. Whether you're sending wages home to family, invoicing clients abroad, paying a distributed team, or building payout rails of your own, it runs on the same FCA-authorised infrastructure.",
+    "CoBanq has moved money across borders since 2003. Whether you're sending wages home to family, invoicing clients abroad, paying a distributed team, or building payout rails of your own, it runs on the same regulated infrastructure.",
   trust: [
     { value: "2003", label: "Operating since" },
     { value: "30+", label: "Payout corridors" },
@@ -1471,8 +1471,8 @@ export const sendMoney = {
     "CoPay is CoBanq's personal remittance service — clear pricing, simple ways to pay, and fast delivery, built on CoBanq's FCA-regulated payments infrastructure.",
   heroTrust: [
     { icon: "ShieldCheck", label: "FCA regulated" },
-    { icon: "CalendarCheck", label: "Since 2003" },
     { icon: "Globe", label: "30+ corridors" },
+    { icon: "Tags", label: "Fee and rate upfront" },
   ],
   // The three dots in the CoPay app icon read as a journey — the money
   // grows closer as it travels. This band spells that out.

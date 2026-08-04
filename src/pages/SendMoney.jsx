@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   ArrowRight,
-  CalendarCheck,
   ChevronDown,
   ChevronLeft,
   ChevronRight,
@@ -22,7 +21,7 @@ import Flag from "../components/Flag";
 import { CoPayWordmark } from "../components/CoPayLogo";
 
 const methodIcons = { "Bank transfer": Landmark, "Debit card": CreditCard, "Credit card": CreditCard };
-const trustIcons = { ShieldCheck, CalendarCheck, Globe };
+const trustIcons = { ShieldCheck, Globe, Tags };
 const benefitIcons = { Tags, Zap, ShieldCheck, Handshake };
 
 // Flags drawn at 3:2 get clipped into a circle by an overflowing wrapper.
