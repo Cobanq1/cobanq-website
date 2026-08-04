@@ -28,7 +28,7 @@ import {
 } from "lucide-react";
 import { remittanceOnboarding as flow, countryCorridors, site } from "../content";
 import Flag from "../components/Flag";
-import { CoPayMark, CoPayWordmark } from "../components/CoPayLogo";
+import { CoPayWordmark } from "../components/CoPayLogo";
 
 const icons = {
   Landmark,
@@ -497,8 +497,7 @@ export default function OnboardingRemittance() {
         <header className="border-b border-navy-950/[0.06]">
           <div className="mx-auto flex h-16 w-full max-w-2xl items-center justify-between px-6">
             {/* Compact brand for small screens where the panel is hidden. */}
-            <div className="flex items-center gap-2.5 lg:hidden">
-              <CoPayMark size={28} />
+            <div className="flex items-center lg:hidden">
               <CoPayWordmark height={30} />
             </div>
             <div className="hidden items-center gap-3 lg:flex">

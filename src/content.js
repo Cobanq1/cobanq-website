@@ -82,7 +82,7 @@ export const nav = {
 };
 
 export const hero = {
-  eyebrow: "FCA-regulated, since 2003",
+  eyebrow: "FCA regulated",
   headline: "Powering the flow of global capital",
   subhead:
     "CoBanq is a modern financial platform that makes international money transfers and payments seamless, secure, and affordable — for individuals sending money home with CoPay, and for businesses moving money across borders.",
@@ -604,7 +604,7 @@ export const useCases = [
     icon: "Landmark",
     title: "Build on regulated payments infrastructure",
     description: "Correspondent banking and embedded FX for fintechs and financial institutions.",
-    stat: { value: "FCA", label: "Regulated since 2003" },
+    stat: { value: "FCA", label: "Authorised, No. 508565" },
     linkLabel: "Partner with CoBanq",
     linkTo: "/business",
   },
@@ -1468,7 +1468,7 @@ export const sendMoney = {
   heading: "Send money home.",
   headingAccent: "From the UK, to the people who count on you.",
   subhead:
-    "CoPay is CoBanq's personal remittance service — clear pricing, simple ways to pay, and fast delivery, built on 20+ years of FCA-regulated payments experience.",
+    "CoPay is CoBanq's personal remittance service — clear pricing, simple ways to pay, and fast delivery, built on CoBanq's FCA-regulated payments infrastructure.",
   heroTrust: [
     { icon: "ShieldCheck", label: "FCA regulated" },
     { icon: "CalendarCheck", label: "Since 2003" },
@@ -1477,7 +1477,7 @@ export const sendMoney = {
   // The three dots in the CoPay app icon read as a journey — the money
   // grows closer as it travels. This band spells that out.
   journey: {
-    eyebrow: "Sent, arriving home",
+    eyebrow: "Every transfer, tracked",
     heading: "Three steps you can watch",
     subhead:
       "Every transfer moves through the same three moments — and you see the fee and the rate before the first one.",
@@ -1504,9 +1504,9 @@ export const sendMoney = {
       },
       {
         icon: "ShieldCheck",
-        title: "Regulated since 2003",
+        title: "FCA regulated",
         description:
-          "CoPay runs on CoBanq Ltd, authorised by the FCA under the Payment Services Regulations 2017.",
+          "CoPay runs on CoBanq Ltd, authorised by the FCA as a payment institution under the Payment Services Regulations 2017.",
       },
       {
         icon: "Handshake",

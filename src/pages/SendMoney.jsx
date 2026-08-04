@@ -19,7 +19,7 @@ import {
 import { sendMoney, countryCorridors, howItWorks } from "../content";
 import SmartLink from "../components/SmartLink";
 import Flag from "../components/Flag";
-import { CoPayDots, CoPayWordmark } from "../components/CoPayLogo";
+import { CoPayWordmark } from "../components/CoPayLogo";
 
 const methodIcons = { "Bank transfer": Landmark, "Debit card": CreditCard, "Credit card": CreditCard };
 const trustIcons = { ShieldCheck, CalendarCheck, Globe };
@@ -93,8 +93,8 @@ function SendCard({ onStart }) {
   );
 }
 
-// The app icon's three dots, unrolled into a horizontal journey: each
-// stage sits on a dashed line and grows as the money gets closer.
+// The three stages of a transfer, drawn as dots on a dashed line that
+// grow as the money gets closer to arriving.
 function JourneyBand() {
   const { journey } = sendMoney;
   const dots = [
@@ -415,8 +415,8 @@ export default function SendMoney() {
               }}
             />
             <div className="relative">
-              {/* Dots without the navy tile, which would vanish here. */}
-              <CoPayDots size={76} light className="mx-auto" />
+              {/* Reversed wordmark — the navy logo would vanish on this panel. */}
+              <CoPayWordmark height={44} inverted className="mx-auto" />
               <h2 className="mx-auto mt-7 max-w-xl font-serif text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">
                 {sendMoney.closing.heading}
               </h2>
