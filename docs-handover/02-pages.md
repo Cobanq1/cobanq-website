@@ -140,24 +140,29 @@ Three audience tabs — Freelancers & IT, Business Enterprise, Payroll
 Companies. Two different layouts, selected by the category's `layout`
 field:
 
-- **Card layout** (freelancers, payroll) — one card per plan with
-  collapsible fee sections.
-- **Comparison layout** (`layout: "comparison"`, Business Enterprise) —
-  three plan cards over a single full comparison table, competitor-style.
-  Rows are grouped (Account & FX, Faster Payments, CHAPS & Bacs,
-  International). Below the table: the Bacs footnote and five pricing
-  notes.
+- **Card layout** (freelancers) — one card per plan with collapsible fee
+  sections.
+- **Comparison layout** (`layout: "comparison"`, Business Enterprise and
+  Payroll Companies) — three plan cards over a single grouped comparison
+  table, competitor-style. On mobile the three columns won't fit, so a
+  Bronze/Gold/Platinum selector switches which column the table shows.
 
-  On mobile the three columns won't fit, so a Bronze/Gold/Platinum
-  selector switches which column the table shows.
+Both comparison tabs come from official schedules and are
+**authoritative**:
 
-**Business Enterprise pricing is authoritative** — it comes from the
-*CoBanq Standard Pricing for Corporates* (GBP Banking & FX Pricing
-Schedule) and should only change when a new schedule is issued. Note that
-Platinum FX is deliberately "TBA".
+- **Business Enterprise** — *CoBanq Standard Pricing for Corporates*
+  (GBP Banking & FX Pricing Schedule). Monthly account fee headline;
+  groups are Account & FX, Faster Payments, CHAPS & Bacs, International;
+  Bacs footnote plus five pricing notes. Platinum FX is deliberately
+  "TBA".
+- **Payroll Companies** — *CoBanq Payroll Pricing*. Per-employee-payout
+  headline; groups are Faster Payments, CHAPS & Bacs, International; one
+  pricing note. **This schedule publishes no monthly account fee**, so
+  the page must not imply one exists or that there isn't one.
 
-Freelancer and payroll rates are **not** confirmed — see
-`07-outstanding.md`.
+Neither should change except from a new schedule.
+
+Freelancer rates are **not** confirmed — see `07-outstanding.md`.
 
 ## `/calculator`  *(calculator)*
 

@@ -1380,126 +1380,90 @@ export const pricing = {
       id: "payroll",
       label: "Payroll Companies",
       blurb:
-        "Per-payout pricing that gets cheaper at scale — pay a flat fee for every employee payout.",
-      plans: [
+        "Clear per-payment charges across Bronze, Gold and Platinum for supported payroll payment services.",
+      // Source: COBANQ Payroll Pricing. The schedule lists per-payment
+      // charges only — it does not publish a monthly account fee, so the
+      // page must not imply one either way.
+      layout: "comparison",
+      intro: {
+        heading: "Built for payroll companies",
+        body:
+          "A focused payment proposition for employee payouts, Faster Payments, CHAPS, Bacs and supported cross-border payment workflows.",
+      },
+      tiers: [
         {
           tier: "bronze",
-          tag: "Payroll Companies",
           name: "Bronze",
-          description: "For payroll providers running their first global batches.",
-          monthlyFee: "£49",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "",
+          monthlyFee: "\u00a30.99",
+          monthlyFeeNote: "per employee payout",
           featured: false,
-          headlineFee: { label: "Per employee payout", value: "£1.00" },
-          sections: [
-            {
-              title: "Payroll payouts",
-              rows: [
-                { label: "Per employee payout", value: "£1.00" },
-                { label: "Batch upload (any team size)", value: "Free" },
-                { label: "Payout to another CoBanq account", value: "Free" },
-              ],
-            },
-            {
-              title: "Fund your account",
-              rows: [
-                { label: "From your business bank account", value: "Free" },
-                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
-          ],
+          highlights: ["\u00a325 CHAPS", "\u00a350 international wire"],
         },
         {
           tier: "gold",
-          tag: "Payroll Companies",
           name: "Gold",
-          description: "For payroll companies paying teams across several countries.",
-          monthlyFee: "£99",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "",
+          monthlyFee: "\u00a30.79",
+          monthlyFeeNote: "per employee payout",
           featured: true,
-          headlineFee: { label: "Per employee payout", value: "£0.75" },
-          sections: [
-            {
-              title: "Payroll payouts",
-              rows: [
-                { label: "Per employee payout", value: "£0.75" },
-                { label: "Batch upload (any team size)", value: "Free" },
-                { label: "Payout to another CoBanq account", value: "Free" },
-              ],
-            },
-            {
-              title: "Fund your account",
-              rows: [
-                { label: "From your business bank account", value: "Free" },
-                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
-          ],
+          highlights: ["\u00a322 CHAPS", "\u00a335 international wire"],
         },
         {
           tier: "platinum",
-          tag: "Payroll Companies",
           name: "Platinum",
-          description: "Our lowest per-payout rate, for high-volume payroll runs.",
-          monthlyFee: "£199",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "",
+          monthlyFee: "\u00a30.49",
+          monthlyFeeNote: "per employee payout",
           featured: false,
-          headlineFee: { label: "Per employee payout", value: "£0.50" },
-          sections: [
+          highlights: ["\u00a320 CHAPS", "\u00a325 international wire"],
+        },
+      ],
+      pillars: [
+        { key: "FAST PAYMENTS", title: "GBP inbound & outbound" },
+        { key: "PAYROLL READY", title: "Employee payout workflows" },
+        { key: "CLEAR STRUCTURE", title: "Compare charges at a glance" },
+      ],
+      comparison: [
+        {
+          title: "Faster Payments",
+          rows: [
+            { label: "Faster Payments \u2014 inbound", values: ["\u00a30.99", "\u00a30.79", "\u00a30.49"] },
             {
-              title: "Payroll payouts",
-              rows: [
-                { label: "Per employee payout", value: "£0.50" },
-                { label: "Batch upload (any team size)", value: "Free" },
-                { label: "Payout to another CoBanq account", value: "Free" },
-              ],
+              label: "Faster Payments \u2014 outbound (per employee payout)",
+              values: ["\u00a30.99", "\u00a30.79", "\u00a30.49"],
             },
-            {
-              title: "Fund your account",
-              rows: [
-                { label: "From your business bank account", value: "Free" },
-                { label: "Fund in one currency, pay out in another", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
+            { label: "CoBanq internal transfer", values: ["Free", "Free", "Free"] },
+          ],
+        },
+        {
+          title: "CHAPS & Bacs",
+          rows: [
+            { label: "CHAPS \u2014 inbound / outbound", values: ["\u00a325", "\u00a322", "\u00a320"] },
+            { label: "CHAPS remediation", values: ["\u00a335", "\u00a335", "\u00a335"] },
+            { label: "Bacs specified transactions", values: ["\u00a30.50", "\u00a30.50", "\u00a30.50"] },
+          ],
+        },
+        {
+          title: "International",
+          rows: [
+            { label: "GBP cross-border \u2014 inbound / outbound", values: ["\u00a325", "\u00a325", "\u00a325"] },
+            { label: "International wire \u2014 outbound", values: ["\u00a350", "\u00a335", "\u00a325"] },
+            { label: "International wire remediation", values: ["\u00a350", "\u00a350", "\u00a350"] },
           ],
         },
       ],
+      notes: [
+        {
+          title: "Pricing note",
+          body:
+            "Fees shown are the payroll-company pricing structure supplied for this document. Service availability and contractual terms remain subject to agreement.",
+        },
+      ],
       salesCta: {
-        threshold: "Paying thousands of employees a month?",
-        description: "Volume payroll pricing is negotiable — talk to our payroll team.",
+        threshold: "Running payroll at scale?",
+        description:
+          "Talk to our business team about pricing built around your payout volumes.",
       },
     },
   ],
@@ -1508,7 +1472,7 @@ export const pricing = {
   faq: [
     {
       q: "How are CoBanq's fees structured?",
-      a: "Freelancers & IT professionals pay no monthly fee — just small per-transaction fees like 1% on receiving via bank transfer. Business Enterprise runs on a published schedule: a flat monthly account fee plus per-payment charges for Faster Payments, CHAPS, Bacs and international wires, with an FX margin set by your package. Payroll Companies choose a Bronze, Gold, or Platinum package with a per-employee payout fee.",
+      a: "Freelancers & IT professionals pay no monthly fee — just small per-transaction fees like 1% on receiving via bank transfer. Business Enterprise runs on a published schedule: a flat monthly account fee plus per-payment charges for Faster Payments, CHAPS, Bacs and international wires, with an FX margin set by your package. Payroll Companies are priced per payment too, with the cost of each employee payout falling across Bronze, Gold and Platinum.",
     },
     {
       q: "Are there any hidden charges?",
@@ -1516,7 +1480,7 @@ export const pricing = {
     },
     {
       q: "What's the difference between Bronze, Gold, and Platinum?",
-      a: "The monthly account fee rises and your per-payment charges fall. For Business Enterprise: £49 / £99 / £199 a month, with Faster Payments at £0.99 / £0.79 / £0.49, CHAPS at £25 / £22 / £20, international SWIFT wires at £50 / £35 / £25, and an FX margin of 1.00% on Bronze and 0.75% on Gold (Platinum FX pricing is TBA). For Payroll Companies, the per-employee payout fee drops from £1.00 to £0.75 to £0.50.",
+      a: "Your per-payment charges fall as you move up. For Business Enterprise: £49 / £99 / £199 a month, with Faster Payments at £0.99 / £0.79 / £0.49, CHAPS at £25 / £22 / £20, international SWIFT wires at £50 / £35 / £25, and an FX margin of 1.00% on Bronze and 0.75% on Gold (Platinum FX pricing is TBA). For Payroll Companies, each employee payout costs £0.99 / £0.79 / £0.49, with CHAPS at £25 / £22 / £20 and international wires at £50 / £35 / £25.",
     },
     {
       q: "What withdrawal fees apply for bank transfers?",

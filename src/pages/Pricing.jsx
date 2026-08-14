@@ -157,6 +157,15 @@ function ComparisonPricing({ category }) {
 
   return (
     <div className="mx-auto mt-10 max-w-6xl animate-[fadeIn_.35s_ease] px-6 lg:px-8">
+      {category.intro && (
+        <div className="mb-8 rounded-2xl border border-navy-950/10 bg-navy-950/[0.02] px-7 py-6">
+          <p className="text-base font-bold text-navy-950">{category.intro.heading}</p>
+          <p className="mt-1.5 max-w-3xl text-sm leading-relaxed text-navy-950/60">
+            {category.intro.body}
+          </p>
+        </div>
+      )}
+
       {/* Plan cards */}
       <div className="grid gap-5 lg:grid-cols-3">
         {category.tiers.map((t) => {
@@ -174,7 +183,9 @@ function ComparisonPricing({ category }) {
                 <span className="h-2 w-2 rounded-full" style={{ background: tier.dot }} />
                 {t.name}
               </span>
-              <p className="mt-4 text-sm text-navy-950/60">{t.description}</p>
+              {t.description && (
+                <p className="mt-4 text-sm text-navy-950/60">{t.description}</p>
+              )}
               <div className="mt-5 flex items-baseline gap-2">
                 <Price value={t.monthlyFee} />
                 <span className="text-sm text-navy-950/50">{t.monthlyFeeNote}</span>
@@ -280,10 +291,16 @@ function ComparisonPricing({ category }) {
         ))}
       </div>
 
-      <p className="mt-4 text-xs leading-relaxed text-navy-950/45">{category.bacsNote}</p>
+      {category.bacsNote && (
+        <p className="mt-4 text-xs leading-relaxed text-navy-950/45">{category.bacsNote}</p>
+      )}
 
       {/* Pricing notes */}
-      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+      <div
+        className={`mt-10 grid gap-5 ${
+          category.notes.length > 1 ? "sm:grid-cols-2 lg:grid-cols-3" : ""
+        }`}
+      >
         {category.notes.map((note) => (
           <div key={note.title} className="rounded-2xl border border-navy-950/10 p-6">
             <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-brand-600">
