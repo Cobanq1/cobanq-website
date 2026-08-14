@@ -887,129 +887,215 @@ export const solutions = {
 };
 
 // -------------------- White-label page --------------------
-// CoBanq already offers "platform, white-label, or correspondent"
-// integration models (see the business page); this is the white-label
-// model written out in full. Deliberately no published price list —
-// programmes are quoted individually, so the page ends in an enquiry
-// form rather than tiers.
+// Sourced from the COBANQ White-Label Brochure. The brochure's hedged
+// phrasing ("supported", "eligible", "subject to") is deliberate
+// regulated-marketing language — keep it. The safeguarding / FSCS
+// wording is compliance copy and should not be reworded.
 
 export const whiteLabel = {
-  eyebrow: "White-label",
-  heading: "Your brand. Our regulated rails.",
+  eyebrow: "White-label financial infrastructure",
+  heading: "Your Brand.",
+  headingAccent: "Global Financial Infrastructure.",
   subhead:
-    "Launch a payments product under your own name without building the licensing, banking, and compliance stack behind it. Your customers see you; CoBanq runs everything underneath.",
-  primaryCta: "Request a demo",
-  secondaryCta: "See all solutions",
+    "Launch banking, FX, payments and international remittances through a seamless white-label experience — powered by CoBanq.",
+  capabilities: ["Banking", "FX", "Payments", "P2P Remittances"],
+  primaryCta: "Talk to us about your model",
+  secondaryCta: "Download the brochure",
   stats: [
-    { value: "2003", label: "Operating since" },
-    { value: "30+", label: "Payout corridors" },
-    { value: "FCA", label: "Authorised, No. 508565" },
+    { value: "2003", label: "Established" },
+    { value: "80+", label: "Destination countries" },
+    { value: "43", label: "Payout currencies" },
+    { value: "3", label: "Payout methods" },
   ],
-  featuresHeading: "What your programme includes",
-  featuresSub:
-    "Everything a customer touches carries your brand. Everything a regulator looks at sits with us.",
-  features: [
-    {
-      icon: "Palette",
-      title: "Fully branded portal",
-      description:
-        "Your logo, colours, and domain across the web portal your customers sign in to — not a co-branded skin on someone else's product.",
-    },
-    {
-      icon: "Landmark",
-      title: "Accounts and payouts",
-      description:
-        "Issue multi-currency accounts and send payouts under your programme, across the same corridor network our direct customers use.",
-    },
-    {
-      icon: "ShieldCheck",
-      title: "Compliance handled",
-      description:
-        "Onboarding, KYC, sanctions screening, and transaction monitoring run on CoBanq's FCA-authorised infrastructure.",
-    },
-    {
-      icon: "RefreshCcw",
-      title: "FX built in",
-      description:
-        "Currency conversion is part of the platform, with the margin visible to you on every transaction your customers make.",
-    },
-    {
-      icon: "Users",
-      title: "Support behind you",
-      description:
-        "A partnership team that knows your corridors, from integration through to growth once the programme is live.",
-    },
-    {
-      icon: "Workflow",
-      title: "Integration that fits",
-      description:
-        "Take the hosted portal as it comes, or integrate deeper through our platform and correspondent models as your product matures.",
-    },
-  ],
-  stepsHeading: "How a programme comes together",
-  steps: [
-    {
-      number: "01",
-      title: "Tell us what you're building",
-      description:
-        "We start with your customers, your markets, and the corridors and currencies you need to reach.",
-    },
-    {
-      number: "02",
-      title: "Scope and agree the programme",
-      description:
-        "We work through the commercials, the compliance split, and the integration model that suits your product.",
-    },
-    {
-      number: "03",
-      title: "Brand and configure",
-      description:
-        "Your branding, domain, and product configuration are applied, and we test the flows your customers will use.",
-    },
-    {
-      number: "04",
-      title: "Launch and grow",
-      description:
-        "You go live under your own brand with our partnership team alongside you as volumes build.",
-    },
-  ],
-  audienceHeading: "Who runs a white-label programme",
-  audience: [
-    {
-      title: "Marketplaces and platforms",
-      description:
-        "Pay out to sellers, drivers, or creators in their own currency, inside your own product.",
-    },
-    {
-      title: "Brokers and financial services firms",
-      description:
-        "Offer clients funding, settlement, and FX under your brand instead of sending them elsewhere.",
-    },
-    {
-      title: "Money service businesses",
-      description:
-        "Extend into new corridors without adding banking relationships one country at a time.",
-    },
-    {
-      title: "Software providers",
-      description:
-        "Add payments to a product your customers already use, and make it part of what you sell.",
-    },
-  ],
-  pricing: {
-    eyebrow: "Pricing",
-    heading: "Quoted per programme, not off a price list",
+
+  glance: {
+    eyebrow: "CoBanq at a glance",
+    heading: "Built on experience. Designed for what's next.",
     body:
-      "White-label pricing depends on your corridors, currencies, expected volumes, and how deeply you integrate — so we quote it properly rather than publishing tiers that would not fit you. Tell us what you're planning and we'll come back with numbers.",
+      "CoBanq brings over 23 years of experience in financial technology and payments. We help clients bring modern, branded financial services to market through white-label technology, API-led integration, and connected banking and cross-border payment infrastructure.",
+    body2:
+      "CoBanq combines white-label technology with banking, payment, FX and cross-border remittance capabilities, so clients can create broader financial relationships without building every layer from the ground up.",
     points: [
-      "No published tiers — your programme is priced on its own shape",
-      "Commercials agreed up front, including how FX margin is shared",
-      "Scoped against your real volumes, not a headline rate",
+      { value: "23+ yrs", label: "Payments & fintech experience" },
+      { value: "API-led", label: "Designed for integration" },
+      { value: "White-label", label: "Your proposition, your brand" },
+      { value: "Connected", label: "Banking, FX, payments, payout" },
     ],
   },
+
+  architecture: {
+    eyebrow: "White-label architecture",
+    heading: "Your brand in front. CoBanq infrastructure behind it.",
+    subhead: "A simple white-label model: your customer experience, powered by CoBanq.",
+    brand: {
+      label: "Your brand",
+      title: "Your customer experience",
+      detail: "Website · App · Customer journey",
+    },
+    core: { label: "CoBanq", detail: "Technology · Compliance · Infrastructure" },
+    capabilities: {
+      label: "Connected capabilities",
+      items: [
+        { icon: "Landmark", title: "Banking networks", detail: "Account & banking infrastructure" },
+        { icon: "RefreshCcw", title: "FX & currency", detail: "Currency conversion capability" },
+        { icon: "CreditCard", title: "Payment rails", detail: "Domestic & international payments" },
+        { icon: "Globe", title: "Global payout", detail: "Bank · wallet · cash payout" },
+      ],
+    },
+    summary: [
+      { title: "Your brand", detail: "Own the customer relationship" },
+      { title: "CoBanq", detail: "Technology · Compliance · Infrastructure" },
+      { title: "Financial capabilities", detail: "Connected banking · FX · payments · payout" },
+    ],
+  },
+
+  safeguarding: {
+    label: "Safeguarding & FSCS",
+    partner: "ClearBank",
+    body: "Customer funds are safeguarded with banking partner ClearBank.",
+    note:
+      "FSCS protection applies where the safeguarding arrangement and end customer are eligible, subject to applicable scheme limits.",
+  },
+
+  // The three capability pillars, each with its own numbered workflow.
+  pillars: [
+    {
+      id: "gbp-banking",
+      eyebrow: "GBP banking & payments",
+      title: "Receive. Convert. Pay.",
+      description:
+        "A connected GBP banking proposition for receiving funds, FX, and supported local and international business payments — delivered through a consistent white-label customer experience.",
+      steps: [
+        { number: "01", title: "Receive", sub: "GBP account capability", detail: "Receive eligible GBP business payments through supported account configurations." },
+        { number: "02", title: "Convert", sub: "Integrated FX", detail: "Convert supported balances through connected foreign-exchange workflows." },
+        { number: "03", title: "Pay", sub: "UK Faster Payments", detail: "Send eligible local GBP payments through the UK Faster Payments network." },
+        { number: "04", title: "B2B", sub: "International payments", detail: "Support approved cross-border B2B payment workflows for business customers." },
+      ],
+    },
+    {
+      id: "fx",
+      eyebrow: "FX & multi-currency payments",
+      title: "Built for cross-border money management",
+      description:
+        "Support foreign exchange and multi-currency payment workflows across major North American and European currencies. Supported currency balances can feed into FX conversion and onward payment workflows, subject to applicable cut-offs, service terms and transaction requirements.",
+      steps: [
+        { number: "01", title: "Balance", sub: "Supported currency funds", detail: "Make customer balances available for use within the enabled multi-currency proposition." },
+        { number: "02", title: "FX", sub: "Currency conversion", detail: "Convert between supported currencies through the available FX service." },
+        { number: "03", title: "Payment", sub: "Cross-border payments", detail: "Send supported multi-currency payments through the connected payment layer." },
+      ],
+    },
+    {
+      id: "remittances",
+      eyebrow: "P2P remittances",
+      title: "A complete branded remittance experience",
+      description:
+        "Launch a customer-facing remittance proposition across supported international corridors and payout methods — branded web and app journeys with quoting, payout selection, transaction processing and supported international delivery.",
+      steps: [
+        { number: "01", title: "Quote", sub: "Enter amount and destination", detail: "" },
+        { number: "02", title: "Select", sub: "Choose an available payout method", detail: "" },
+        { number: "03", title: "Send", sub: "Complete the branded transaction", detail: "" },
+        { number: "04", title: "Track", sub: "Follow supported status updates", detail: "" },
+      ],
+      methods: [
+        { icon: "Landmark", title: "Bank transfer", sub: "Direct-to-account payouts", detail: "Supported bank-account delivery across eligible corridors." },
+        { icon: "Smartphone", title: "Mobile wallet", sub: "Wallet payouts", detail: "Send eligible transfers directly to supported mobile wallets." },
+        { icon: "Banknote", title: "Cash pickup", sub: "Agent cash collection", detail: "Eligible recipients can collect cash through supported payout locations." },
+      ],
+      note:
+        "Corridor availability, payout methods, FX rates, fees and delivery timing depend on destination, eligibility and service configuration.",
+    },
+  ],
+
+  coverage: {
+    eyebrow: "Network coverage",
+    heading: "Country coverage at a glance",
+    subhead:
+      "Named destination markets from the payout corridor network, shown by region. Country availability varies by payout method and corridor.",
+    regions: [
+      {
+        name: "Africa",
+        countries: ["Uganda", "Kenya", "Ghana", "DRC", "Nigeria", "Tanzania", "Rwanda", "Cameroon", "Zimbabwe", "Mozambique", "Malawi", "Senegal", "Benin", "Botswana", "Burundi", "Sierra Leone", "Zambia", "Ethiopia", "South Africa"],
+      },
+      {
+        name: "Asia",
+        countries: ["India", "Bangladesh", "Philippines", "Pakistan", "Nepal", "Sri Lanka", "Indonesia", "Malaysia", "Thailand", "Singapore", "China", "Hong Kong", "South Korea"],
+      },
+      {
+        name: "Middle East",
+        countries: ["Saudi Arabia", "UAE", "Qatar", "Kuwait", "Oman", "Bahrain", "Egypt", "Turkey"],
+      },
+      {
+        name: "UK, North America & Oceania",
+        countries: ["United Kingdom", "USA", "Canada", "Australia", "New Zealand"],
+      },
+    ],
+    europe: {
+      heading: "35 European markets",
+      body: "Credit into bank accounts across 35 European markets, with timing shown as T-day / T+1.",
+      countries: ["Austria", "Belgium", "Cyprus", "Estonia", "Finland", "France", "Germany", "Greece", "Ireland", "Italy", "Luxembourg", "Malta", "Netherlands", "Portugal", "Slovakia", "Slovenia", "Spain", "Latvia", "Lithuania", "Sweden", "Norway", "Denmark", "Croatia", "Hungary", "Romania", "Andorra", "Monaco", "Vatican", "San Marino", "Liechtenstein", "Bulgaria", "Iceland", "Poland", "Czech Republic", "Switzerland"],
+    },
+    currencies: {
+      heading: "43 payout currencies",
+      body: "Payout currency codes represented across the destination markets in the corridor network.",
+      codes: ["INR", "BDT", "PHP", "PKR", "NPR", "LKR", "UGX", "KES", "GHS", "USD", "NGN", "TZS", "RWF", "XAF", "MZN", "MWK", "XOF", "BWP", "BIF", "SLE", "ZMW", "ETB", "ZAR", "SAR", "AED", "QAR", "KWD", "OMR", "BHD", "EGP", "TRY", "IDR", "MYR", "THB", "SGD", "CNY", "HKD", "KRW", "GBP", "AUD", "NZD", "CAD", "EUR"],
+      note:
+        "Not every payout method is available in every market. Bank transfer, mobile wallet and cash availability, thresholds and timing vary by corridor.",
+    },
+  },
+
+  journey: {
+    eyebrow: "Customer journey",
+    heading: "From receiving to global payout",
+    subhead:
+      "One branded journey can connect receiving, conversion, payments and cross-border money movement.",
+    steps: [
+      { number: "01", title: "Receive", detail: "Accept funds through supported infrastructure." },
+      { number: "02", title: "Convert", detail: "Exchange supported currencies." },
+      { number: "03", title: "Pay", detail: "Make supported business payments." },
+      { number: "04", title: "Remit", detail: "Initiate international P2P transfers." },
+      { number: "05", title: "Deliver", detail: "Bank, wallet or cash where supported." },
+    ],
+    strip: "Receive. Convert. Pay. Remit. Deliver.",
+  },
+
+  useCasesHeading: "Built for real-world financial needs",
+  useCasesSub:
+    "Flexible white-label capabilities for payments, remittances and internationally active customers.",
+  useCases: [
+    { tag: "Remittance", title: "Digital remittance", detail: "Branded international money-transfer experiences." },
+    { tag: "Accounts", title: "Payment accounts", detail: "Receive and pay through supported account capabilities." },
+    { tag: "International", title: "Diaspora banking", detail: "Customer financial services with international reach." },
+    { tag: "Payments", title: "International payments", detail: "Support approved cross-border collections and payments." },
+    { tag: "P2P", title: "Family & P2P transfers", detail: "Send money to beneficiaries across supported corridors." },
+    { tag: "Business", title: "Business & freelancer payments", detail: "Support internationally active professionals and businesses." },
+    { tag: "Disbursement", title: "Payroll & disbursements", detail: "Cross-border payment and distribution workflows." },
+    { tag: "Growth", title: "Modular proposition", detail: "Combine capabilities around your business model and expand over time." },
+  ],
+
+  whyHeading: "One relationship. Multiple capabilities.",
+  whySub:
+    "Bring complementary financial capabilities into a more unified white-label proposition, and reduce the complexity of assembling separate banking, FX and international payout relationships.",
+  why: [
+    { icon: "Palette", tag: "Brand", title: "Your brand first", detail: "A customer-facing experience configured around your proposition." },
+    { icon: "Coins", tag: "Currency", title: "Multi-currency by design", detail: "Support international account and payment requirements." },
+    { icon: "Layers", tag: "Breadth", title: "Banking + remittances", detail: "Build a broader customer relationship beyond a single service." },
+    { icon: "Globe", tag: "Reach", title: "International distribution", detail: "Reach supported markets through locally relevant payout methods." },
+    { icon: "Workflow", tag: "Technology", title: "API-enabled", detail: "Integrate customer journeys and operating workflows." },
+    { icon: "TrendingUp", tag: "Growth", title: "Scalable proposition", detail: "Add capabilities as your product, markets and customer base evolve." },
+  ],
+
+  closing: {
+    eyebrow: "Build your proposition with CoBanq",
+    heading: "One brand. One connected financial experience.",
+    subhead:
+      "Bring banking, FX, payments and international remittances together through a white-label proposition designed around your business.",
+    strapline: "Your brand. Multi-currency banking. Global payments. One platform.",
+    phone: "020 8175 2519",
+  },
+
   form: {
-    heading: "Talk to our partnerships team",
-    subhead: "Tell us about your programme and we'll get back to you.",
+    heading: "Talk to us about your white-label model",
+    subhead: "Tell us about your proposition and our partnerships team will come back to you.",
     fields: {
       name: "Your name",
       company: "Company",
@@ -1017,45 +1103,54 @@ export const whiteLabel = {
       website: "Company website",
       volume: "Expected monthly volume",
       volumePlaceholder: "Select a range",
-      volumeOptions: [
-        "Under £100k",
-        "£100k – £500k",
-        "£500k – £2m",
-        "More than £2m",
-        "Not sure yet",
-      ],
+      volumeOptions: ["Under \u00a3100k", "\u00a3100k \u2013 \u00a3500k", "\u00a3500k \u2013 \u00a32m", "More than \u00a32m", "Not sure yet"],
       message: "What are you building?",
       messagePlaceholder:
         "Your customers, the markets and currencies you need, and where you are in the process.",
     },
     submit: "Send enquiry",
-    disclaimer:
-      "This is a placeholder form — connect it to your real inbox or CRM before launch.",
-    successHeading: "Thanks — enquiry received",
+    successHeading: "Thanks \u2014 enquiry received",
     successBody:
-      "Our partnerships team will come back to you. Nothing is sent anywhere yet: this form is a placeholder until it's wired to your inbox.",
+      "Our partnerships team will be in touch by email. If it's urgent, call us on 020 8175 2519.",
   },
+
+  pricing: {
+    eyebrow: "Pricing",
+    heading: "Quoted per programme, not off a price list",
+    body:
+      "White-label pricing depends on your corridors, currencies, expected volumes, and how deeply you integrate \u2014 so we quote it properly rather than publishing tiers that would not fit you.",
+    points: [
+      "No published tiers \u2014 your programme is priced on its own shape",
+      "Commercials agreed up front, including how FX margin is shared",
+      "Scoped against your real volumes, not a headline rate",
+    ],
+  },
+
   faqHeading: "Common questions",
   faq: [
     {
       q: "Whose licence does the programme run on?",
-      a: "CoBanq Ltd is an Authorised Payment Institution under the Payment Services Regulations 2017 (FRN 508565), and white-label programmes run on that authorisation. You do not need your own licence to launch, though we'll work through where regulatory responsibility sits for your particular model.",
+      a: "CoBanq Ltd is an Authorised Payment Institution under the Payment Services Regulations 2017 (FRN 508565), and white-label programmes run on that authorisation. We'll work through where regulatory responsibility sits for your particular model as part of scoping.",
+    },
+    {
+      q: "How are customer funds protected?",
+      a: "Customer funds are safeguarded with banking partner ClearBank. FSCS protection applies where the safeguarding arrangement and end customer are eligible, subject to applicable scheme limits.",
     },
     {
       q: "Do my customers ever see CoBanq?",
-      a: "The portal your customers use carries your brand and sits on your domain. Where regulation requires the underlying provider to be disclosed, that disclosure appears — we'll agree the exact wording as part of scoping.",
+      a: "The experience your customers use carries your brand \u2014 website, app and customer journey. Where regulation requires the underlying provider to be disclosed, that disclosure appears; we'll agree the exact wording during scoping.",
     },
     {
-      q: "Which currencies and countries can we cover?",
-      a: "Programmes draw on the same payout network as our direct customers — 30+ corridors across Asia, Africa, Europe, and the Middle East, with major currencies including GBP, EUR, USD, JPY, AED, and PKR.",
+      q: "Which countries and currencies can we cover?",
+      a: "The payout network reaches 80+ destination countries and represents 43 payout currencies across bank transfer, mobile wallet and cash payout. Availability, thresholds and timing vary by corridor and payout method.",
     },
     {
-      q: "How long does it take to launch?",
-      a: "It depends on your integration model and the compliance work your programme needs. We'll give you a realistic timeline during scoping rather than a number that ignores onboarding and testing.",
+      q: "Can we start with one capability and add more later?",
+      a: "Yes. The proposition is modular: you can start with the capability that matters most \u2014 GBP banking, FX, or P2P remittances \u2014 and add others as your product, markets and customer base evolve.",
     },
     {
-      q: "Can we start white-label and integrate deeper later?",
-      a: "Yes. White-label, platform, and correspondent models are different depths of the same infrastructure, and programmes commonly move between them as the product matures.",
+      q: "How do we integrate?",
+      a: "The platform is API-led and designed for integration, so customer journeys and operating workflows can be connected to your own systems. We'll agree the integration model as part of scoping.",
     },
   ],
 };

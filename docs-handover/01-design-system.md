@@ -55,32 +55,33 @@ Load:
 ```
 
 **Important:** Space Grotesk's heaviest weight is 700. CoBanq headings
-must be capped at 700 — if you let a CSS `font-weight: 800` through, the
+must be capped at 700 — if a CSS `font-weight: 800` gets through, the
 browser synthesises a fake bold that looks visibly wrong. The reference
 enforces this with an unlayered `h1,h2,h3 { font-weight: 700 }` rule.
 
 Heading letter-spacing is `-0.015em`. Body line-height is relaxed
 (~1.6); headings are tight (~1.1).
 
-Type scale actually used: `h1` 36–60px, `h2` 30–40px, `h3` 18–24px,
-body 16px, small 14px, micro 12px. Eyebrow labels are 12px, uppercase,
+Type scale in use: `h1` 36–60px, `h2` 30–40px, `h3` 18–24px, body 16px,
+small 14px, micro 12px. Eyebrow labels are 12px, uppercase,
 `letter-spacing: 0.25em`, semibold.
 
 ## Shape and depth
 
-- **Radii:** buttons are fully rounded (pill) on CoBanq; CoPay uses
-  16px. Cards 16–24px. Large feature panels 28–32px. Inputs 12–16px.
-- **Shadows:** used sparingly. Cards lift on hover
-  (`shadow-lg` + border colour shift). Primary buttons carry a coloured
-  shadow: `shadow-lg` tinted `brand-600` at 30%.
+- **Radii:** buttons fully rounded (pill) on CoBanq; CoPay uses 16px.
+  Cards 16–24px. Large feature panels 28–32px. Inputs 12–16px.
+- **Shadows:** used sparingly. Cards lift on hover (`shadow-lg` + border
+  colour shift). Primary buttons carry a coloured shadow: `shadow-lg`
+  tinted `brand-600` at 30%.
 - **Borders:** 1px at `navy-950/10`. Selected/active states use a 2px
   `brand-500` border plus a tinted background — never colour alone.
 
 ## Layout
 
 - Content max-widths: `max-w-7xl` (1280px) for wide hero grids,
-  `max-w-5xl` (1024px) for most sections, `max-w-3xl` (768px) for
-  centred text blocks.
+  `max-w-6xl` (1152px) for the white-label diagram sections,
+  `max-w-5xl` (1024px) for most sections, `max-w-3xl` (768px) for centred
+  text blocks.
 - Horizontal padding: 24px mobile, 32px from `lg`.
 - Section vertical rhythm: 64px mobile, 80–96px desktop.
 - Breakpoints are Tailwind defaults: `sm` 640, `md` 768, `lg` 1024,
@@ -89,7 +90,7 @@ body 16px, small 14px, micro 12px. Eyebrow labels are 12px, uppercase,
 ## Recurring patterns
 
 **Dark hero.** Navy background with two radial gradients — one blue at
-top-left, one deeper navy at bottom-right, both at low opacity. Used on
+top-left, one deeper navy at bottom-right, both low opacity. Used on
 home, solutions, white-label, business, CoPay. Exact values are in the
 reference; copy them, they set the whole tone.
 
@@ -104,6 +105,9 @@ home, solutions, white-label.
 **Option card.** Icon chip + bold title + muted subtitle, selectable.
 Selected = 2px `brand-500` border, `brand-50` background, tick badge.
 Used throughout the onboarding flow.
+
+**Tag chip.** Small rounded pill, `navy-950/4` background, used for
+country names, currency codes, industries and platform names.
 
 ## Logos
 
@@ -125,7 +129,8 @@ Maintained in the reference; please keep it:
 
 - Focus-visible outline: 2px `brand-500`, 2px offset.
 - All icon-only buttons have `aria-label`.
-- Selectable cards use `aria-pressed`.
+- Selectable cards use `aria-pressed`; disclosure buttons use
+  `aria-expanded`.
 - Decorative SVGs are `aria-hidden`.
-- Selection states never rely on colour alone — there is always a tick
-  or border-weight change too.
+- Selection states never rely on colour alone — there is always a tick or
+  border-weight change too.
