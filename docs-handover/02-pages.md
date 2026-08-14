@@ -137,11 +137,27 @@ CoPay.
 Content: `pricing`
 
 Three audience tabs — Freelancers & IT, Business Enterprise, Payroll
-Companies. Freelancers see a single free plan; the others show package
-tiers. Fee tables group into collapsible sections. Large figures use
-Manrope. Mobile becomes a stacked ruler layout.
+Companies. Two different layouts, selected by the category's `layout`
+field:
 
-**All rates must be confirmed before launch** — see `07-outstanding.md`.
+- **Card layout** (freelancers, payroll) — one card per plan with
+  collapsible fee sections.
+- **Comparison layout** (`layout: "comparison"`, Business Enterprise) —
+  three plan cards over a single full comparison table, competitor-style.
+  Rows are grouped (Account & FX, Faster Payments, CHAPS & Bacs,
+  International). Below the table: the Bacs footnote and five pricing
+  notes.
+
+  On mobile the three columns won't fit, so a Bronze/Gold/Platinum
+  selector switches which column the table shows.
+
+**Business Enterprise pricing is authoritative** — it comes from the
+*CoBanq Standard Pricing for Corporates* (GBP Banking & FX Pricing
+Schedule) and should only change when a new schedule is issued. Note that
+Platinum FX is deliberately "TBA".
+
+Freelancer and payroll rates are **not** confirmed — see
+`07-outstanding.md`.
 
 ## `/calculator`  *(calculator)*
 

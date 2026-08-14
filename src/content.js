@@ -1267,126 +1267,113 @@ export const pricing = {
       id: "business",
       label: "Business Enterprise",
       blurb:
-        "Bronze, Gold, and Platinum packages — your transaction fees drop as you move up.",
-      plans: [
+        "GBP banking, payments and FX on Bronze, Gold or Platinum \u2014 payment charges and FX margin improve as you move up.",
+      // Source: COBANQ Standard Pricing for Corporates (GBP Banking & FX
+      // Pricing Schedule). Figures, tier names and the notes below are
+      // taken from that document — do not adjust without a new schedule.
+      layout: "comparison",
+      tiers: [
         {
           tier: "bronze",
-          tag: "Business Enterprise",
           name: "Bronze",
-          description: "Getting started with cross-border business payments.",
-          monthlyFee: "£49",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "For businesses getting started",
+          monthlyFee: "\u00a349",
+          monthlyFeeNote: "per month",
           featured: false,
-          headlineFee: { label: "Transaction fee", value: "1%" },
-          sections: [
-            {
-              title: "Receive payments",
-              rows: [
-                { label: "From another CoBanq balance", value: "Free" },
-                { label: "From clients via card, ACH, or bank", value: "1%" },
-              ],
-            },
-            {
-              title: "Send payments",
-              rows: [
-                { label: "To another CoBanq account, same country", value: "Free" },
-                { label: "International supplier payments", value: "1%" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-                { label: "To a bank account, different currency", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
-          ],
+          highlights: ["1.00% FX", "\u00a30.99 Faster Payments"],
         },
         {
           tier: "gold",
-          tag: "Business Enterprise",
           name: "Gold",
-          description: "For growing companies moving money every week.",
-          monthlyFee: "£99",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "For growing payment activity",
+          monthlyFee: "\u00a399",
+          monthlyFeeNote: "per month",
           featured: true,
-          headlineFee: { label: "Transaction fee", value: "0.75%" },
-          sections: [
-            {
-              title: "Receive payments",
-              rows: [
-                { label: "From another CoBanq balance", value: "Free" },
-                { label: "From clients via card, ACH, or bank", value: "0.75%" },
-              ],
-            },
-            {
-              title: "Send payments",
-              rows: [
-                { label: "To another CoBanq account, same country", value: "Free" },
-                { label: "International supplier payments", value: "0.75%" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-                { label: "To a bank account, different currency", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
-          ],
+          highlights: ["0.75% FX", "\u00a30.79 Faster Payments"],
         },
         {
           tier: "platinum",
-          tag: "Business Enterprise",
           name: "Platinum",
-          description: "Our best rates, for high-volume operations.",
-          monthlyFee: "£199",
-          monthlyFeeNote: "Flat monthly account fee",
+          description: "For higher-volume operations",
+          monthlyFee: "\u00a3199",
+          monthlyFeeNote: "per month",
           featured: false,
-          headlineFee: { label: "Transaction fee", value: "0.5%" },
-          sections: [
-            {
-              title: "Receive payments",
-              rows: [
-                { label: "From another CoBanq balance", value: "Free" },
-                { label: "From clients via card, ACH, or bank", value: "0.5%" },
-              ],
-            },
-            {
-              title: "Send payments",
-              rows: [
-                { label: "To another CoBanq account, same country", value: "Free" },
-                { label: "International supplier payments", value: "0.5%" },
-              ],
-            },
-            {
-              title: "Withdraw & transfer",
-              rows: [
-                { label: "To a UK bank account, GBP → GBP", value: "£0.005" },
-                { label: "To a bank account, same country & currency (non-GBP)", value: "Free" },
-                { label: "To a bank account, different currency", value: "Free transfer*" },
-              ],
-            },
-            {
-              title: "Currency exchange",
-              rows: [{ label: "Move funds between your CoBanq balances", value: "Free transfer*" }],
-            },
+          highlights: ["FX TBA", "\u00a30.49 Faster Payments"],
+        },
+      ],
+      pillars: [
+        { key: "RECEIVE", title: "Supported GBP collections" },
+        { key: "CONVERT", title: "Tiered FX pricing" },
+        { key: "PAY", title: "Domestic & international payments" },
+      ],
+      comparison: [
+        {
+          title: "Account & FX",
+          rows: [
+            { label: "Monthly account fee", values: ["\u00a349", "\u00a399", "\u00a3199"] },
+            { label: "FX margin", values: ["1.00%", "0.75%", "TBA"] },
+          ],
+        },
+        {
+          title: "Faster Payments",
+          rows: [
+            { label: "Faster Payments \u2014 inbound", values: ["\u00a30.99", "\u00a30.79", "\u00a30.49"] },
+            { label: "Faster Payments \u2014 outbound", values: ["\u00a30.99", "\u00a30.79", "\u00a30.49"] },
+            { label: "CoBanq to CoBanq transfer", values: ["Free", "Free", "Free"] },
+          ],
+        },
+        {
+          title: "CHAPS & Bacs",
+          rows: [
+            { label: "CHAPS \u2014 inbound", values: ["\u00a325", "\u00a322", "\u00a320"] },
+            { label: "CHAPS \u2014 outbound", values: ["\u00a325", "\u00a322", "\u00a320"] },
+            { label: "CHAPS payment remediation", values: ["\u00a335", "\u00a335", "\u00a335"] },
+            { label: "Bacs specified transactions*", values: ["\u00a30.50", "\u00a30.50", "\u00a30.50"] },
+          ],
+        },
+        {
+          title: "International",
+          rows: [
+            { label: "GBP cross-border \u2014 inbound", values: ["\u00a325", "\u00a325", "\u00a325"] },
+            { label: "GBP cross-border \u2014 outbound", values: ["\u00a325", "\u00a325", "\u00a325"] },
+            { label: "International SWIFT / wire \u2014 outbound", values: ["\u00a350", "\u00a335", "\u00a325"] },
+            { label: "Wire payment remediation", values: ["\u00a350", "\u00a350", "\u00a350"] },
           ],
         },
       ],
+      bacsNote:
+        "*Bacs specified transactions: Bacs Direct Credit (incoming), Bacs Direct Debit (incoming), Direct Credit returns, recalls or reversals, unpaid Direct Debit (incoming), Direct Debit errors and instruction charges.",
+      notes: [
+        {
+          title: "Eligibility",
+          body:
+            "Account functionality, payment services, currencies and limits are subject to onboarding, eligibility and the customer's approved service configuration.",
+        },
+        {
+          title: "FX pricing",
+          body:
+            "FX pricing is applied according to the customer's package. Platinum FX pricing remains TBA.",
+        },
+        {
+          title: "Remediation",
+          body:
+            "A remediation charge may apply when a payment requires manual investigation or corrective handling.",
+        },
+        {
+          title: "Third-party charges",
+          body:
+            "Correspondent, intermediary, beneficiary-bank or other third-party charges may apply to certain international payments where relevant.",
+        },
+        {
+          title: "Pricing terms",
+          body:
+            "Fees are subject to the applicable CoBanq customer agreement and may be amended in accordance with its terms.",
+        },
+      ],
       salesCta: {
-        threshold: "Enterprise volume?",
-        description: "Custom pricing built around your flows — talk to our business team.",
+        threshold: "Higher volumes or a bespoke configuration?",
+        description:
+          "Talk to our business team about pricing built around your payment profile.",
       },
     },
     {
@@ -1521,15 +1508,15 @@ export const pricing = {
   faq: [
     {
       q: "How are CoBanq's fees structured?",
-      a: "Freelancers & IT professionals pay no monthly fee — just small per-transaction fees like 1% on receiving via bank transfer. Business Enterprise and Payroll Companies choose a Bronze, Gold, or Platinum package: a flat monthly fee, with transaction fees that drop as you move up the tiers. The exact rate is always shown before you confirm a transfer.",
+      a: "Freelancers & IT professionals pay no monthly fee — just small per-transaction fees like 1% on receiving via bank transfer. Business Enterprise runs on a published schedule: a flat monthly account fee plus per-payment charges for Faster Payments, CHAPS, Bacs and international wires, with an FX margin set by your package. Payroll Companies choose a Bronze, Gold, or Platinum package with a per-employee payout fee.",
     },
     {
       q: "Are there any hidden charges?",
-      a: "No. Every fee is listed on this page by category — receiving, sending, withdrawing, currency exchange, and payroll payouts. If a transaction type isn't listed, it's free.",
+      a: "Every standard fee is listed on this page. For business accounts, note that correspondent, intermediary, beneficiary-bank or other third-party charges may apply to certain international payments, and a remediation charge applies where a payment needs manual investigation or corrective handling — both are shown in the pricing notes.",
     },
     {
       q: "What's the difference between Bronze, Gold, and Platinum?",
-      a: "The monthly fee rises and your transaction fees fall. For Business Enterprise, the transaction fee drops from 1% (Bronze) to 0.75% (Gold) to 0.5% (Platinum). For Payroll Companies, the per-employee payout fee drops from £1.00 to £0.75 to £0.50. If you move enough volume, a higher tier quickly pays for itself.",
+      a: "The monthly account fee rises and your per-payment charges fall. For Business Enterprise: £49 / £99 / £199 a month, with Faster Payments at £0.99 / £0.79 / £0.49, CHAPS at £25 / £22 / £20, international SWIFT wires at £50 / £35 / £25, and an FX margin of 1.00% on Bronze and 0.75% on Gold (Platinum FX pricing is TBA). For Payroll Companies, the per-employee payout fee drops from £1.00 to £0.75 to £0.50.",
     },
     {
       q: "What withdrawal fees apply for bank transfers?",
@@ -1541,7 +1528,7 @@ export const pricing = {
     },
     {
       q: "Can I switch tiers later?",
-      a: "Yes — you can move between Bronze, Gold, and Platinum as your volume changes. Upgrades take effect immediately; your new transaction rates apply from your next transfer.",
+      a: "Yes — you can move between Bronze, Gold, and Platinum as your volume changes. Fees are subject to the applicable CoBanq customer agreement and may be amended in accordance with its terms.",
     },
     {
       q: "Is CoBanq regulated?",

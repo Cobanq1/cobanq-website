@@ -40,12 +40,19 @@ See `05-forms-and-email.md`. No destination address decided, no
 notification configured. Three enquiry forms currently capture nothing
 you would receive.
 
-### 6. Pricing needs confirming
+### 6. Freelancer and payroll pricing needs confirming
 
-`/pricing` carries specific fee percentages and fixed charges across
-three audience categories. These came from a supplied reference and
-**have not been verified against current commercial terms.** Someone who
-owns pricing must sign these off line by line.
+`/pricing` has three audience categories.
+
+**Business Enterprise is confirmed** — it reproduces the *CoBanq Standard
+Pricing for Corporates* schedule exactly (monthly fees, FX margin, Faster
+Payments, CHAPS, Bacs, cross-border and SWIFT charges, plus the five
+pricing notes). Platinum FX shows "TBA" because the schedule does.
+
+**Freelancers & IT and Payroll Companies are not.** Those figures came
+from an earlier supplied reference and have not been verified against
+current commercial terms. Someone who owns pricing must sign them off
+line by line, or they should come out before launch.
 
 ## Content gaps
 

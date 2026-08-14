@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { ChevronDown, ArrowRight, Laptop, Building2, Users } from "lucide-react";
+import { ChevronDown, ArrowRight, Check, Laptop, Building2, Users } from "lucide-react";
 import { pricing } from "../content";
 
 const categoryIcons = { freelancers: Laptop, business: Building2, payroll: Users };
@@ -149,6 +149,154 @@ function PricingCard({ plan }) {
   );
 }
 
+// Competitor-style pricing for the corporate schedule: three plan cards
+// over one full comparison table. Values come straight from the CoBanq
+// Standard Pricing for Corporates schedule.
+function ComparisonPricing({ category }) {
+  const [active, setActive] = useState(1); // mobile column selector
+
+  return (
+    <div className="mx-auto mt-10 max-w-6xl animate-[fadeIn_.35s_ease] px-6 lg:px-8">
+      {/* Plan cards */}
+      <div className="grid gap-5 lg:grid-cols-3">
+        {category.tiers.map((t) => {
+          const tier = tierStyles[t.tier] || tierStyles.free;
+          return (
+            <div
+              key={t.name}
+              className={`rounded-3xl border bg-white p-7 transition ${
+                t.featured ? tier.ring : "border-navy-950/10"
+              }`}
+            >
+              <span
+                className={`inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-[11px] font-bold uppercase tracking-wide ${tier.badge}`}
+              >
+                <span className="h-2 w-2 rounded-full" style={{ background: tier.dot }} />
+                {t.name}
+              </span>
+              <p className="mt-4 text-sm text-navy-950/60">{t.description}</p>
+              <div className="mt-5 flex items-baseline gap-2">
+                <Price value={t.monthlyFee} />
+                <span className="text-sm text-navy-950/50">{t.monthlyFeeNote}</span>
+              </div>
+              <ul className="mt-6 grid gap-2 border-t border-navy-950/[0.08] pt-5">
+                {t.highlights.map((h) => (
+                  <li key={h} className="flex items-center gap-2.5 text-sm font-semibold text-navy-950/75">
+                    <Check size={15} className="shrink-0 text-brand-500" strokeWidth={2.5} />
+                    {h}
+                  </li>
+                ))}
+              </ul>
+              <Link
+                to="/business-enquiry"
+                className={`mt-7 flex w-full items-center justify-center gap-2 rounded-full py-3 text-sm font-bold transition ${
+                  t.featured
+                    ? "bg-navy-950 text-white hover:bg-navy-800"
+                    : "border border-navy-950/15 text-navy-950 hover:bg-navy-950/[0.03]"
+                }`}
+              >
+                Get started
+                <ArrowRight size={15} />
+              </Link>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Capability strip */}
+      <div className="mt-6 grid gap-px overflow-hidden rounded-2xl bg-navy-950/10 sm:grid-cols-3">
+        {category.pillars.map((p) => (
+          <div key={p.key} className="bg-white px-6 py-4 text-center">
+            <p className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-600">{p.key}</p>
+            <p className="mt-1 text-sm font-semibold text-navy-950/70">{p.title}</p>
+          </div>
+        ))}
+      </div>
+
+      {/* Mobile tier selector — three columns won't fit a phone */}
+      <div className="mt-10 grid grid-cols-3 gap-2 lg:hidden">
+        {category.tiers.map((t, i) => (
+          <button
+            key={t.name}
+            type="button"
+            onClick={() => setActive(i)}
+            aria-pressed={i === active}
+            className={`rounded-xl px-3 py-2.5 text-xs font-bold transition ${
+              i === active
+                ? "bg-navy-950 text-white"
+                : "border border-navy-950/15 text-navy-950/60"
+            }`}
+          >
+            {t.name}
+          </button>
+        ))}
+      </div>
+
+      {/* Comparison table */}
+      <div className="mt-6 overflow-hidden rounded-3xl border border-navy-950/10">
+        {/* Desktop header */}
+        <div className="hidden grid-cols-[1.6fr_repeat(3,1fr)] bg-navy-950 lg:grid">
+          <div className="px-6 py-4 text-xs font-bold uppercase tracking-wider text-white/50">
+            Service
+          </div>
+          {category.tiers.map((t) => (
+            <div key={t.name} className="px-6 py-4 text-center">
+              <span className="text-sm font-bold text-white">{t.name}</span>
+            </div>
+          ))}
+        </div>
+
+        {category.comparison.map((group) => (
+          <div key={group.title}>
+            <div className="border-y border-navy-950/[0.08] bg-navy-950/[0.03] px-6 py-2.5">
+              <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-navy-950/50">
+                {group.title}
+              </p>
+            </div>
+            {group.rows.map((row) => (
+              <div
+                key={row.label}
+                className="grid grid-cols-[1fr_auto] items-center gap-4 border-b border-navy-950/[0.06] px-6 py-3.5 last:border-b-0 lg:grid-cols-[1.6fr_repeat(3,1fr)] lg:gap-0"
+              >
+                <span className="text-sm text-navy-950/75">{row.label}</span>
+                {/* Mobile: only the selected tier */}
+                <span className="font-num text-sm font-bold text-navy-950 lg:hidden">
+                  {row.values[active]}
+                </span>
+                {/* Desktop: all three */}
+                {row.values.map((value, i) => (
+                  <span
+                    key={i}
+                    className={`hidden text-center font-num text-sm font-bold lg:block ${
+                      category.tiers[i].featured ? "text-navy-950" : "text-navy-950/70"
+                    }`}
+                  >
+                    {value}
+                  </span>
+                ))}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      <p className="mt-4 text-xs leading-relaxed text-navy-950/45">{category.bacsNote}</p>
+
+      {/* Pricing notes */}
+      <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {category.notes.map((note) => (
+          <div key={note.title} className="rounded-2xl border border-navy-950/10 p-6">
+            <p className="text-[10px] font-bold uppercase tracking-[0.18em] text-brand-600">
+              {note.title}
+            </p>
+            <p className="mt-2.5 text-sm leading-relaxed text-navy-950/60">{note.body}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 export default function Pricing() {
   const [activeCategory, setActiveCategory] = useState(0);
   const [openFaq, setOpenFaq] = useState(0);
@@ -193,16 +341,20 @@ export default function Pricing() {
           {category.blurb}
         </p>
 
-        <div
-          key={`${category.id}-cards`}
-          className={`mx-auto mt-10 grid max-w-6xl animate-[fadeIn_.35s_ease] grid-cols-1 gap-6 px-6 lg:px-8 ${
-            category.plans.length === 1 ? "lg:max-w-md" : "lg:grid-cols-3"
-          }`}
-        >
-          {category.plans.map((plan) => (
-            <PricingCard key={plan.name} plan={plan} />
-          ))}
-        </div>
+        {category.layout === "comparison" ? (
+          <ComparisonPricing key={category.id} category={category} />
+        ) : (
+          <div
+            key={`${category.id}-cards`}
+            className={`mx-auto mt-10 grid max-w-6xl animate-[fadeIn_.35s_ease] grid-cols-1 gap-6 px-6 lg:px-8 ${
+              category.plans.length === 1 ? "lg:max-w-md" : "lg:grid-cols-3"
+            }`}
+          >
+            {category.plans.map((plan) => (
+              <PricingCard key={plan.name} plan={plan} />
+            ))}
+          </div>
+        )}
 
         <div className="mx-auto mt-10 max-w-6xl px-6 lg:px-8">
           <div className="flex flex-col items-start justify-between gap-4 rounded-2xl bg-navy-950 p-6 sm:flex-row sm:items-center">
@@ -219,9 +371,11 @@ export default function Pricing() {
             </Link>
           </div>
 
-          <p className="mt-8 whitespace-pre-line border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
-            {pricing.footnote}
-          </p>
+          {category.layout !== "comparison" && (
+            <p className="mt-8 whitespace-pre-line border-t border-navy-950/10 pt-6 text-xs leading-relaxed text-navy-950/40">
+              {pricing.footnote}
+            </p>
+          )}
         </div>
       </section>
 
