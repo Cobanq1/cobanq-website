@@ -16,7 +16,7 @@ behind it:
 | 2 | Branding | Five theme colours with presets, contrast check, live preview of the tenant's own banking app. |
 | 3 | Files | Web logo, document logo, statement background, favicon. Drag-and-drop, 5 MB cap, previews. |
 | 4 | Custom menu links | Extra sidebar items for the tenant's customers — label, URL, icon, visible / new-tab toggles, ordering. |
-| 5 | Customer pricing | Phase 2. Wholesale cost vs the price the tenant charges its own customers, with live margin. |
+| 5 | Customer pricing | The full Specials Corporate Fee Schedule (account operations, payment transactions, card operations, FX), split by UK / EU / World band. The base fee is the CoBanq minimum and is read-only; the tenant can only mark fees **up**, never down. Changed fees are shown in bold, mark-up shown live, bulk "apply x% to all". |
 
 Tick **Dev notes** in the top bar to reveal implementation notes on each screen
 (validation rules, what saves when, where the API is expected).
@@ -28,5 +28,11 @@ Tick **Dev notes** in the top bar to reveal implementation notes on each screen
 - All figures, names and account details are dummy data.
 - The dashboard page is the current product, reproduced only for context — it is
   not part of the change.
+- Fee figures are taken verbatim from the Specials Corporate Fee Schedule
+  (Emporio Security Ltd / Gemba Finance Ltd). They belong in the database, not
+  in the front end — the screen must render whatever the API returns, including
+  non-priced entries such as `Inquire`, `SPOT` and `—`.
+- The mark-up-only rule has to be enforced server-side as well: a customer price
+  below the base fee must be rejected, not just greyed out in the UI.
 - The live preview on the right is the important interaction: branding changes
   must be reflected immediately, without a save round-trip.

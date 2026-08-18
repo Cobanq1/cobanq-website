@@ -296,6 +296,31 @@ tr:last-child td{border-bottom:0}
 .price-row .name{font-size:14px;font-weight:600}
 .price-row .name small{display:block;font-weight:400;color:var(--ink-60);font-size:12px;margin-top:3px}
 
+.seg{display:inline-flex;background:#eef1f7;border-radius:99px;padding:4px;gap:4px}
+.seg__btn{border:0;background:transparent;border-radius:99px;padding:8px 20px;font-size:13.5px;font-weight:600;color:var(--ink-60)}
+.seg__btn.is-active{background:#fff;color:var(--ink);box-shadow:var(--shadow-sm)}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--brand-50);color:var(--brand-700);border-radius:99px;padding:7px 14px;font-size:12.5px;font-weight:700}
+.bulk{display:flex;align-items:flex-end;gap:10px;flex-wrap:wrap;margin:20px 0 6px}
+.fee-group{margin-top:26px}
+.fee-head{display:grid;grid-template-columns:minmax(0,1fr) 130px 150px 120px;gap:12px;padding:0 0 8px;font-size:12px;font-weight:700;color:var(--ink-40)}
+.fee-head span:not(:first-child){text-align:right}
+.fee-row{display:grid;grid-template-columns:minmax(0,1fr) 130px 150px 120px;gap:12px;align-items:center;padding:11px 0;border-top:1px solid var(--line)}
+.fee-row--flat{grid-template-columns:minmax(0,1fr) 150px minmax(0,1.1fr)}
+.fee-name{font-size:13.5px;font-weight:600;line-height:1.4}
+.fee-name small{display:block;font-weight:400;color:var(--ink-60);font-size:11.5px;margin-top:2px}
+.fee-base{font-size:13.5px;color:var(--ink-60);text-align:right;font-weight:600}
+.fee-price{display:flex;align-items:center;gap:6px}
+.fee-price .input{text-align:right;padding:9px 12px;font-size:13.5px;min-width:0}
+.fee-price .unit{font-size:13px;font-weight:600;color:var(--ink-40);flex:0 0 auto}
+.fee-price .input.changed{font-weight:800;border-color:var(--brand-500);background:var(--brand-50)}
+.fee-price .input.invalid{border-color:var(--danger);background:var(--danger-bg);color:var(--danger);font-weight:700}
+.fee-price .locked{display:block;width:100%;text-align:right;font-size:13px;color:var(--ink-40);padding:9px 2px}
+.fee-delta{text-align:right;font-size:13px;font-weight:700;color:var(--ok)}
+.fee-delta.zero{color:var(--ink-40);font-weight:500}
+.fee-delta.bad{color:var(--danger)}
+.fee-note{font-size:12px;color:var(--ink-60);line-height:1.5}
+.notes-list{margin:0;padding-left:18px;font-size:13px;line-height:1.7;color:var(--ink-60)}
+.notes-list li + li{margin-top:8px}
 .actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:26px}
 .actions--split{justify-content:space-between}
 
@@ -370,6 +395,9 @@ body.notes-on .note{display:block}
   .quick{grid-template-columns:1fr}
   .dns-fields,.color-grid,.price-grid{grid-template-columns:minmax(0,1fr)}
   .file-row,.link-row,.price-row{grid-template-columns:minmax(0,1fr)}
+  .fee-head{display:none}
+  .fee-row,.fee-row--flat{grid-template-columns:minmax(0,1fr) 110px;row-gap:8px}
+  .fee-name{grid-column:1 / -1}
   .acct-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   .dom-grid{grid-template-columns:minmax(0,1fr)}
 }
@@ -737,27 +765,51 @@ body.notes-on .note{display:block}
             <!-- ------------------------- 5. PRICING ------------------ -->
             <div class="panel" id="panel-pricing">
               <div class="card"><div class="card__pad">
-                <h2 class="card__title">Customer pricing</h2>
-                <div class="banner banner--info" style="margin-top:16px">
-                  <h4>Your margin sits on top of the CoBanq wholesale rate</h4>
-                  The left column is what CoBanq charges you. The right column is what your customers are charged in your banking app. The difference is settled to your commission account monthly.
+                <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:16px;flex-wrap:wrap">
+                  <div>
+                    <h2 class="card__title">Customer pricing</h2>
+                    <p class="hint" style="margin-top:8px"><svg><use href="#i-info"/></svg> <span>Specials Corporate Fee Schedule. All prices in GBP.</span></p>
+                  </div>
+                  <span class="chip" id="changedCount">0 fees marked up</span>
                 </div>
 
-                <div class="note"><b>Phase 2 —</b> included so the shape of the screen is agreed early. Validation: the customer price can never be below the wholesale cost; show the resulting margin live; changes need a confirmation step because they affect live customers.</div>
-
-                <div style="margin-top:22px">
-                  <h3 class="sect-title">Payments</h3>
-                  <div id="priceRows"></div>
+                <div class="banner banner--warn" style="margin-top:18px">
+                  <h4>Mark-ups only — the base fee is the floor</h4>
+                  The base column is the CoBanq minimum for your account. You may charge your customers more, never less: reductions of the base fee are not allowed. Every fee you change is shown in <b>bold</b> so you can see your adjustments at a glance.
                 </div>
+
+                <div class="note"><b>Behaviour —</b> the base column comes from the tenant's own fee schedule (<code>GET /white-label/fees</code>) and is never editable in this screen. Client- and server-side validation must both reject <code>customer &lt; base</code>; the save call sends only the overridden cells. Fee types are mixed — fixed amounts, percentages and non-priced entries (<code>Inquire</code>, <code>SPOT</code>, <code>—</code>) — so store a type per cell, not per row. Regional bands are per customer: the band is decided by the customer's residency at onboarding, not chosen by the tenant.</div>
+
+                <div class="seg" id="regionTabs" style="margin-top:22px">
+                  <button class="seg__btn is-active" data-region="UK">UK</button>
+                  <button class="seg__btn" data-region="EU">EU</button>
+                  <button class="seg__btn" data-region="World">World</button>
+                </div>
+                <p class="hint" style="margin-top:10px"><svg><use href="#i-info"/></svg> <span id="regionHelp"></span></p>
+
+                <div class="bulk">
+                  <label class="field" style="max-width:190px"><span class="label">Apply mark-up to all fees</span>
+                    <input class="input num" id="bulkPct" placeholder="e.g. 25" /></label>
+                  <button class="btn btn--ghost btn--sm" id="btnBulk">Apply %</button>
+                  <button class="btn btn--ghost btn--sm" id="btnClearMarkups">Clear all mark-ups</button>
+                </div>
+
+                <div id="feeGroups" style="margin-top:8px"></div>
 
                 <hr class="hr" />
-                <div class="price-grid">
-                  <label class="field"><span class="label">FX mark-up on top of CoBanq rate (%)</span><input class="input num" id="fxMarkup" value="0.35" /></label>
-                  <label class="field"><span class="label">Monthly account fee charged to your customers</span><input class="input num" id="acctFee" value="9.99" /></label>
-                </div>
+                <h3 class="sect-title">Your CoBanq fees — not passed to your customers</h3>
+                <div class="fee-row fee-row--flat"><div class="fee-name">White Label subscription fee<small>Monthly, charged to you</small></div><div class="fee-base num">£5,000.00</div><div class="fee-note">Startups may qualify for subsidised rates and fee exemptions.</div></div>
+                <div class="fee-row fee-row--flat"><div class="fee-name">White Label installation fee<small>One-off, charged to you</small></div><div class="fee-base num">£250,000.00</div><div class="fee-note">Startups may qualify for subsidised rates and fee exemptions.</div></div>
+
+                <hr class="hr" />
+                <h3 class="sect-title">Important notes shown to your customers</h3>
+                <ul class="notes-list">
+                  <li><b>High value fee —</b> if the volume of transactions starting Monday exceeds GBP 100,000, the fee is charged on the entire weekly amount from the first day of the week until the end of the week.</li>
+                  <li><b>High-risk transfers (HRT) —</b> an additional compliance charge of 1% (min GBP 500, or GBP 250 per hour) may be applied to transfers involving crypto assets, PEPs, adverse-media individuals, partner-bank inquiries, or high-risk countries. HRT may also apply when a single transaction, or cumulative transactions in 24 hours, exceed GBP 10,000.</li>
+                </ul>
 
                 <div class="actions">
-                  <button class="btn btn--ghost">Reset</button>
+                  <button class="btn btn--ghost" id="btnPriceReset">Reset to base fees</button>
                   <button class="btn btn--primary" id="btnPriceSave">Save pricing</button>
                 </div>
               </div></div>
@@ -1250,40 +1302,187 @@ body.notes-on .note{display:block}
   renderLinks();
 
   /* =====================================================================
-     5. CUSTOMER PRICING (phase 2)
+     5. CUSTOMER PRICING
+     Base figures are the Specials Corporate Fee Schedule (GBP).
+     Cell types: amt = fixed amount, pct = percentage, txt = quoted/not priced.
+     The tenant may only raise a fee above its base — never lower it.
      ===================================================================*/
-  var prices = [
-    { name: "Local payment (Faster Payments / SEPA)", sub: "Per outbound payment", cost: "0.20" },
-    { name: "International payment (SWIFT)", sub: "Per outbound payment", cost: "12.00" },
-    { name: "Inbound payment", sub: "Per credit received", cost: "0.10" },
-    { name: "Account opening", sub: "One-off, per customer account", cost: "25.00" },
-    { name: "Card issue", sub: "Per physical card", cost: "4.50" }
-  ];
-  $("#priceRows").innerHTML = prices.map(function (p, i) {
-    return '<div class="price-row">' +
-      '<div class="name">' + p.name + '<small>' + p.sub + '</small></div>' +
-      '<label class="field"><span class="label">Your cost (GBP)</span><input class="input num" value="' + p.cost + '" readonly /></label>' +
-      '<label class="field"><span class="label">Customer price</span><input class="input num" data-price="' + i + '" value="' + (Number(p.cost) * 2).toFixed(2) + '" /></label>' +
-      '<div><span class="label">Your margin</span><span class="margin" data-margin="' + i + '"></span></div>' +
-      '</div>';
-  }).join("");
+  var REGION_HELP = {
+    UK: "UK — company, director and UBO are all UK residents.",
+    EU: "EU — company, director and UBO are all EU residents (none outside the EU/UK).",
+    World: "World — the company, a director or a UBO is resident outside the EU/UK."
+  };
 
-  function paintMargins() {
-    $$("[data-price]").forEach(function (inp, i) {
-      var m = Number(inp.value) - Number(prices[i].cost);
-      var el = $('[data-margin="' + i + '"]');
-      el.textContent = (isNaN(m) ? "—" : (m >= 0 ? "+" : "") + m.toFixed(2));
-      el.classList.toggle("bad", !(m >= 0));
+  function amt(v, note) { return { t: "amt", v: v, note: note || "" }; }
+  function pct(v, note) { return { t: "pct", v: v, note: note || "" }; }
+  function txt(v)       { return { t: "txt", v: v }; }
+
+  var FEES = [
+    { group: "1. Account operations", rows: [
+      { name: "Account opening application review fee", UK: amt(0), EU: amt(15), World: amt(499) },
+      { name: "Account maintenance", sub: "Per month", UK: amt(150), EU: amt(69), World: amt(149) },
+      { name: "Account confirmation; balance reference", UK: amt(50), EU: amt(50), World: amt(50) },
+      { name: "Auditor confirmation package", UK: amt(249), EU: amt(249), World: amt(499) },
+      { name: "Post services fee surcharge", UK: amt(30), EU: amt(30), World: amt(30) },
+      { name: "Dedicated manager", sub: "Per month, optional", UK: amt(200), EU: amt(500), World: amt(1000) },
+      { name: "Account termination due to violation of Terms", UK: amt(1000), EU: amt(1000), World: amt(1000) },
+      { name: "Assistance in account opening", sub: "Documents, physical assistance, filing", UK: txt("Inquire"), EU: txt("Inquire"), World: amt(990) },
+      { name: "Holding funds on account following termination", sub: "Per month", UK: pct(5, "min £500"), EU: pct(5, "min £500"), World: pct(5, "min £500") }
+    ]},
+    { group: "2. Payment transactions", rows: [
+      { name: "Incoming SEPA payment", UK: amt(0.99), EU: amt(0.99), World: amt(4.99) },
+      { name: "Outgoing SEPA payment", UK: amt(0.99), EU: amt(2.99), World: amt(9.99) },
+      { name: "Instant outgoing SEPA payment", UK: amt(0.99), EU: amt(0.99), World: amt(26.40) },
+      { name: "Incoming payment within the UK (FPS)", UK: pct(1), EU: amt(2.99), World: amt(9.99) },
+      { name: "Outgoing payment within the UK (FPS)", UK: amt(0), EU: amt(2.99), World: amt(9.99) },
+      { name: "Incoming international payment", UK: amt(26.40), EU: amt(26.40), World: amt(26.40) },
+      { name: "Outgoing international payment", sub: "SHA: SWIFT / CHAPS / Target2", UK: amt(50), EU: amt(50), World: amt(26.40) },
+      { name: "Additional fee for (OUR)", UK: amt(75), EU: amt(75), World: amt(75) },
+      { name: "Incoming internal transfer", UK: amt(0), EU: amt(0), World: amt(0) },
+      { name: "Outgoing internal transfer", UK: amt(0.19), EU: amt(0.19), World: amt(0.19) },
+      { name: "Direct Debit", UK: amt(0), EU: amt(0), World: amt(9.99) },
+      { name: "Payment investigations, change of details", UK: amt(49), EU: amt(49), World: amt(49) },
+      { name: "High value fee", sub: "Weekly volume over £100,000", UK: pct(0), EU: pct(0), World: pct(0.40) },
+      { name: "Rejected incoming payment fee", UK: amt(50), EU: amt(50), World: amt(50) }
+    ]},
+    { group: "3. Card operations", rows: [
+      { name: "Plastic card issuance / replacement", sub: "Regular post within UK/EU", UK: amt(0), EU: amt(15), World: txt("—") },
+      { name: "Virtual card issuance / replacement", UK: amt(0), EU: amt(1), World: txt("—") },
+      { name: "Express card shipping and handling", sub: "Within UK/EU", UK: amt(70), EU: amt(70), World: txt("—") },
+      { name: "Card service monthly fee with SMS alerts", UK: amt(2), EU: amt(2), World: txt("—") },
+      { name: "Reclamation / representment processing fee", UK: amt(12), EU: amt(12), World: txt("—") },
+      { name: "Funds loading", UK: amt(0.99), EU: amt(2.99), World: txt("—") },
+      { name: "Currency mark-up", UK: pct(0), EU: pct(0), World: txt("—") }
+    ]},
+    { group: "4. Currency exchange (FX rates)", rows: [
+      { name: "FX margin (major currencies)", UK: pct(1.00), EU: pct(0.70), World: pct(0.70) },
+      { name: "FX margin (minor currencies)", UK: pct(0.90), EU: pct(0.90), World: pct(0.90) },
+      { name: "FX margin (soft currencies)", UK: txt("SPOT"), EU: txt("SPOT"), World: txt("SPOT") },
+      { name: "FX margin (exotic currencies)", UK: txt("SPOT"), EU: txt("SPOT"), World: txt("SPOT") }
+    ]}
+  ];
+
+  var region = "UK";
+  var overrides = {};                                   /* "region|g|r" -> number */
+  function key(g, r) { return region + "|" + g + "|" + r; }
+  function money(v) {
+    return "£" + v.toLocaleString("en-GB", { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+  }
+  function fmt(cell, val) {
+    return cell.t === "pct" ? val.toFixed(2) + "%" : money(val);
+  }
+
+  function renderFees() {
+    $("#regionHelp").textContent = REGION_HELP[region];
+    $("#feeGroups").innerHTML = FEES.map(function (grp, gi) {
+      return '<div class="fee-group"><h3 class="sect-title">' + grp.group + '</h3>' +
+        '<div class="fee-head"><span>Fee description</span><span>Base fee</span><span>Your price</span><span>Mark-up</span></div>' +
+        grp.rows.map(function (row, ri) {
+          var cell = row[region];
+          var name = '<div class="fee-name">' + row.name + (row.sub ? '<small>' + row.sub + '</small>' : '') + '</div>';
+          if (cell.t === "txt") {
+            return '<div class="fee-row">' + name +
+              '<div class="fee-base">' + cell.v + '</div>' +
+              '<div class="fee-price"><span class="locked">Not priced</span></div>' +
+              '<div class="fee-delta zero">—</div></div>';
+          }
+          var base = cell.v;
+          var val = overrides[key(gi, ri)];
+          if (val === undefined) val = base;
+          return '<div class="fee-row" data-g="' + gi + '" data-r="' + ri + '">' + name +
+            '<div class="fee-base num">' + fmt(cell, base) + (cell.note ? ' <small>(' + cell.note + ')</small>' : '') + '</div>' +
+            '<div class="fee-price">' + (cell.t === "pct" ? '' : '<span class="unit">£</span>') +
+              '<input class="input num" data-fee value="' + val.toFixed(2) + '" inputmode="decimal" />' +
+              (cell.t === "pct" ? '<span class="unit">%</span>' : '') + '</div>' +
+            '<div class="fee-delta zero" data-delta>—</div></div>';
+        }).join("") + '</div>';
+    }).join("");
+    paintFees();
+  }
+
+  function eachFeeRow(fn) {
+    $$("#feeGroups .fee-row[data-g]").forEach(function (rowEl) {
+      var gi = +rowEl.getAttribute("data-g"), ri = +rowEl.getAttribute("data-r");
+      fn(rowEl, FEES[gi].rows[ri][region], gi, ri);
     });
   }
-  $("#priceRows").addEventListener("input", paintMargins);
-  paintMargins();
-  $("#btnPriceSave").addEventListener("click", function () {
-    var bad = $$("[data-price]").some(function (inp, i) { return Number(inp.value) < Number(prices[i].cost); });
-    if (bad) { toast("Customer price cannot be below your cost", true); return; }
-    markDone("pricing", true);
-    toast("Pricing saved — applies to new customers immediately");
+
+  function paintFees() {
+    var changed = 0, invalid = 0;
+    eachFeeRow(function (rowEl, cell, gi, ri) {
+      var input = rowEl.querySelector("[data-fee]");
+      var delta = rowEl.querySelector("[data-delta]");
+      var val = parseFloat(input.value);
+      var base = cell.v;
+      var bad = isNaN(val) || val < base;
+      input.classList.toggle("invalid", bad);
+      input.classList.toggle("changed", !bad && val > base);
+      if (bad) {
+        invalid++;
+        delta.className = "fee-delta bad";
+        delta.textContent = "min " + fmt(cell, base);
+      } else if (val > base) {
+        changed++;
+        overrides[key(gi, ri)] = val;
+        delta.className = "fee-delta";
+        delta.textContent = cell.t === "pct"
+          ? "+" + (val - base).toFixed(2) + " pts"
+          : "+" + money(val - base) + (base > 0 ? " (" + Math.round(((val - base) / base) * 100) + "%)" : "");
+      } else {
+        delete overrides[key(gi, ri)];
+        delta.className = "fee-delta zero";
+        delta.textContent = "—";
+      }
+    });
+    var chip = $("#changedCount");
+    chip.textContent = invalid
+      ? invalid + " fee" + (invalid === 1 ? "" : "s") + " below the base fee"
+      : changed + " fee" + (changed === 1 ? "" : "s") + " marked up · " + region;
+    chip.style.background = invalid ? "var(--danger-bg)" : "var(--brand-50)";
+    chip.style.color = invalid ? "var(--danger)" : "var(--brand-700)";
+    return invalid;
+  }
+
+  $("#regionTabs").addEventListener("click", function (e) {
+    var b = e.target.closest("[data-region]"); if (!b) return;
+    $$("#regionTabs .seg__btn").forEach(function (x) { x.classList.remove("is-active"); });
+    b.classList.add("is-active");
+    region = b.getAttribute("data-region");
+    renderFees();
   });
+  $("#feeGroups").addEventListener("input", function (e) {
+    if (e.target.hasAttribute("data-fee")) paintFees();
+  });
+  $("#btnBulk").addEventListener("click", function () {
+    var pctv = parseFloat($("#bulkPct").value);
+    if (isNaN(pctv) || pctv < 0) { toast("Enter a mark-up percentage, e.g. 25", true); return; }
+    eachFeeRow(function (rowEl, cell) {
+      var input = rowEl.querySelector("[data-fee]");
+      input.value = (cell.v * (1 + pctv / 100)).toFixed(2);
+    });
+    paintFees();
+    toast("Applied a " + pctv + "% mark-up across " + region + " fees");
+  });
+  $("#btnClearMarkups").addEventListener("click", function () {
+    eachFeeRow(function (rowEl, cell, gi, ri) {
+      rowEl.querySelector("[data-fee]").value = cell.v.toFixed(2);
+      delete overrides[key(gi, ri)];
+    });
+    paintFees();
+    toast("Mark-ups cleared for " + region);
+  });
+  $("#btnPriceReset").addEventListener("click", function () {
+    if (!window.confirm("Reset every region back to the CoBanq base fees?")) return;
+    overrides = {}; renderFees(); toast("All fees reset to base");
+  });
+  $("#btnPriceSave").addEventListener("click", function () {
+    if (paintFees() > 0) { toast("Some fees are below the base fee — mark-ups only", true); return; }
+    markDone("pricing", true);
+    var n = Object.keys(overrides).length;
+    toast(n ? "Pricing saved — " + n + " marked-up fee" + (n === 1 ? "" : "s") + " live for your customers"
+            : "Pricing saved — your customers pay the base fees");
+  });
+  renderFees();
 
   /* ------------------------------------------------------- first paint */
   syncFqdn();
