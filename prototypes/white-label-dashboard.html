@@ -1,0 +1,1294 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>CoBanq — White Label Configuration (UI spec prototype)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Manrope:wght@600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet" />
+<style>
+/* =========================================================================
+   CoBanq white-label configuration — visual prototype
+   Single self-contained file. No build step, no dependencies.
+   Everything below is presentation only: all data is mocked in JS.
+   ========================================================================= */
+
+:root{
+  /* CoBanq shell palette (matches the live customer dashboard) */
+  --navy-950:#050b1a;
+  --navy-900:#0a1330;
+  --navy-800:#111c42;
+  --navy-700:#1a2a5c;
+  --navy-600:#24387a;
+  --brand-50:#eef4ff;
+  --brand-100:#dce8ff;
+  --brand-400:#5b8def;
+  --brand-500:#3b6fe0;
+  --brand-600:#2c56c4;
+  --brand-700:#1e3f9e;
+
+  --ink:#0b1533;
+  --ink-60:rgba(11,21,51,.62);
+  --ink-40:rgba(11,21,51,.42);
+  --line:rgba(11,21,51,.10);
+  --line-strong:rgba(11,21,51,.16);
+  --paper:#f6f8fc;
+  --card:#ffffff;
+
+  --ok:#0f8a4d;
+  --ok-bg:#e9f7ef;
+  --warn:#a86400;
+  --warn-bg:#fdf3e2;
+  --danger:#b42318;
+  --danger-bg:#fdecea;
+
+  --sidebar-w:252px;
+  --radius:14px;
+  --radius-lg:20px;
+  --shadow-sm:0 1px 2px rgba(11,21,51,.06);
+  --shadow-md:0 8px 24px rgba(11,21,51,.08);
+  --shadow-lg:0 18px 44px rgba(11,21,51,.12);
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  font-family:Inter,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color:var(--ink);
+  background:var(--paper);
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;letter-spacing:-.015em;line-height:1.15}
+p{margin:0}
+button{font-family:inherit;cursor:pointer}
+input,select,textarea{font-family:inherit;color:inherit}
+a{color:var(--brand-600)}
+.num{font-family:Manrope,Inter,sans-serif;font-variant-numeric:tabular-nums}
+
+/* ---------------------------------------------------------------- shell */
+.app{display:flex;min-height:100vh}
+
+.sidebar{
+  width:var(--sidebar-w);flex:0 0 var(--sidebar-w);
+  background:linear-gradient(180deg,#050b1a 0%,#0a1740 42%,#12327e 100%);
+  color:#fff;display:flex;flex-direction:column;position:sticky;top:0;height:100vh;z-index:40;
+}
+.sidebar__brand{
+  height:64px;display:flex;align-items:center;padding:0 22px;background:#04060f;
+  font-family:"Playfair Display",Georgia,serif;font-size:26px;font-weight:700;letter-spacing:.01em;
+}
+.sidebar__nav{flex:1;overflow-y:auto;padding:8px 0}
+.navitem{
+  display:flex;align-items:center;gap:12px;width:100%;border:0;background:transparent;
+  color:rgba(255,255,255,.86);padding:13px 22px;font-size:14.5px;font-weight:500;text-align:left;
+}
+.navitem svg{width:20px;height:20px;flex:0 0 20px;opacity:.9}
+.navitem:hover{background:rgba(255,255,255,.07);color:#fff}
+.navitem.is-active{background:#1b3fa8;color:#fff;font-weight:600;box-shadow:inset 3px 0 0 #ffffff}
+.navitem .pill-new{
+  margin-left:auto;font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  background:rgba(255,255,255,.18);padding:3px 7px;border-radius:99px;
+}
+.sidebar__foot{
+  padding:18px 22px 24px;text-align:center;font-size:12px;line-height:1.6;
+  color:#a9c2ff;font-weight:600;
+}
+
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.topbar{
+  height:64px;background:#fff;border-bottom:1px solid var(--line);
+  display:flex;align-items:center;gap:14px;padding:0 24px;position:sticky;top:0;z-index:30;
+}
+.topbar__spacer{flex:1}
+.iconbtn{
+  width:38px;height:38px;border-radius:50%;border:1px solid transparent;background:transparent;
+  display:grid;place-items:center;color:var(--ink-60);
+}
+.iconbtn:hover{background:var(--brand-50);color:var(--brand-600)}
+.avatar{
+  width:38px;height:38px;border-radius:50%;background:var(--navy-950);color:#fff;
+  display:grid;place-items:center;font-size:13px;font-weight:700;
+}
+.hamburger{display:none}
+
+.content{padding:28px 32px 64px;max-width:1440px;width:100%}
+.page{display:none}
+.page.is-active{display:block}
+
+/* ---------------------------------------------------------------- bits */
+.btn{
+  border:1px solid transparent;border-radius:99px;padding:11px 22px;font-size:14px;font-weight:600;
+  display:inline-flex;align-items:center;gap:8px;justify-content:center;transition:.15s ease;
+}
+.btn--primary{background:var(--navy-950);color:#fff}
+.btn--primary:hover{background:var(--navy-800);box-shadow:0 10px 22px rgba(44,86,196,.28)}
+.btn--primary:disabled{background:#93a0bd;box-shadow:none;cursor:not-allowed}
+.btn--ghost{background:#fff;border-color:var(--line-strong);color:var(--ink)}
+.btn--ghost:hover{border-color:var(--brand-500);color:var(--brand-600)}
+.btn--ghost:disabled{color:var(--ink-40);cursor:not-allowed;border-color:var(--line)}
+.btn--danger{background:#fff;border-color:rgba(180,35,24,.35);color:var(--danger)}
+.btn--danger:hover{background:var(--danger-bg)}
+.btn--sm{padding:8px 14px;font-size:13px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius-lg);box-shadow:var(--shadow-sm)}
+.card__pad{padding:26px 28px}
+.card__title{font-size:20px;font-weight:700}
+.sect-title{font-size:14px;font-weight:700;color:var(--ink-40);text-transform:none;margin:0 0 14px}
+.hr{height:1px;background:var(--line);border:0;margin:26px 0}
+
+.field{display:block}
+.label{display:block;font-size:13px;font-weight:600;margin-bottom:7px}
+.input,.select{
+  width:100%;border:1px solid var(--line-strong);border-radius:12px;padding:12px 14px;font-size:14px;background:#fff;
+}
+.input:focus,.select:focus{outline:none;border-color:var(--brand-500);box-shadow:0 0 0 3px rgba(59,111,224,.16)}
+.input[readonly]{background:#f3f5fa;color:var(--ink-60)}
+.hint{display:flex;gap:7px;align-items:flex-start;margin-top:7px;font-size:12.5px;color:var(--ink-60)}
+.hint svg{flex:0 0 14px;width:14px;height:14px;margin-top:1px}
+
+.status{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600}
+.status svg{width:16px;height:16px}
+.status--ok{color:var(--ok)}
+.status--pending{color:var(--warn)}
+.status--none{color:var(--ink-40)}
+
+.banner{border-radius:14px;padding:18px 20px;font-size:13.5px;line-height:1.6}
+.banner h4{font-size:14px;margin-bottom:6px}
+.banner--ok{background:var(--ok-bg);color:#12603c}
+.banner--info{background:var(--brand-50);color:var(--brand-700)}
+.banner--warn{background:var(--warn-bg);color:var(--warn)}
+
+.toggle{position:relative;width:42px;height:24px;border-radius:99px;background:#c9d2e6;border:0;flex:0 0 42px;transition:.15s}
+.toggle::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:.15s}
+.toggle.is-on{background:var(--brand-500)}
+.toggle.is-on::after{transform:translateX(18px)}
+
+.checkbox{display:inline-flex;align-items:center;gap:10px;font-size:14px;font-weight:500;cursor:pointer}
+.checkbox input{width:18px;height:18px;accent-color:var(--brand-500)}
+
+/* --------------------------------------------------------- dashboard */
+.hello{font-size:38px;font-weight:800;letter-spacing:-.02em}
+.hello-sub{color:var(--ink-60);margin-top:6px;font-size:15px}
+.dash-grid{display:grid;grid-template-columns:minmax(0,1fr) 360px;gap:26px;margin-top:26px;align-items:start}
+.row-head{display:flex;align-items:center;justify-content:space-between;gap:16px;margin-bottom:14px}
+.row-head h3{font-size:19px;font-weight:700}
+.ccy-pill{
+  display:inline-flex;align-items:center;gap:8px;border:1px solid var(--line-strong);border-radius:99px;
+  padding:7px 14px;background:#fff;font-size:13px;font-weight:600;
+}
+.quick{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;max-width:560px}
+.quick__card{
+  background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;text-align:center;box-shadow:var(--shadow-sm);
+}
+.quick__card:hover{border-color:var(--brand-500);box-shadow:var(--shadow-md)}
+.quick__icon{width:52px;height:52px;border-radius:50%;background:var(--brand-50);color:var(--brand-600);display:grid;place-items:center;margin:0 auto 14px}
+.quick__label{font-size:13px;font-weight:700;letter-spacing:.04em}
+.bal-row{display:flex;gap:18px;margin:20px 0 26px;flex-wrap:wrap}
+.bal{
+  min-width:210px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 18px;box-shadow:var(--shadow-sm);
+}
+.bal.is-active{border:2px solid var(--brand-500)}
+.bal__ccy{display:flex;align-items:center;gap:8px;font-size:14px;font-weight:600;color:var(--ink-60)}
+.bal__amt{font-size:24px;font-weight:800;margin-top:6px}
+.tbl-wrap{background:#fff;border:1px solid var(--line);border-radius:14px;padding:22px;box-shadow:var(--shadow-sm);overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13.5px;min-width:680px}
+th{text-align:left;font-weight:600;color:var(--ink-60);padding:0 12px 12px;border-bottom:1px solid var(--line)}
+td{padding:14px 12px;border-bottom:1px solid var(--line);vertical-align:middle}
+td.num{white-space:nowrap}
+tr:last-child td{border-bottom:0}
+.txn{display:flex;align-items:center;gap:12px}
+.txn__ico{width:34px;height:34px;border-radius:50%;background:#eef1f7;display:grid;place-items:center;flex:0 0 34px}
+.txn__name{font-weight:600}
+.txn__ref{font-size:12px;color:var(--brand-600)}
+.tag-ok{
+  display:inline-block;border:1px solid rgba(15,138,77,.35);color:var(--ok);background:var(--ok-bg);
+  border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;letter-spacing:.04em;
+}
+.acct-card{
+  border-radius:16px;padding:24px;color:#fff;
+  background:linear-gradient(140deg,#12327e 0%,#0a1740 60%,#050b1a 100%);
+  box-shadow:var(--shadow-md);
+}
+.acct-card h3{font-size:22px;font-weight:700}
+.acct-card .addr{font-size:12.5px;color:rgba(255,255,255,.78);margin-top:6px;line-height:1.5}
+.acct-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px 12px;margin-top:22px}
+.acct-grid .k{font-size:11.5px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.02em}
+.acct-grid .v{font-size:13px;font-weight:600;margin-top:4px;word-break:break-all}
+.acct-grid .span2{grid-column:span 2}
+.help-card{background:var(--navy-950);color:#fff;border-radius:16px;padding:24px;margin-top:22px}
+.help-card h3{font-size:20px;font-weight:700}
+.help-card p{font-size:13.5px;color:rgba(255,255,255,.75);margin-top:8px;line-height:1.6}
+.help-card .btn{margin-top:16px;background:var(--brand-600);color:#fff}
+
+/* ------------------------------------------------------- white label */
+.wl-head{display:flex;align-items:flex-start;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.wl-grid{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:26px;margin-top:24px;align-items:start}
+.wl-rail{display:flex;flex-direction:column;gap:12px;position:sticky;top:88px}
+.railbtn{
+  display:flex;align-items:center;gap:12px;width:100%;text-align:left;background:#fff;
+  border:1px solid var(--line);border-radius:14px;padding:16px 16px;font-size:14px;font-weight:600;color:var(--ink);
+  box-shadow:var(--shadow-sm);
+}
+.railbtn:hover{border-color:var(--line-strong)}
+.railbtn.is-active{border:2px solid var(--navy-950);padding:15px 15px}
+.railbtn svg.ico{width:18px;height:18px;color:var(--ink-60)}
+.railbtn .tick{margin-left:auto;width:18px;height:18px;color:var(--ok);opacity:0}
+.railbtn.is-done .tick{opacity:1}
+
+.panel{display:none}
+.panel.is-active{display:block}
+.panel .card + .card{margin-top:24px}
+
+.dom-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.2fr) 150px;gap:16px;align-items:start;margin-top:20px}
+.dns-group + .dns-group{margin-top:26px}
+.dns-rec{padding:20px 0;border-top:1px solid var(--line)}
+.dns-rec:first-of-type{border-top:0}
+.dns-rec__head{display:flex;align-items:center;justify-content:space-between;gap:14px}
+.dns-rec__name{font-size:15px;font-weight:700}
+.dns-fields{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1.4fr);gap:12px;margin-top:14px}
+.copyfield{position:relative}
+.copyfield .input{padding-right:40px;font-size:13px}
+.copybtn{
+  position:absolute;right:6px;top:50%;transform:translateY(-50%);width:28px;height:28px;border-radius:8px;
+  border:0;background:transparent;color:var(--ink-40);display:grid;place-items:center;
+}
+.copybtn:hover{background:var(--brand-50);color:var(--brand-600)}
+
+.color-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.colorfield{position:relative}
+.colorfield .wrap{display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);border-radius:12px;padding:8px 12px;background:#fff}
+.colorfield input[type=color]{width:26px;height:26px;padding:0;border:1px solid var(--line);border-radius:6px;background:none;flex:0 0 26px}
+.colorfield input[type=text]{border:0;outline:none;width:100%;font-size:14px;font-weight:500;text-transform:uppercase}
+
+.file-row{display:grid;grid-template-columns:200px minmax(0,1fr);gap:20px;padding:24px 0;border-top:1px solid var(--line)}
+.file-row:first-of-type{border-top:0}
+.file-row h4{font-size:15px;font-weight:700}
+.file-row .desc{font-size:12.5px;color:var(--ink-60);margin-top:6px;line-height:1.5}
+.drop{
+  border:1.5px dashed var(--line-strong);border-radius:14px;padding:18px;display:flex;flex-direction:column;
+  align-items:center;gap:14px;background:#fbfcfe;text-align:center;
+}
+.drop.is-over{border-color:var(--brand-500);background:var(--brand-50)}
+.preview-box{position:relative;min-height:96px;display:grid;place-items:center;padding:10px 16px;border-radius:10px;width:100%}
+.preview-box img{max-height:96px;max-width:100%;object-fit:contain}
+.preview-box.dark{background:var(--navy-950)}
+.preview-box .empty{font-size:12.5px;color:var(--ink-40)}
+.file-x{
+  position:absolute;top:-8px;right:-8px;width:24px;height:24px;border-radius:50%;border:0;background:var(--ink);color:#fff;
+  display:grid;place-items:center;font-size:13px;line-height:1;
+}
+.file-meta{font-size:12px;color:var(--ink-40)}
+
+.link-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr) 130px auto auto auto;gap:12px;align-items:end;padding:16px 0;border-top:1px solid var(--line)}
+.link-row:first-of-type{border-top:0}
+.link-row:not(:first-of-type) .label{display:none}
+.rowbtn{width:38px;height:38px;border-radius:10px;border:1px solid var(--line-strong);background:#fff;color:var(--ink-60);display:grid;place-items:center}
+.rowbtn:hover{border-color:var(--danger);color:var(--danger)}
+.empty-state{padding:26px;text-align:center;color:var(--ink-40);font-size:14px;border:1.5px dashed var(--line-strong);border-radius:14px}
+
+.price-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.price-row{display:grid;grid-template-columns:minmax(0,1fr) 130px 130px 110px;gap:12px;align-items:end;padding:14px 0;border-top:1px solid var(--line)}
+.price-row:not(:first-of-type) .label{display:none}
+.price-row .margin{font-size:14px;font-weight:700;color:var(--ok);padding-bottom:12px}
+.price-row .margin.bad{color:var(--danger)}
+.price-row:first-of-type{border-top:0}
+.price-row .name{font-size:14px;font-weight:600}
+.price-row .name small{display:block;font-weight:400;color:var(--ink-60);font-size:12px;margin-top:3px}
+
+.actions{display:flex;gap:12px;justify-content:flex-end;flex-wrap:wrap;margin-top:26px}
+.actions--split{justify-content:space-between}
+
+/* ------------------------------------------------------ live preview */
+.preview-card{position:sticky;top:88px}
+.browser{
+  border:1px solid var(--line-strong);border-radius:14px;overflow:hidden;background:#fff;box-shadow:var(--shadow-md);
+}
+.browser__bar{display:flex;align-items:center;gap:8px;padding:10px 12px;background:#eef1f7;border-bottom:1px solid var(--line)}
+.dot{width:9px;height:9px;border-radius:50%;background:#cbd3e2}
+.browser__url{
+  flex:1;background:#fff;border-radius:99px;padding:5px 12px;font-size:11.5px;color:var(--ink-60);
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap;
+}
+.wlp{display:grid;grid-template-columns:104px minmax(0,1fr);min-height:290px;font-size:11px}
+.wlp__side{background:var(--wl-primary,#133D8B);color:#fff;padding:12px 10px;display:flex;flex-direction:column;gap:4px}
+.wlp__logo{height:34px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;font-weight:700;font-size:13px;overflow:hidden}
+.wlp__logo img{max-height:30px;max-width:100%;object-fit:contain}
+.wlp__item{padding:6px 8px;border-radius:6px;color:rgba(255,255,255,.85);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wlp__item.is-active{background:rgba(255,255,255,.18);color:#fff;font-weight:600}
+.wlp__item.is-custom{color:rgba(255,255,255,.72)}
+.wlp__body{background:#fff;padding:14px}
+.wlp__h{font-size:14px;font-weight:800;color:var(--wl-text-dark,#002C85)}
+.wlp__sub{color:var(--wl-text-light,#7D8FB2);margin-top:3px}
+.wlp__tiles{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;margin:12px 0}
+.wlp__tile{
+  border:1px solid var(--wl-border,#0C2350);border-radius:8px;padding:8px 9px;background:var(--wl-secondary,#E8EEFF);min-width:0;overflow:hidden;
+}
+.wlp__tile .k{color:var(--wl-text-light,#7D8FB2);font-size:10px}
+.wlp__tile .v{color:var(--wl-text-dark,#002C85);font-weight:800;font-size:12.5px;margin-top:2px;white-space:nowrap}
+.wlp__btn{
+  display:inline-block;background:var(--wl-primary,#133D8B);color:#fff;border-radius:99px;padding:7px 14px;font-weight:700;font-size:10.5px;
+}
+.wlp__line{height:7px;border-radius:4px;background:var(--wl-secondary,#E8EEFF);margin-top:8px}
+.wlp__line.short{width:55%}
+
+/* --------------------------------------------------------- dev notes */
+.note{
+  display:none;margin:14px 0;border-left:3px solid var(--brand-500);background:var(--brand-50);
+  border-radius:0 10px 10px 0;padding:12px 14px;font-size:12.5px;line-height:1.6;color:var(--brand-700);
+}
+.note b{font-weight:700}
+.note code{background:rgba(255,255,255,.7);border-radius:4px;padding:1px 5px;font-size:11.5px}
+body.notes-on .note{display:block}
+.notes-toggle{display:inline-flex;align-items:center;gap:8px}
+
+.stub{max-width:560px;margin:60px auto;text-align:center;color:var(--ink-60)}
+.stub h2{font-size:24px;color:var(--ink);margin-bottom:10px}
+
+/* ------------------------------------------------------------ toasts */
+.toasts{position:fixed;right:22px;bottom:22px;display:flex;flex-direction:column;gap:10px;z-index:80}
+.toast{
+  background:var(--navy-950);color:#fff;border-radius:12px;padding:13px 18px;font-size:13.5px;font-weight:500;
+  box-shadow:var(--shadow-lg);display:flex;align-items:center;gap:10px;animation:pop .22s ease;
+}
+.toast.err{background:var(--danger)}
+@keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+
+/* ------------------------------------------------------- responsive */
+@media (max-width:1180px){
+  .dash-grid,.wl-grid{grid-template-columns:minmax(0,1fr)}
+  .wl-rail{position:static;flex-direction:row;flex-wrap:wrap}
+  .railbtn{width:auto;flex:1 1 200px}
+  .preview-card{position:static}
+}
+@media (max-width:880px){
+  .sidebar{position:fixed;left:0;top:0;transform:translateX(-100%);transition:.2s ease}
+  .sidebar.is-open{transform:none;box-shadow:var(--shadow-lg)}
+  .hamburger{display:grid}
+  .content{padding:20px 16px 56px}
+  .hello{font-size:28px}
+  .quick{grid-template-columns:1fr}
+  .dns-fields,.color-grid,.price-grid{grid-template-columns:minmax(0,1fr)}
+  .file-row,.link-row,.price-row{grid-template-columns:minmax(0,1fr)}
+  .acct-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .dom-grid{grid-template-columns:minmax(0,1fr)}
+}
+</style>
+</head>
+<body>
+
+<!-- ===================== icon sprite (inline, no assets) ==================== -->
+<svg style="display:none" aria-hidden="true">
+  <symbol id="i-grid" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></symbol>
+  <symbol id="i-card" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/></symbol>
+  <symbol id="i-users" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M16 20v-1.5A3.5 3.5 0 0 0 12.5 15h-5A3.5 3.5 0 0 0 4 18.5V20"/><circle cx="10" cy="8" r="3.2"/><path d="M20 20v-1.5a3.5 3.5 0 0 0-2.6-3.4"/><path d="M15.5 5.2a3.2 3.2 0 0 1 0 5.6"/></symbol>
+  <symbol id="i-fx" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.2A2.8 2.8 0 0 0 12 8c-1.4 0-2.5.8-2.5 2s1.1 1.8 2.5 2 2.5.8 2.5 2-1.1 2-2.5 2a2.8 2.8 0 0 1-2.5-1.2M12 6.5v11"/></symbol>
+  <symbol id="i-txn" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h13l-3-3M20 16H7l3 3"/></symbol>
+  <symbol id="i-roles" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7h6M15 7h6M3 17h10M19 17h2"/><circle cx="12" cy="7" r="2.4"/><circle cx="16" cy="17" r="2.4"/></symbol>
+  <symbol id="i-gear" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3.2"/><path d="M19.4 14.6a1.7 1.7 0 0 0 .34 1.87l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.7 1.7 0 0 0-1.87-.34 1.7 1.7 0 0 0-1.03 1.56V21a2 2 0 1 1-4 0v-.11A1.7 1.7 0 0 0 8.4 19.3a1.7 1.7 0 0 0-1.87.34l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.7 1.7 0 0 0 .34-1.87 1.7 1.7 0 0 0-1.56-1.03H2a2 2 0 1 1 0-4h.11A1.7 1.7 0 0 0 3.7 8.4a1.7 1.7 0 0 0-.34-1.87l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.7 1.7 0 0 0 1.87.34H8.4A1.7 1.7 0 0 0 9.43 2.5V2a2 2 0 1 1 4 0v.11a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.87-.34l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.7 1.7 0 0 0-.34 1.87v.06a1.7 1.7 0 0 0 1.56 1.03H21a2 2 0 1 1 0 4h-.11a1.7 1.7 0 0 0-1.49 1.04Z"/></symbol>
+  <symbol id="i-bell" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8a6 6 0 1 0-12 0c0 6-2 7-2 7h16s-2-1-2-7"/><path d="M10.5 20a2 2 0 0 0 3 0"/></symbol>
+  <symbol id="i-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c2.5 2.7 3.8 5.7 3.8 9S14.5 18.3 12 21c-2.5-2.7-3.8-5.7-3.8-9S9.5 5.7 12 3Z"/></symbol>
+  <symbol id="i-brush" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4 4 11l6 6 7-7"/><path d="m14 7 3-3 3 3-3 3"/><path d="M5 20c2 0 3-1 3-2.5"/></symbol>
+  <symbol id="i-file" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M19 8v11a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7Z"/></symbol>
+  <symbol id="i-link" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a4 4 0 0 0 5.7 0l3-3A4 4 0 0 0 13 4.3l-1.5 1.5"/><path d="M14 11a4 4 0 0 0-5.7 0l-3 3A4 4 0 0 0 11 19.7l1.5-1.5"/></symbol>
+  <symbol id="i-tag" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20.6 13.6 13 21.2a2 2 0 0 1-2.8 0l-7-7A2 2 0 0 1 2.6 13V4.5A1.5 1.5 0 0 1 4.1 3h8.5c.5 0 1 .2 1.4.6l6.6 6.6a2 2 0 0 1 0 2.8Z"/><circle cx="7.5" cy="7.5" r="1.4" fill="currentColor" stroke="none"/></symbol>
+  <symbol id="i-check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12.2 2.4 2.4 4.6-4.8"/></symbol>
+  <symbol id="i-clock" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7.5V12l3 1.8"/></symbol>
+  <symbol id="i-dash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M8.5 12h7"/></symbol>
+  <symbol id="i-info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 7.8h.01"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h8"/></symbol>
+  <symbol id="i-upload" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0L8 8m4-4 4 4"/><path d="M4 16v2.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V16"/></symbol>
+  <symbol id="i-arrow-ur" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M14.5 9.5A2.6 2.6 0 0 0 12 8.4c-1.3 0-2.4.8-2.4 1.9s1.1 1.7 2.4 1.9 2.4.8 2.4 1.9-1.1 1.9-2.4 1.9a2.6 2.6 0 0 1-2.5-1.1M12 7v10"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 7h16M9.5 7V5.5A1.5 1.5 0 0 1 11 4h2a1.5 1.5 0 0 1 1.5 1.5V7M6.5 7l.8 12A1.5 1.5 0 0 0 8.8 20.5h6.4a1.5 1.5 0 0 0 1.5-1.5l.8-12"/></symbol>
+  <symbol id="i-plus" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-menu" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></symbol>
+  <symbol id="i-bank" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10h16M6 10v7M10 10v7M14 10v7M18 10v7M3 20h18M12 3l9 5H3Z"/></symbol>
+</svg>
+
+<div class="app">
+  <!-- ============================ sidebar ============================ -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__brand">CoBanq</div>
+    <nav class="sidebar__nav">
+      <button class="navitem is-active" data-page="dashboard"><svg><use href="#i-grid"/></svg> Dashboard</button>
+      <button class="navitem" data-page="stub" data-title="Payments"><svg><use href="#i-card"/></svg> Payments</button>
+      <button class="navitem" data-page="stub" data-title="Beneficiaries"><svg><use href="#i-users"/></svg> Beneficiaries</button>
+      <button class="navitem" data-page="stub" data-title="Foreign Exchange"><svg><use href="#i-fx"/></svg> Foreign Exchange</button>
+      <button class="navitem" data-page="stub" data-title="Transactions"><svg><use href="#i-txn"/></svg> Transactions</button>
+      <button class="navitem" data-page="stub" data-title="Roles &amp; Permissions"><svg><use href="#i-roles"/></svg> Roles &amp; Permissions</button>
+      <button class="navitem" data-page="stub" data-title="Team"><svg><use href="#i-users"/></svg> Team</button>
+      <button class="navitem" data-page="whitelabel"><svg><use href="#i-gear"/></svg> White Label <span class="pill-new">New</span></button>
+    </nav>
+    <div class="sidebar__foot">
+      Version 1.14.3<br />Last Login<br />Tue Aug 18 2026
+    </div>
+  </aside>
+
+  <div class="main">
+    <!-- ============================ topbar =========================== -->
+    <header class="topbar">
+      <button class="iconbtn hamburger" id="hamburger" aria-label="Menu"><svg width="22" height="22"><use href="#i-menu"/></svg></button>
+      <div class="topbar__spacer"></div>
+      <label class="checkbox notes-toggle" title="Shows implementation notes for the developer">
+        <input type="checkbox" id="notesToggle" /> Dev notes
+      </label>
+      <button class="iconbtn" aria-label="Notifications"><svg width="21" height="21"><use href="#i-bell"/></svg></button>
+      <div class="avatar">NR</div>
+    </header>
+
+    <div class="content">
+
+      <!-- ======================= DASHBOARD (existing) ================= -->
+      <section class="page is-active" id="page-dashboard">
+        <h1 class="hello">Welcome back Nimra Rasheed!</h1>
+        <p class="hello-sub">Here is your financial overview.</p>
+
+        <div class="note"><b>Note —</b> this screen is the existing CoBanq customer dashboard, reproduced here only so the white-label screens sit in the real shell. No changes are requested to it. All figures are dummy data.</div>
+
+        <div class="dash-grid">
+          <div>
+            <div class="row-head">
+              <h3>Quick Actions</h3>
+              <span class="ccy-pill">🇺🇸 USD <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg></span>
+            </div>
+            <div class="quick">
+              <button class="quick__card">
+                <div class="quick__icon"><svg width="22" height="22"><use href="#i-arrow-ur"/></svg></div>
+                <div class="quick__label">SEND MONEY</div>
+              </button>
+              <button class="quick__card">
+                <div class="quick__icon"><svg width="22" height="22"><use href="#i-swap"/></svg></div>
+                <div class="quick__label">EXCHANGE</div>
+              </button>
+            </div>
+
+            <div class="bal-row">
+              <div class="bal is-active"><div class="bal__ccy">🇺🇸 USD</div><div class="bal__amt num">$248,910.42</div></div>
+              <div class="bal"><div class="bal__ccy">🇬🇧 GBP</div><div class="bal__amt num">£96,204.10</div></div>
+            </div>
+
+            <div class="tbl-wrap">
+              <h3 style="font-size:19px;margin-bottom:16px">Recent Payments</h3>
+              <table>
+                <thead><tr><th>Transaction</th><th>Date</th><th>Amount</th><th>Fee</th><th>Status</th></tr></thead>
+                <tbody id="txnBody"></tbody>
+              </table>
+            </div>
+          </div>
+
+          <div>
+            <div class="acct-card">
+              <h3>Meridian Trade Ltd</h3>
+              <div class="addr">78 Liston Way, Woodford Green, England, London IG8 7BL</div>
+              <div class="acct-grid">
+                <div><div class="k">Account No</div><div class="v num">0029700001</div></div>
+                <div><div class="k">Sort Code</div><div class="v num">60-83-82</div></div>
+                <div><div class="k">SWIFT</div><div class="v num">SXPYDKKK</div></div>
+                <div class="span2"><div class="k">IBAN</div><div class="v num">DK3289000029700001</div></div>
+                <div></div>
+                <div class="span2"><div class="k">Bank</div><div class="v">Banking Circle (London)</div></div>
+                <div><div class="k">Account type</div><div class="v">BC</div></div>
+              </div>
+            </div>
+            <div class="help-card">
+              <h3>Need Help?</h3>
+              <p>If you need help, please reach out to our support team.</p>
+              <button class="btn">CONTACT</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================= WHITE LABEL ========================== -->
+      <section class="page" id="page-whitelabel">
+        <div class="wl-head">
+          <div>
+            <h1 style="font-size:30px;font-weight:800">White Label Configuration</h1>
+            <p class="hello-sub" style="max-width:640px">
+              Run CoBanq online banking on your own domain, under your own brand, for your own customers.
+            </p>
+          </div>
+          <span class="status status--ok" id="wlGlobalStatus"><svg><use href="#i-check"/></svg> Live at <span id="wlGlobalDomain">—</span></span>
+        </div>
+
+        <div class="note"><b>Scope —</b> this whole section is the new build. Four setup steps (right-hand rail) plus a customer-pricing step. Each step saves independently; the rail tick turns green once the step is complete so the tenant can see what is still outstanding.</div>
+
+        <div class="wl-grid">
+          <div>
+            <!-- ------------------------- 1. DOMAIN ------------------- -->
+            <div class="panel is-active" id="panel-domain">
+              <div class="card"><div class="card__pad">
+                <h2 class="card__title">Domain setup</h2>
+
+                <div class="note"><b>Behaviour —</b> tenant enters a subdomain plus the root domain they own. On <code>Save &amp; generate records</code> the backend provisions the tenant, returns the DNS record set below, and starts polling for verification. The domain field locks once verification succeeds — changing it afterwards requires <code>Reset domain</code>.</div>
+
+                <div class="dom-grid">
+                  <label class="field">
+                    <span class="label">Subdomain</span>
+                    <input class="input" id="inpSub" value="corporate" placeholder="corporate" />
+                  </label>
+                  <label class="field">
+                    <span class="label">Root domain</span>
+                    <input class="input" id="inpRoot" value="cobanq.co.uk" placeholder="yourcompany.com" />
+                  </label>
+                  <div>
+                    <span class="label">Domain status</span>
+                    <span class="status status--none" id="domStatus"><svg><use href="#i-dash"/></svg> Not configured</span>
+                  </div>
+                </div>
+                <div class="hint"><svg><use href="#i-info"/></svg> <span>Your customers will reach online banking at <strong id="fqdnPreview">corporate.cobanq.co.uk</strong>. Enter the subdomain where you want to run the banking app.</span></div>
+
+                <div class="banner banner--ok" style="margin-top:20px;display:none" id="dnsDoneBanner">
+                  <h4>DNS setup is complete</h4>
+                  We've also automatically created a colour theme preset for you from your domain's brand colours. Feel free to adjust it under Branding.
+                </div>
+
+                <div class="actions">
+                  <button class="btn btn--ghost" id="btnResetDomain" disabled>Reset domain</button>
+                  <button class="btn btn--primary" id="btnSaveDomain">Save &amp; generate records</button>
+                </div>
+              </div></div>
+
+              <div class="card" id="dnsCard" style="display:none"><div class="card__pad">
+                <h2 class="card__title">DNS records</h2>
+                <div class="banner banner--ok" style="margin-top:16px">
+                  <h4>DNS records</h4>
+                  All required records are listed below with their current status. Keep these values handy in case you need to restore a deleted record.
+                </div>
+
+                <div class="note"><b>Behaviour —</b> record values come from the API (hosting CNAME + the mail provider's DKIM/SPF/MX set). Every field is read-only with a copy button. <code>Refresh status</code> re-runs the DNS check per record; each record shows its own state so the tenant can see exactly which one is missing.</div>
+
+                <div class="dns-group" style="margin-top:22px">
+                  <h3 class="sect-title">Banking DNS</h3>
+                  <div id="dnsBanking"></div>
+                </div>
+
+                <div class="dns-group">
+                  <h3 class="sect-title">Support Email DNS</h3>
+                  <div id="dnsEmail"></div>
+                </div>
+
+                <div class="actions actions--split">
+                  <button class="btn btn--danger" id="btnResetDomain2">Reset domain</button>
+                  <button class="btn btn--primary" id="btnRefresh">Refresh status</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ------------------------- 2. BRANDING ----------------- -->
+            <div class="panel" id="panel-branding">
+              <div class="card"><div class="card__pad">
+                <h2 class="card__title">Branding setup</h2>
+
+                <div class="note"><b>Behaviour —</b> the five colours are written to CSS custom properties on the tenant's banking app (<code>--primary</code>, <code>--secondary</code>, <code>--text-dark</code>, <code>--text-light</code>, <code>--border</code>). The preview on the right must update live as the tenant types — that is the main thing this screen has to get right. Presets are per tenant; "Auto-generated" is the preset created at domain verification.</div>
+
+                <label class="field" style="margin-top:20px">
+                  <span class="label">Load preset</span>
+                  <select class="select" id="presetSelect"></select>
+                </label>
+
+                <div class="color-grid" style="margin-top:20px">
+                  <div class="colorfield">
+                    <span class="label">Primary colour</span>
+                    <div class="wrap"><input type="color" data-var="primary" value="#133D8B" /><input type="text" data-var="primary" value="#133D8B" /></div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Sidebar, primary buttons, active states.</div>
+                  </div>
+                  <div class="colorfield">
+                    <span class="label">Secondary colour</span>
+                    <div class="wrap"><input type="color" data-var="secondary" value="#E8EEFF" /><input type="text" data-var="secondary" value="#E8EEFF" /></div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Tinted panels, chips, table highlights.</div>
+                  </div>
+                  <div class="colorfield">
+                    <span class="label">Text darker colour</span>
+                    <div class="wrap"><input type="color" data-var="text-dark" value="#002C85" /><input type="text" data-var="text-dark" value="#002C85" /></div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Headings and balances.</div>
+                  </div>
+                  <div class="colorfield">
+                    <span class="label">Text lighter colour</span>
+                    <div class="wrap"><input type="color" data-var="text-light" value="#7D8FB2" /><input type="text" data-var="text-light" value="#7D8FB2" /></div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Labels, secondary copy.</div>
+                  </div>
+                  <div class="colorfield">
+                    <span class="label">Border colour</span>
+                    <div class="wrap"><input type="color" data-var="border" value="#0C2350" /><input type="text" data-var="border" value="#0C2350" /></div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Card and input outlines.</div>
+                  </div>
+                  <div>
+                    <span class="label">Contrast check</span>
+                    <div class="wrap" style="display:flex;align-items:center;gap:10px;border:1px solid var(--line-strong);border-radius:12px;padding:9px 12px;background:#fff">
+                      <span class="status status--ok" id="contrastState"><svg><use href="#i-check"/></svg> <span>Passes AA on white</span></span>
+                    </div>
+                    <div class="hint"><svg><use href="#i-info"/></svg> Warn the tenant when primary/text fails WCAG AA — do not block saving.</div>
+                  </div>
+                </div>
+
+                <hr class="hr" />
+
+                <label class="checkbox"><input type="checkbox" id="savePreset" /> Save as preset</label>
+                <div id="presetNameWrap" style="display:none;margin-top:14px;max-width:340px">
+                  <label class="field"><span class="label">Preset name</span><input class="input" id="presetName" placeholder="e.g. Corporate blue" /></label>
+                </div>
+
+                <div class="actions">
+                  <button class="btn btn--ghost" id="btnBrandReset">Reset</button>
+                  <button class="btn btn--danger" id="btnPresetDelete" disabled>Delete preset</button>
+                  <button class="btn btn--primary" id="btnBrandSave">Save</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ------------------------- 3. FILES -------------------- -->
+            <div class="panel" id="panel-files">
+              <div class="card"><div class="card__pad">
+                <h2 class="card__title">Files</h2>
+
+                <div class="note"><b>Behaviour —</b> PNG / JPG / SVG, max 5&nbsp;MB each, drag-and-drop or file picker. Web logo renders on a light background, the document logo on the dark statement header — so both variants are needed. Uploads should be validated client-side (type, size, min dimensions) and served from the tenant's CDN path.</div>
+
+                <div style="margin-top:22px">
+                  <div class="file-row">
+                    <div>
+                      <h4>Web logo</h4>
+                      <p class="desc">Shown in the banking app sidebar and on the login screen. Transparent PNG or SVG, at least 240&nbsp;×&nbsp;64&nbsp;px.</p>
+                    </div>
+                    <div class="drop" data-slot="webLogo">
+                      <div class="preview-box"><span class="empty">No file selected</span></div>
+                      <div>
+                        <button class="btn btn--ghost btn--sm" data-pick="webLogo"><svg width="15" height="15"><use href="#i-upload"/></svg> Choose file</button>
+                        <div class="file-meta" style="margin-top:8px">Max 5 MB · PNG, JPG, SVG</div>
+                      </div>
+                      <input type="file" accept="image/*" hidden data-input="webLogo" />
+                    </div>
+                  </div>
+
+                  <div class="file-row">
+                    <div>
+                      <h4>Document logo</h4>
+                      <p class="desc">Used on statements, invoices and PDF confirmations. Light/reversed version for dark headers.</p>
+                    </div>
+                    <div class="drop" data-slot="docLogo">
+                      <div class="preview-box dark"><span class="empty" style="color:rgba(255,255,255,.55)">No file selected</span></div>
+                      <div>
+                        <button class="btn btn--ghost btn--sm" data-pick="docLogo"><svg width="15" height="15"><use href="#i-upload"/></svg> Choose file</button>
+                        <div class="file-meta" style="margin-top:8px">Max 5 MB · PNG, JPG, SVG</div>
+                      </div>
+                      <input type="file" accept="image/*" hidden data-input="docLogo" />
+                    </div>
+                  </div>
+
+                  <div class="file-row">
+                    <div>
+                      <h4>Statement background</h4>
+                      <p class="desc">Optional watermark or letterhead behind statement PDFs. A4 portrait, 300&nbsp;dpi.</p>
+                    </div>
+                    <div class="drop" data-slot="stmtBg">
+                      <div class="preview-box"><span class="empty">No file selected</span></div>
+                      <div>
+                        <button class="btn btn--ghost btn--sm" data-pick="stmtBg"><svg width="15" height="15"><use href="#i-upload"/></svg> Choose file</button>
+                        <div class="file-meta" style="margin-top:8px">Max 5 MB · PNG, JPG, PDF</div>
+                      </div>
+                      <input type="file" accept="image/*" hidden data-input="stmtBg" />
+                    </div>
+                  </div>
+
+                  <div class="file-row">
+                    <div>
+                      <h4>Favicon</h4>
+                      <p class="desc">Browser tab icon for the banking app. Square, 64&nbsp;×&nbsp;64&nbsp;px or larger.</p>
+                    </div>
+                    <div class="drop" data-slot="favicon">
+                      <div class="preview-box"><span class="empty">No file selected</span></div>
+                      <div>
+                        <button class="btn btn--ghost btn--sm" data-pick="favicon"><svg width="15" height="15"><use href="#i-upload"/></svg> Choose file</button>
+                        <div class="file-meta" style="margin-top:8px">Max 5 MB · PNG, SVG, ICO</div>
+                      </div>
+                      <input type="file" accept="image/*" hidden data-input="favicon" />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="actions">
+                  <button class="btn btn--ghost" id="btnFilesReset">Reset</button>
+                  <button class="btn btn--primary" id="btnFilesSave">Save</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ------------------------- 4. MENU LINKS --------------- -->
+            <div class="panel" id="panel-links">
+              <div class="card"><div class="card__pad">
+                <div style="display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap">
+                  <h2 class="card__title">Custom menu links</h2>
+                  <button class="btn btn--ghost btn--sm" id="btnAddLink"><svg width="15" height="15"><use href="#i-plus"/></svg> Add link</button>
+                </div>
+                <p class="hint" style="margin-top:10px"><svg><use href="#i-info"/></svg> Extra items appended to the bottom of your customers' sidebar — your support desk, help centre, terms, or any internal tool.</p>
+
+                <div class="note"><b>Behaviour —</b> up to 8 links. Each has a label, an absolute URL (https only), an icon from a fixed set, "open in new tab", and a visibility toggle so a link can be parked without deleting it. Order is drag-and-drop in production; arrows are fine as a first cut. Links render below the standard menu, never above it.</div>
+
+                <div id="linkRows" style="margin-top:16px"></div>
+
+                <div class="actions">
+                  <button class="btn btn--ghost" id="btnLinksReset">Reset</button>
+                  <button class="btn btn--primary" id="btnLinksSave">Save</button>
+                </div>
+              </div></div>
+            </div>
+
+            <!-- ------------------------- 5. PRICING ------------------ -->
+            <div class="panel" id="panel-pricing">
+              <div class="card"><div class="card__pad">
+                <h2 class="card__title">Customer pricing</h2>
+                <div class="banner banner--info" style="margin-top:16px">
+                  <h4>Your margin sits on top of the CoBanq wholesale rate</h4>
+                  The left column is what CoBanq charges you. The right column is what your customers are charged in your banking app. The difference is settled to your commission account monthly.
+                </div>
+
+                <div class="note"><b>Phase 2 —</b> included so the shape of the screen is agreed early. Validation: the customer price can never be below the wholesale cost; show the resulting margin live; changes need a confirmation step because they affect live customers.</div>
+
+                <div style="margin-top:22px">
+                  <h3 class="sect-title">Payments</h3>
+                  <div id="priceRows"></div>
+                </div>
+
+                <hr class="hr" />
+                <div class="price-grid">
+                  <label class="field"><span class="label">FX mark-up on top of CoBanq rate (%)</span><input class="input num" id="fxMarkup" value="0.35" /></label>
+                  <label class="field"><span class="label">Monthly account fee charged to your customers</span><input class="input num" id="acctFee" value="9.99" /></label>
+                </div>
+
+                <div class="actions">
+                  <button class="btn btn--ghost">Reset</button>
+                  <button class="btn btn--primary" id="btnPriceSave">Save pricing</button>
+                </div>
+              </div></div>
+            </div>
+          </div>
+
+          <!-- ------------------------- right rail ------------------- -->
+          <aside class="wl-rail">
+            <button class="railbtn is-active" data-panel="domain"><svg class="ico"><use href="#i-globe"/></svg> Domain settings <svg class="tick"><use href="#i-check"/></svg></button>
+            <button class="railbtn" data-panel="branding"><svg class="ico"><use href="#i-brush"/></svg> Branding <svg class="tick"><use href="#i-check"/></svg></button>
+            <button class="railbtn" data-panel="files"><svg class="ico"><use href="#i-file"/></svg> Files <svg class="tick"><use href="#i-check"/></svg></button>
+            <button class="railbtn" data-panel="links"><svg class="ico"><use href="#i-link"/></svg> Custom menu links <svg class="tick"><use href="#i-check"/></svg></button>
+            <button class="railbtn" data-panel="pricing"><svg class="ico"><use href="#i-tag"/></svg> Customer pricing <svg class="tick"><use href="#i-check"/></svg></button>
+
+            <div class="preview-card" style="margin-top:10px">
+              <h3 class="sect-title" style="margin-bottom:10px">Live preview</h3>
+              <div class="browser">
+                <div class="browser__bar">
+                  <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                  <span class="browser__url" id="previewUrl">https://corporate.cobanq.co.uk</span>
+                </div>
+                <div class="wlp" id="wlPreview">
+                  <div class="wlp__side">
+                    <div class="wlp__logo" id="prevLogo">Your logo</div>
+                    <div class="wlp__item is-active">Dashboard</div>
+                    <div class="wlp__item">Payments</div>
+                    <div class="wlp__item">Beneficiaries</div>
+                    <div class="wlp__item">Transactions</div>
+                    <div id="prevLinks"></div>
+                  </div>
+                  <div class="wlp__body">
+                    <div class="wlp__h">Welcome back, Sarah</div>
+                    <div class="wlp__sub">Here is your financial overview.</div>
+                    <div class="wlp__tiles">
+                      <div class="wlp__tile"><div class="k">USD</div><div class="v">$12,480</div></div>
+                      <div class="wlp__tile"><div class="k">GBP</div><div class="v">£8,120</div></div>
+                    </div>
+                    <span class="wlp__btn">Send money</span>
+                    <div class="wlp__line"></div>
+                    <div class="wlp__line short"></div>
+                    <div class="wlp__line"></div>
+                  </div>
+                </div>
+              </div>
+              <p class="file-meta" style="margin-top:10px">What your customers see with the current settings.</p>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- ======================= STUB PAGES =========================== -->
+      <section class="page" id="page-stub">
+        <div class="stub">
+          <h2 id="stubTitle">Payments</h2>
+          <p>Existing CoBanq screen — unchanged by this piece of work. Included so the prototype navigates like the real app.</p>
+        </div>
+      </section>
+
+    </div>
+  </div>
+</div>
+
+<div class="toasts" id="toasts"></div>
+
+<script>
+/* =========================================================================
+   Prototype behaviour. Everything is client-side and in-memory: no API
+   calls, no persistence. Where a real integration is needed the comment
+   says so — search for "API:".
+   ========================================================================= */
+(function () {
+  "use strict";
+  var $  = function (s, r) { return (r || document).querySelector(s); };
+  var $$ = function (s, r) { return Array.prototype.slice.call((r || document).querySelectorAll(s)); };
+
+  /* ----------------------------------------------------------- toasts */
+  function toast(msg, isErr) {
+    var el = document.createElement("div");
+    el.className = "toast" + (isErr ? " err" : "");
+    el.textContent = msg;
+    $("#toasts").appendChild(el);
+    setTimeout(function () {
+      el.style.transition = "opacity .25s"; el.style.opacity = "0";
+      setTimeout(function () { el.remove(); }, 260);
+    }, 2600);
+  }
+
+  /* ------------------------------------------------- dashboard sample */
+  var txns = [
+    ["PRO CARGO LOGISTICS Limited", "burq1786979065773895260817", "2026-08-17", "$45,273.24", "50"],
+    ["YIWU EAGLE IMP AND EXP CO LTD", "burq1786701366457889260814", "2026-08-14", "$61,371.05", "50"],
+    ["RajSingh Trading Co LLC",      "burq1786454998207593260811", "2026-08-11", "$55,873.48", "50"],
+    ["PRO CARGO LOGISTICS Limited",  "burq1786369559771104260810", "2026-08-10", "$86,303.77", "0"],
+    ["PRO CARGO LOGISTICS Limited",  "burq1786111085804215260807", "2026-08-07", "$103,130.81", "0"]
+  ];
+  $("#txnBody").innerHTML = txns.map(function (t) {
+    return '<tr>' +
+      '<td><div class="txn"><span class="txn__ico"><svg width="16" height="16" stroke="#64748b" fill="none"><use href="#i-bank"/></svg></span>' +
+      '<span><span class="txn__name">' + t[0] + '</span><br /><span class="txn__ref">' + t[1] + '</span></span></div></td>' +
+      '<td class="num">' + t[2] + '</td>' +
+      '<td class="num">🇺🇸 ' + t[3] + '</td>' +
+      '<td class="num">' + t[4] + '</td>' +
+      '<td><span class="tag-ok">COMPLETED</span></td></tr>';
+  }).join("");
+
+  /* ------------------------------------------------------ navigation */
+  $$(".navitem").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      $$(".navitem").forEach(function (b) { b.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      var page = btn.getAttribute("data-page");
+      $$(".page").forEach(function (p) { p.classList.remove("is-active"); });
+      $("#page-" + page).classList.add("is-active");
+      if (page === "stub") $("#stubTitle").textContent = btn.getAttribute("data-title");
+      $("#sidebar").classList.remove("is-open");
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  });
+  $("#hamburger").addEventListener("click", function () { $("#sidebar").classList.toggle("is-open"); });
+  $("#notesToggle").addEventListener("change", function (e) {
+    document.body.classList.toggle("notes-on", e.target.checked);
+  });
+
+  /* ------------------------------------------------- white-label rail */
+  $$(".railbtn").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      $$(".railbtn").forEach(function (b) { b.classList.remove("is-active"); });
+      btn.classList.add("is-active");
+      var id = btn.getAttribute("data-panel");
+      $$(".panel").forEach(function (p) { p.classList.remove("is-active"); });
+      $("#panel-" + id).classList.add("is-active");
+    });
+  });
+  function markDone(panel, done) {
+    var b = $('.railbtn[data-panel="' + panel + '"]');
+    if (b) b.classList.toggle("is-done", done !== false);
+  }
+
+  /* =====================================================================
+     1. DOMAIN
+     ===================================================================*/
+  var STATUS = {
+    none:    '<svg><use href="#i-dash"/></svg> Not configured',
+    pending: '<svg><use href="#i-clock"/></svg> Pending',
+    ok:      '<svg><use href="#i-check"/></svg> Verified'
+  };
+  function setStatus(el, state) {
+    el.className = "status status--" + (state === "ok" ? "ok" : state === "pending" ? "pending" : "none");
+    el.innerHTML = STATUS[state];
+  }
+
+  function fqdn() {
+    var s = $("#inpSub").value.trim().replace(/[^a-z0-9-]/gi, "").toLowerCase();
+    var r = $("#inpRoot").value.trim().toLowerCase();
+    return (s ? s + "." : "") + r;
+  }
+  function syncFqdn() {
+    var f = fqdn();
+    $("#fqdnPreview").textContent = f || "—";
+    $("#previewUrl").textContent = "https://" + (f || "yourbank.com");
+    $("#wlGlobalDomain").textContent = f || "—";
+  }
+  $("#inpSub").addEventListener("input", syncFqdn);
+  $("#inpRoot").addEventListener("input", syncFqdn);
+
+  /* API: GET /white-label/dns-records -> this shape */
+  function records() {
+    var sub = $("#inpSub").value.trim() || "app";
+    return {
+      banking: [{
+        id: "cname", label: "CNAME", type: "CNAME", name: sub, value: "wl.cobanq.net",
+        help: "Points your subdomain to white-label hosting so your customers can reach online banking."
+      }],
+      email: [
+        { id: "dkim", label: "DKIM", type: "TXT", name: "resend._domainkey.support." + sub,
+          value: "p=MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQ…",
+          help: "Adds a digital signature so receiving mail servers can verify messages were sent from your domain." },
+        { id: "spfmx", label: "SPF (priority 10)", type: "MX", name: "send.support." + sub,
+          value: "feedback-smtp.eu-west-1.amazonses.com",
+          help: "Authorises sending mail on behalf of your domain so messages are less likely to be marked as spam." },
+        { id: "spftxt", label: "SPF", type: "TXT", name: "send.support." + sub,
+          value: "v=spf1 include:amazonses.com ~all",
+          help: "Authorises sending mail on behalf of your domain so messages are less likely to be marked as spam." },
+        { id: "mx", label: "Receiving (priority 10)", type: "MX", name: "support." + sub,
+          value: "inbound-smtp.eu-west-1.amazonaws.com",
+          help: "Routes incoming mail to your branded support inbox at support@your-domain." }
+      ]
+    };
+  }
+
+  function recHtml(r) {
+    return '<div class="dns-rec" data-rec="' + r.id + '">' +
+      '<div class="dns-rec__head"><span class="dns-rec__name">' + r.label + '</span>' +
+      '<span class="status status--pending" data-recstatus>' + STATUS.pending + '</span></div>' +
+      '<div class="hint"><svg><use href="#i-info"/></svg> ' + r.help + '</div>' +
+      '<div class="dns-fields">' +
+        field("Type", r.type) + field("Name", r.name) + field("Value", r.value) +
+      '</div></div>';
+  }
+  function field(label, value) {
+    return '<label class="field"><span class="label">' + label + '</span>' +
+      '<span class="copyfield"><input class="input" readonly value="' + String(value).replace(/"/g, "&quot;") + '" />' +
+      '<button class="copybtn" data-copy title="Copy"><svg width="15" height="15"><use href="#i-copy"/></svg></button></span></label>';
+  }
+
+  function renderRecords() {
+    var r = records();
+    $("#dnsBanking").innerHTML = r.banking.map(recHtml).join("");
+    $("#dnsEmail").innerHTML = r.email.map(recHtml).join("");
+  }
+
+  document.addEventListener("click", function (e) {
+    var btn = e.target.closest("[data-copy]");
+    if (!btn) return;
+    var input = btn.parentNode.querySelector("input");
+    input.select();
+    if (navigator.clipboard) navigator.clipboard.writeText(input.value).catch(function () {});
+    else document.execCommand("copy");
+    toast("Copied to clipboard");
+  });
+
+  var verified = false;
+  $("#btnSaveDomain").addEventListener("click", function () {
+    if (!/^[a-z0-9-]+\.[a-z]{2,}/i.test($("#inpRoot").value.trim())) {
+      toast("Enter a valid root domain, e.g. yourcompany.com", true); return;
+    }
+    renderRecords();
+    $("#dnsCard").style.display = "";
+    setStatus($("#domStatus"), "pending");
+    $("#btnResetDomain").disabled = false;
+    toast("Records generated — add them at your DNS provider");
+    $("#dnsCard").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  /* API: POST /white-label/domain/verify — poll until all records resolve */
+  $("#btnRefresh").addEventListener("click", function () {
+    var btn = this; btn.disabled = true; btn.textContent = "Checking…";
+    var recs = $$("[data-recstatus]");
+    recs.forEach(function (s, i) {
+      setTimeout(function () { setStatus(s, "ok"); }, 380 * (i + 1));
+    });
+    setTimeout(function () {
+      btn.disabled = false; btn.textContent = "Refresh status";
+      verified = true;
+      setStatus($("#domStatus"), "ok");
+      $("#dnsDoneBanner").style.display = "";
+      markDone("domain", true);
+      $("#wlGlobalStatus").style.visibility = "visible";
+      toast("Domain verified — your banking app is live");
+    }, 380 * (recs.length + 1));
+  });
+
+  function resetDomain() {
+    if (!window.confirm("Reset the domain? Your customers will lose access to the branded app until a new domain is verified.")) return;
+    verified = false;
+    $("#dnsCard").style.display = "none";
+    $("#dnsDoneBanner").style.display = "none";
+    setStatus($("#domStatus"), "none");
+    $("#btnResetDomain").disabled = true;
+    markDone("domain", false);
+    $("#wlGlobalStatus").style.visibility = "hidden";
+    toast("Domain reset");
+  }
+  $("#btnResetDomain").addEventListener("click", resetDomain);
+  $("#btnResetDomain2").addEventListener("click", resetDomain);
+
+  /* =====================================================================
+     2. BRANDING
+     ===================================================================*/
+  var DEFAULTS = { primary: "#133D8B", secondary: "#E8EEFF", "text-dark": "#002C85", "text-light": "#7D8FB2", border: "#0C2350" };
+  var PRESETS = {
+    "cobanq":  { name: "CoBanq default", colors: { primary: "#050B1A", secondary: "#EEF4FF", "text-dark": "#0B1533", "text-light": "#6B7A99", border: "#0B1533" } },
+    "auto":    { name: "Auto-generated from your domain", colors: DEFAULTS },
+    "midnight":{ name: "Midnight", colors: { primary: "#0F172A", secondary: "#E2E8F0", "text-dark": "#0F172A", "text-light": "#64748B", border: "#1E293B" } },
+    "emerald": { name: "Emerald", colors: { primary: "#065F46", secondary: "#DCFCE7", "text-dark": "#064E3B", "text-light": "#5F8577", border: "#065F46" } }
+  };
+
+  function paintPresets(selected) {
+    $("#presetSelect").innerHTML =
+      '<option value="">Custom (unsaved)</option>' +
+      Object.keys(PRESETS).map(function (k) {
+        return '<option value="' + k + '"' + (k === selected ? " selected" : "") + '>' + PRESETS[k].name + '</option>';
+      }).join("");
+    $("#btnPresetDelete").disabled = !selected;
+  }
+  paintPresets("auto");
+
+  function applyColors(colors) {
+    Object.keys(colors).forEach(function (k) {
+      $$('input[data-var="' + k + '"]').forEach(function (i) { i.value = colors[k]; });
+      $("#wlPreview").style.setProperty("--wl-" + k, colors[k]);
+    });
+    checkContrast();
+  }
+  function currentColors() {
+    var out = {};
+    $$('input[type="color"][data-var]').forEach(function (i) { out[i.getAttribute("data-var")] = i.value; });
+    return out;
+  }
+  function lum(hex) {
+    var c = hex.replace("#", "");
+    if (c.length === 3) c = c[0] + c[0] + c[1] + c[1] + c[2] + c[2];
+    var v = [0, 2, 4].map(function (i) {
+      var x = parseInt(c.substr(i, 2), 16) / 255;
+      return x <= 0.03928 ? x / 12.92 : Math.pow((x + 0.055) / 1.055, 2.4);
+    });
+    return 0.2126 * v[0] + 0.7152 * v[1] + 0.0722 * v[2];
+  }
+  function checkContrast() {
+    var p = $('input[type="color"][data-var="primary"]').value;
+    var ratio = (1.05) / (lum(p) + 0.05);
+    var el = $("#contrastState");
+    var ok = ratio >= 4.5;
+    el.className = "status status--" + (ok ? "ok" : "pending");
+    el.innerHTML = (ok ? '<svg><use href="#i-check"/></svg>' : '<svg><use href="#i-info"/></svg>') +
+      " <span>" + (ok ? "Passes" : "Fails") + " AA on white (" + ratio.toFixed(1) + ":1)</span>";
+  }
+
+  $$("[data-var]").forEach(function (input) {
+    input.addEventListener("input", function () {
+      var key = input.getAttribute("data-var");
+      var val = input.value.trim();
+      if (input.type === "text") {
+        if (!/^#?[0-9a-f]{6}$/i.test(val)) return;
+        if (val[0] !== "#") val = "#" + val;
+      }
+      $$('input[data-var="' + key + '"]').forEach(function (i) { i.value = val.toUpperCase(); });
+      $("#wlPreview").style.setProperty("--wl-" + key, val);
+      $("#presetSelect").value = "";
+      $("#btnPresetDelete").disabled = true;
+      checkContrast();
+    });
+  });
+
+  $("#presetSelect").addEventListener("change", function (e) {
+    var p = PRESETS[e.target.value];
+    $("#btnPresetDelete").disabled = !e.target.value;
+    if (p) { applyColors(p.colors); toast('Loaded preset "' + p.name + '"'); }
+  });
+  $("#savePreset").addEventListener("change", function (e) {
+    $("#presetNameWrap").style.display = e.target.checked ? "" : "none";
+  });
+  $("#btnBrandReset").addEventListener("click", function () {
+    applyColors(DEFAULTS); paintPresets("auto"); toast("Colours reset");
+  });
+  $("#btnPresetDelete").addEventListener("click", function () {
+    var key = $("#presetSelect").value;
+    if (!key || !window.confirm('Delete preset "' + PRESETS[key].name + '"?')) return;
+    delete PRESETS[key]; paintPresets(""); toast("Preset deleted");
+  });
+  $("#btnBrandSave").addEventListener("click", function () {
+    if ($("#savePreset").checked) {
+      var name = $("#presetName").value.trim();
+      if (!name) { toast("Give the preset a name first", true); return; }
+      var key = "p" + Date.now();
+      PRESETS[key] = { name: name, colors: currentColors() };
+      paintPresets(key);
+      $("#savePreset").checked = false; $("#presetNameWrap").style.display = "none"; $("#presetName").value = "";
+    }
+    markDone("branding", true);
+    toast("Branding saved — live for your customers");
+  });
+  applyColors(DEFAULTS);
+
+  /* =====================================================================
+     3. FILES
+     ===================================================================*/
+  var MAX = 5 * 1024 * 1024;
+  function handleFile(slot, file) {
+    if (!file) return;
+    if (file.size > MAX) { toast(file.name + " is over the 5 MB limit", true); return; }
+    if (!/^image\//.test(file.type)) { toast("Images only (PNG, JPG, SVG)", true); return; }
+    var reader = new FileReader();
+    reader.onload = function (ev) {
+      var box = $('[data-slot="' + slot + '"] .preview-box');
+      box.innerHTML = '<img src="' + ev.target.result + '" alt="" />' +
+        '<button class="file-x" data-remove="' + slot + '" title="Remove">×</button>';
+      var meta = $('[data-slot="' + slot + '"] .file-meta');
+      meta.textContent = file.name + " · " + (file.size / 1024).toFixed(0) + " KB";
+      if (slot === "webLogo") $("#prevLogo").innerHTML = '<img src="' + ev.target.result + '" alt="" />';
+      toast("Uploaded " + file.name);
+    };
+    reader.readAsDataURL(file);
+  }
+  $$("[data-pick]").forEach(function (btn) {
+    btn.addEventListener("click", function () { $('[data-input="' + btn.getAttribute("data-pick") + '"]').click(); });
+  });
+  $$("[data-input]").forEach(function (input) {
+    input.addEventListener("change", function () { handleFile(input.getAttribute("data-input"), input.files[0]); });
+  });
+  $$(".drop").forEach(function (drop) {
+    ["dragenter", "dragover"].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.add("is-over"); });
+    });
+    ["dragleave", "drop"].forEach(function (ev) {
+      drop.addEventListener(ev, function (e) { e.preventDefault(); drop.classList.remove("is-over"); });
+    });
+    drop.addEventListener("drop", function (e) {
+      handleFile(drop.getAttribute("data-slot"), e.dataTransfer.files[0]);
+    });
+  });
+  document.addEventListener("click", function (e) {
+    var x = e.target.closest("[data-remove]");
+    if (!x) return;
+    var slot = x.getAttribute("data-remove");
+    var dark = slot === "docLogo";
+    $('[data-slot="' + slot + '"] .preview-box').innerHTML =
+      '<span class="empty"' + (dark ? ' style="color:rgba(255,255,255,.55)"' : "") + '>No file selected</span>';
+    $('[data-slot="' + slot + '"] .file-meta').textContent = "Max 5 MB · PNG, JPG, SVG";
+    if (slot === "webLogo") $("#prevLogo").textContent = "Your logo";
+    toast("File removed");
+  });
+  $("#btnFilesSave").addEventListener("click", function () { markDone("files", true); toast("Files saved"); });
+  $("#btnFilesReset").addEventListener("click", function () {
+    $$("[data-remove]").forEach(function (b) { b.click(); });
+  });
+
+  /* =====================================================================
+     4. CUSTOM MENU LINKS
+     ===================================================================*/
+  var ICONS = ["Link", "Help", "Document", "Support", "Card", "Chart"];
+  var links = [
+    { label: "Help centre", url: "https://help.yourbank.com", icon: "Help", blank: true,  on: true },
+    { label: "Contact support", url: "https://yourbank.com/support", icon: "Support", blank: false, on: true }
+  ];
+
+  function renderLinks() {
+    var wrap = $("#linkRows");
+    if (!links.length) {
+      wrap.innerHTML = '<div class="empty-state">No custom links yet. Add up to 8 items to your customers\' sidebar.</div>';
+    } else {
+      wrap.innerHTML = links.map(function (l, i) {
+        return '<div class="link-row" data-i="' + i + '">' +
+          '<label class="field"><span class="label">Label</span><input class="input" data-f="label" value="' + l.label + '" /></label>' +
+          '<label class="field"><span class="label">URL</span><input class="input" data-f="url" value="' + l.url + '" /></label>' +
+          '<label class="field"><span class="label">Icon</span><select class="select" data-f="icon">' +
+            ICONS.map(function (ic) { return '<option' + (ic === l.icon ? " selected" : "") + '>' + ic + '</option>'; }).join("") +
+          '</select></label>' +
+          '<div><span class="label">Visible</span><button class="toggle' + (l.on ? " is-on" : "") + '" data-f="on" aria-label="Visible"></button></div>' +
+          '<div><span class="label">New tab</span><button class="toggle' + (l.blank ? " is-on" : "") + '" data-f="blank" aria-label="Open in new tab"></button></div>' +
+          '<div style="display:flex;gap:8px"><button class="rowbtn" data-move="-1" title="Move up">↑</button>' +
+          '<button class="rowbtn" data-move="1" title="Move down">↓</button>' +
+          '<button class="rowbtn" data-del title="Remove"><svg width="16" height="16"><use href="#i-trash"/></svg></button></div>' +
+          '</div>';
+      }).join("");
+    }
+    renderPreviewLinks();
+  }
+  function renderPreviewLinks() {
+    $("#prevLinks").innerHTML = links.filter(function (l) { return l.on && l.label; })
+      .map(function (l) { return '<div class="wlp__item is-custom">' + l.label + '</div>'; }).join("");
+  }
+
+  $("#linkRows").addEventListener("input", function (e) {
+    var row = e.target.closest(".link-row"); if (!row) return;
+    var i = +row.getAttribute("data-i");
+    var f = e.target.getAttribute("data-f");
+    if (f) { links[i][f] = e.target.value; renderPreviewLinks(); }
+  });
+  $("#linkRows").addEventListener("click", function (e) {
+    var row = e.target.closest(".link-row"); if (!row) return;
+    var i = +row.getAttribute("data-i");
+    if (e.target.closest("[data-del]")) { links.splice(i, 1); renderLinks(); return; }
+    var mv = e.target.closest("[data-move]");
+    if (mv) {
+      var j = i + (+mv.getAttribute("data-move"));
+      if (j < 0 || j >= links.length) return;
+      var tmp = links[i]; links[i] = links[j]; links[j] = tmp; renderLinks(); return;
+    }
+    var tg = e.target.closest('[data-f="on"], [data-f="blank"]');
+    if (tg) {
+      var key = tg.getAttribute("data-f");
+      links[i][key] = !links[i][key];
+      tg.classList.toggle("is-on", links[i][key]);
+      renderPreviewLinks();
+    }
+  });
+  $("#btnAddLink").addEventListener("click", function () {
+    if (links.length >= 8) { toast("Maximum of 8 custom links", true); return; }
+    links.push({ label: "", url: "https://", icon: "Link", blank: true, on: true });
+    renderLinks();
+  });
+  $("#btnLinksSave").addEventListener("click", function () {
+    var bad = links.some(function (l) { return !l.label.trim() || !/^https:\/\/.+\..+/.test(l.url); });
+    if (bad) { toast("Every link needs a label and a valid https URL", true); return; }
+    markDone("links", true);
+    toast("Menu links saved");
+  });
+  $("#btnLinksReset").addEventListener("click", function () { links = []; renderLinks(); toast("Links cleared"); });
+  renderLinks();
+
+  /* =====================================================================
+     5. CUSTOMER PRICING (phase 2)
+     ===================================================================*/
+  var prices = [
+    { name: "Local payment (Faster Payments / SEPA)", sub: "Per outbound payment", cost: "0.20" },
+    { name: "International payment (SWIFT)", sub: "Per outbound payment", cost: "12.00" },
+    { name: "Inbound payment", sub: "Per credit received", cost: "0.10" },
+    { name: "Account opening", sub: "One-off, per customer account", cost: "25.00" },
+    { name: "Card issue", sub: "Per physical card", cost: "4.50" }
+  ];
+  $("#priceRows").innerHTML = prices.map(function (p, i) {
+    return '<div class="price-row">' +
+      '<div class="name">' + p.name + '<small>' + p.sub + '</small></div>' +
+      '<label class="field"><span class="label">Your cost (GBP)</span><input class="input num" value="' + p.cost + '" readonly /></label>' +
+      '<label class="field"><span class="label">Customer price</span><input class="input num" data-price="' + i + '" value="' + (Number(p.cost) * 2).toFixed(2) + '" /></label>' +
+      '<div><span class="label">Your margin</span><span class="margin" data-margin="' + i + '"></span></div>' +
+      '</div>';
+  }).join("");
+
+  function paintMargins() {
+    $$("[data-price]").forEach(function (inp, i) {
+      var m = Number(inp.value) - Number(prices[i].cost);
+      var el = $('[data-margin="' + i + '"]');
+      el.textContent = (isNaN(m) ? "—" : (m >= 0 ? "+" : "") + m.toFixed(2));
+      el.classList.toggle("bad", !(m >= 0));
+    });
+  }
+  $("#priceRows").addEventListener("input", paintMargins);
+  paintMargins();
+  $("#btnPriceSave").addEventListener("click", function () {
+    var bad = $$("[data-price]").some(function (inp, i) { return Number(inp.value) < Number(prices[i].cost); });
+    if (bad) { toast("Customer price cannot be below your cost", true); return; }
+    markDone("pricing", true);
+    toast("Pricing saved — applies to new customers immediately");
+  });
+
+  /* ------------------------------------------------------- first paint */
+  syncFqdn();
+  $("#wlGlobalStatus").style.visibility = "hidden";
+})();
+</script>
+</body>
+</html>
