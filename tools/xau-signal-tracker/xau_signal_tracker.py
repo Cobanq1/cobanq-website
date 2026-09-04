@@ -5,6 +5,11 @@ Pulls recent XAUUSD price bars, flags sharp intraday spikes, and cross-reference
 those spikes against a macro economic calendar + recent news to help explain
 *why* a move happened.
 
+For each spike it also pulls the dollar index and the US 10-year yield over the
+same minute. Both are normally inversely correlated with gold, so their reaction
+separates a macro-driven move (dollar/rates moved, gold followed) from a
+gold-specific one (gold moved alone).
+
 Data sources (all free-tier):
   - Price bars:         Twelve Data  (https://twelvedata.com)
   - Economic calendar:  Finnhub      (https://finnhub.io)
@@ -38,6 +43,17 @@ OUTPUT_SIZE = 500           # number of recent bars to pull
 SPIKE_THRESHOLD_PCT = 0.15  # flag a bar as a "spike" if abs % move exceeds this
 EVENT_WINDOW_MINUTES = 15   # how close a calendar event must be to a spike to be linked
 
+# Correlated drivers checked alongside gold: (symbol, label, phrase for an inverse move).
+# Both normally move inversely to gold. Set to [] to skip these extra API calls.
+# If your Twelve Data plan doesn't cover an index symbol, swap in a tradeable proxy
+# (e.g. "UUP" for the dollar, "IEF" for the 10-year) — see the README.
+CONTEXT_SYMBOLS = [
+    ("DXY", "Dollar index", "dollar-driven"),
+    ("TNX", "US 10Y yield", "rates-driven"),
+]
+CONTEXT_MATCH_MINUTES = 3    # how far from a spike a context bar may be and still count
+CONTEXT_FLAT_PCT = 0.02      # context moves smaller than this are treated as "flat"
+
 
 def require_keys():
     missing = [name for name, val in [
@@ -61,11 +77,11 @@ def parse_utc(value, fmt=None):
     return dt if dt.tzinfo else dt.replace(tzinfo=timezone.utc)
 
 
-def fetch_price_bars():
-    """Pull recent 1-minute XAU/USD bars from Twelve Data."""
+def fetch_bars(symbol=SYMBOL):
+    """Pull recent INTERVAL bars for `symbol` from Twelve Data."""
     url = "https://api.twelvedata.com/time_series"
     params = {
-        "symbol": SYMBOL,
+        "symbol": symbol,
         "interval": INTERVAL,
         "outputsize": OUTPUT_SIZE,
         "apikey": TWELVE_DATA_KEY,
@@ -76,7 +92,7 @@ def fetch_price_bars():
     data = resp.json()
 
     if data.get("status") == "error":
-        raise RuntimeError(f"Twelve Data error: {data.get('message')}")
+        raise RuntimeError(f"Twelve Data error for {symbol}: {data.get('message')}")
 
     bars = data.get("values") or []
     bars.sort(key=lambda b: b["datetime"])  # oldest -> newest
@@ -103,6 +119,89 @@ def find_spikes(bars):
                 "close": curr_close,
                 "pct_move": round(pct_move, 3),
             })
+    return spikes
+
+
+def build_context_series(symbol):
+    """Fetch `symbol` and return a clean, time-sorted [(utc_time, close)] series."""
+    series = []
+    for bar in fetch_bars(symbol):
+        when = parse_utc(bar.get("datetime"))
+        try:
+            close = float(bar["close"])
+        except (KeyError, TypeError, ValueError):
+            continue
+        if when is None or close <= 0:
+            continue
+        series.append((when, close))
+    series.sort(key=lambda pair: pair[0])
+    return series
+
+
+def fetch_context_series():
+    """Build a series per context symbol, skipping any the API won't serve.
+
+    A context symbol failing (plan restriction, rate limit, bad ticker) should
+    degrade the report, not kill the run — gold is the point.
+    """
+    context = []
+    for symbol, label, driver in CONTEXT_SYMBOLS:
+        try:
+            series = build_context_series(symbol)
+        except (requests.RequestException, RuntimeError, ValueError) as exc:
+            print(f"  Skipping {label} ({symbol}): {exc}")
+            continue
+        print(f"  Retrieved {len(series)} {label} ({symbol}) bars.")
+        context.append({"symbol": symbol, "label": label, "driver": driver, "series": series})
+    return context
+
+
+def context_move_at(series, when):
+    """The context instrument's close-to-close % move over the bar nearest `when`.
+
+    Returns None when nothing is close enough — which is the normal case for a
+    spike outside US market hours, since gold trades far longer than these do.
+    """
+    best_i, best_lag = None, None
+    for i, (bar_time, _) in enumerate(series):
+        lag = abs((bar_time - when).total_seconds()) / 60
+        if best_lag is None or lag < best_lag:
+            best_i, best_lag = i, lag
+    if best_i is None or best_i == 0 or best_lag > CONTEXT_MATCH_MINUTES:
+        return None
+    prev_close = series[best_i - 1][1]
+    curr_close = series[best_i][1]
+    return {
+        "pct_move": round((curr_close - prev_close) / prev_close * 100, 3),
+        "time": series[best_i][0].strftime("%Y-%m-%d %H:%M:%S"),
+        "lag_minutes": round(best_lag, 1),
+    }
+
+
+def read_context(gold_pct, ctx_pct, driver):
+    """Plain-English reading of a context move against the gold move."""
+    if abs(ctx_pct) < CONTEXT_FLAT_PCT:
+        return "flat -> move looks gold-specific, not macro"
+    if (gold_pct > 0) != (ctx_pct > 0):
+        return f"inverse -> consistent with a {driver} move"
+    return f"same direction -> unusual, not a simple {driver} move"
+
+
+def attach_context(spikes, context):
+    """Annotate each spike with how the correlated drivers moved at the same time."""
+    for spike in spikes:
+        spike_time = parse_utc(spike["datetime"])
+        readings = []
+        for ctx in context:
+            move = context_move_at(ctx["series"], spike_time) if spike_time else None
+            readings.append({
+                "label": ctx["label"],
+                "symbol": ctx["symbol"],
+                "move": move,
+                "reading": read_context(spike["pct_move"], move["pct_move"], ctx["driver"])
+                if move else None,
+            })
+        spike["context"] = readings
     return spikes
 
 
@@ -183,6 +282,12 @@ def print_report(correlated_spikes, news):
                       f"(actual={e['actual']}, est={e['estimate']}, prev={e['previous']})")
         else:
             print("    -> No scheduled US macro event within window; check news/headlines below.")
+        for c in s.get("context", []):
+            if c["move"] is None:
+                print(f"       {c['label']}: no bar within {CONTEXT_MATCH_MINUTES}min "
+                      f"(market likely closed)")
+            else:
+                print(f"       {c['label']}: {c['move']['pct_move']:+}%  {c['reading']}")
 
     print("\n" + "-" * 70)
     print("RECENT GOLD-RELATED HEADLINES")
@@ -199,12 +304,18 @@ def main():
     require_keys()
 
     print("Fetching XAU/USD price bars...")
-    bars = fetch_price_bars()
+    bars = fetch_bars()
     print(f"  Retrieved {len(bars)} bars.")
 
     print("Scanning for spikes...")
     spikes = find_spikes(bars)
     print(f"  Found {len(spikes)} spikes >= {SPIKE_THRESHOLD_PCT}%.")
+
+    context = []
+    if spikes and CONTEXT_SYMBOLS:
+        print("Fetching correlated drivers (dollar, yields)...")
+        context = fetch_context_series()
+        spikes = attach_context(spikes, context)
 
     if bars:
         oldest = parse_utc(bars[0]["datetime"]) or datetime.now(timezone.utc)
